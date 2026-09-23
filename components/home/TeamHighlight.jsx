@@ -1,29 +1,27 @@
+'use client';
+
 import React from 'react';
 
 const teamMembers = [
   {
-    name: 'Afia',
-    role: 'Senior Makeup Artist',
-    specialty: 'Party & Bridal Makeup',
-    note: 'Highlighted by clients for precise execution and soft glam party makeup.',
+    name: 'Afia, Kulsoom & Yumna',
+    role: 'Senior Makeup Artists',
+    note: 'Mentioned across multiple reviews for professional party makeup and soft glam execution.',
   },
   {
-    name: 'Saima & Sima Shah',
-    role: 'Skin & Facial Specialists',
-    specialty: 'Hydra Facials & Skin Polish',
-    note: 'Frequently recommended for relaxing skin treatments and facial glow.',
+    name: 'Saima, Rabia & Momina',
+    role: 'Facial & Skin Specialists',
+    note: 'Praised for relaxing facial techniques, deep cleansing, and skin brightening.',
   },
   {
-    name: 'Rukhsana & Kiran',
-    role: 'Hair Stylists',
-    specialty: 'Hair Styling, Cuts & Protein Treatments',
-    note: 'Praised for hairstyles, haircuts, and silk-finish hair treatments.',
+    name: 'Areeba & Alishba',
+    role: 'Spa & Beauty Specialists',
+    note: 'Highlighted for outstanding pedicure work and precise eyebrow shaping.',
   },
   {
-    name: 'Ramsha & Eman',
-    role: 'Salon Operations & Management',
-    specialty: 'Client Experience & Booking',
-    note: 'Recognized for warm reception, client care, and smooth coordination.',
+    name: 'Elma, Ramsha & Eman',
+    role: 'Consultation & Management',
+    note: 'Commended for friendly guidance, warm coordination, and a welcoming salon environment.',
   },
 ];
 
@@ -32,24 +30,24 @@ export const TeamHighlight = () => {
     <section className="w-full px-5 md:px-12 py-12 bg-white">
       <div className="max-w-[1380px] mx-auto space-y-6">
         <div>
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">Our Specialists</span>
+          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">EXPERIENCED SPECIALISTS</span>
           <h2 className="font-serif text-[28px] md:text-[36px] font-medium text-[#25181C] mt-0.5">
-            Meet the Artists &amp; Staff Mentioned by Clients
+            Our Dedicated Team at Aaira Khan Salon &amp; Studio
           </h2>
-          <p className="text-xs text-[#4E4639] max-w-2xl mt-1">
-            Our experienced team on Main Tariq Road works together to give you a comfortable and personalized salon experience.
+          <p className="text-xs text-[#4E4639] max-w-3xl mt-1 leading-relaxed">
+            Our team members are regularly highlighted in Google reviews for their polite nature and professional work. Clients frequently mention specific artists and therapists by name.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="p-5 rounded-xl border border-stone-200 bg-[#FFF8F8] space-y-2">
+          {teamMembers.map((staff, idx) => (
+            <div key={idx} className="bg-[#FFF8F8] p-5 rounded-xl border border-stone-200 space-y-2">
               <div className="w-10 h-10 rounded-full bg-[#FBE2E7] flex items-center justify-center text-[#974358] font-serif font-bold text-base">
-                {member.name.charAt(0)}
+                {staff.name.charAt(0)}
               </div>
-              <h3 className="font-serif text-base font-semibold text-[#25181C] pt-1">{member.name}</h3>
-              <p className="text-xs font-semibold text-[#775A19]">{member.role}</p>
-              <p className="text-[11px] text-[#4E4639] leading-relaxed pt-1">{member.note}</p>
+              <h3 className="font-serif text-base font-semibold text-[#25181C] pt-1">{staff.name}</h3>
+              <p className="text-xs font-semibold text-[#775A19]">{staff.role}</p>
+              <p className="text-[11px] text-[#4E4639] leading-relaxed pt-1">{staff.note}</p>
             </div>
           ))}
         </div>

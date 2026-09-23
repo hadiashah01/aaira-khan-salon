@@ -1,86 +1,88 @@
+'use client';
+
 import React from 'react';
 
 export const HeroSection = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#FFF0F2] via-[#FFF8F8] to-[#FFF8F8] px-5 md:px-12 py-12 lg:py-20">
-      <div className="max-w-[1380px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <section className="w-full bg-[#FFF8F8] px-5 md:px-12 py-12 md:py-16 border-b border-[#F5DCE2]">
+      <div className="max-w-[1380px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
-        {/* Left Column: Verified Copy */}
-        <div className="lg:col-span-7 flex flex-col space-y-5 z-10">
-          <div className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-[#FBE2E7]/80 text-[#974358]">
-            <span className="material-symbols-outlined text-[16px] text-[#775A19]">location_on</span>
-            <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">
-              Main Tariq Road • Delhi Society
-            </span>
-          </div>
+        {/* Left Column: Text & CTAs */}
+        <div className="space-y-5">
+          <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-[#775A19] bg-[#FFDEA5]/30 px-3 py-1 rounded-full">
+            Main Tariq Road • Delhi Society • Karachi
+          </span>
 
-          <h1 className="font-serif text-[36px] md:text-[52px] text-[#25181C] leading-[1.1] tracking-tight">
-            Aaira Khan Salon &amp; Studio <span className="italic font-normal text-[#974358] block md:inline">– Tariq Road</span>
+          <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#25181C] leading-[1.15]">
+            Aaira Khan Salon &amp; Studio – Bridal Makeup &amp; Beauty Salon in Karachi
           </h1>
 
-          <p className="text-base text-[#4E4639] leading-relaxed max-w-xl">
-            Bridal makeup, party glam, hair care, facials, skin treatments, nails, and waxing in Karachi. Located at Main Tariq Road, Delhi Society. Book appointments by phone or WhatsApp.
+          <p className="text-sm md:text-base text-[#4E4639] leading-relaxed">
+            Bridal makeup, party glam, hair care, facials, skin treatments, nails, and waxing at Main Tariq Road, Delhi Society. Book appointments easily by phone or WhatsApp.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <a
-              className="inline-flex items-center gap-2 bg-[#1E5E41] text-[#FDFBF7] px-6 py-3 rounded hover:bg-[#164731] transition-all shadow-sm"
-              href="https://wa.me/923333959805?text=Hello%20Aaira%20Khan%20Salon,%20I%20would%20like%20to%20inquire%20about%20an%20appointment."
+              href="https://wa.me/923333959805?text=Hello%20Aaira%20Khan%20Salon,%20I%20would%20like%20to%20book%20an%20appointment."
               target="_blank"
               rel="noreferrer"
+              className="bg-[#974358] text-white px-6 py-3 rounded-md text-xs font-bold uppercase tracking-wider hover:bg-[#83384b] transition-all shadow-sm"
             >
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-              <span className="text-sm font-semibold">WhatsApp (0333-3959805)</span>
+              WhatsApp Us (0333-3959805)
             </a>
             <a
-              className="inline-flex items-center gap-2 bg-[#FBE2E7]/70 text-[#25181C] px-5 py-3 rounded hover:bg-[#F5DCE2] transition-all"
               href="tel:02134536026"
+              className="bg-white border border-stone-300 text-[#25181C] px-6 py-3 rounded-md text-xs font-bold uppercase tracking-wider hover:bg-stone-50 transition-all"
             >
-              <span className="material-symbols-outlined text-[18px]">call</span>
-              <span className="text-sm font-semibold">Call 021-34536026</span>
+              Call 021-34536026
             </a>
           </div>
 
-          {/* Verified Trust Badges */}
-          <div className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-lg bg-white shadow-sm border border-stone-100 flex items-start gap-3">
-              <span className="material-symbols-outlined text-[#775A19] text-[20px] shrink-0 mt-0.5">verified</span>
+          {/* Trust Badges */}
+          <div className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#4E4639]">
+            <div className="flex items-start gap-2">
+              <span className="material-symbols-outlined text-[#974358] text-base">verified</span>
               <div>
-                <p className="text-xs font-bold text-[#25181C]">Bridal Listing</p>
-                <p className="text-[11px] text-[#4E4639] leading-tight mt-0.5">Listed among bridal makeup salons in Karachi directories.</p>
+                <strong>Bridal Listing</strong>
+                <p className="text-[11px] text-stone-500">Listed in Karachi beauty directories</p>
               </div>
             </div>
-
-            <div className="p-3.5 rounded-lg bg-white shadow-sm border border-stone-100 flex items-start gap-3">
-              <span className="material-symbols-outlined text-[#775A19] text-[20px] shrink-0 mt-0.5">photo_camera</span>
+            <div className="flex items-start gap-2">
+              <span className="material-symbols-outlined text-[#974358] text-base">photo_camera</span>
               <div>
-                <p className="text-xs font-bold text-[#25181C]">Active Community</p>
-                <p className="text-[11px] text-[#4E4639] leading-tight mt-0.5">Client transformations &amp; promos posted on @aaira_khan_salon.</p>
+                <strong>Active Community</strong>
+                <p className="text-[11px] text-stone-500">Updates on @aaira_khan_salon</p>
               </div>
             </div>
-
-            <div className="p-3.5 rounded-lg bg-white shadow-sm border border-stone-100 flex items-start gap-3">
-              <span className="material-symbols-outlined text-[#775A19] text-[20px] shrink-0 mt-0.5">reviews</span>
+            <div className="flex items-start gap-2">
+              <span className="material-symbols-outlined text-[#974358] text-base">reviews</span>
               <div>
-                <p className="text-xs font-bold text-[#25181C]">Public Feedback</p>
-                <p className="text-[11px] text-[#4E4639] leading-tight mt-0.5">Featured in vlogs, reviews, and influencer self-care posts.</p>
+                <strong>Public Feedback</strong>
+                <p className="text-[11px] text-stone-500">Featured in client reviews &amp; vlogs</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column Visual Frame */}
-        <div className="lg:col-span-5 flex justify-center">
-          <div className="w-full max-w-[400px] rounded-2xl overflow-hidden bg-stone-100 p-2 border border-stone-200">
-            <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-stone-200">
-              <img
-                alt="Aaira Khan Salon Bridal Artistry Work"
-                className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida/AEtjO1WMhgTBxPMiQUBHjHb0TsyJ28LJtLcANE3T6Efle9gfGeeHgbSIXQ2KLNNZzkX-ow9onAw0mvsNMbXNmgiFPqbb1COx6axUAbYbQvt25OIS3ThpDOIdFupP-bwTNBEWejzscAyGU83Dvjo-3jYYwXo8_pGug8Sup32JW6l5K7Kh1VOKP8wX9CmlybzHGOVc_VgdoujjallIQ-o79AQqC_vPkmwzQRRFHcZAGsu2LcSxAs8fVcDgmkcTHFyc"
-              />
-            </div>
-          </div>
+        {/* Right Column: Embedded Work / Banner Container */}
+        <div className="bg-[#FFF0F2] border border-[#F5DCE2] rounded-2xl p-8 flex flex-col justify-center items-center text-center space-y-4 min-h-[320px]">
+          <span className="material-symbols-outlined text-4xl text-[#974358]">auto_awesome</span>
+          <h3 className="font-serif text-xl font-semibold text-[#25181C]">
+            Experience Professional Care
+          </h3>
+          <p className="text-xs text-[#4E4639] max-w-sm leading-relaxed">
+            From signature bridal look execution to refreshing Hydra Facials, our specialists ensure a comforting salon visit.
+          </p>
+          <a
+            href="https://www.instagram.com/aaira_khan_salon/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs font-bold text-[#974358] hover:underline inline-flex items-center gap-1"
+          >
+            <span>View Recent Work on Instagram</span>
+            <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+          </a>
         </div>
 
       </div>

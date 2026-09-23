@@ -2,99 +2,133 @@
 
 import React, { useState } from 'react';
 
-const serviceCatalog = [
+const fullServiceCatalog = [
+  // Bridal Category
   {
-    id: 1,
-    cat: 'bridal',
-    title: 'Barat Bridal Makeup',
-    description: 'Bridal makeup and hair styling for Barat events, including foundation, eye makeup, dupatta setting, and hair arrangement.',
-    waText: 'Hello, I am interested in inquiring about your Barat bridal makeup package.'
+    id: 'b1',
+    category: 'bridal',
+    title: 'Barat & Nikkah Bridal Makeover',
+    description: 'Comprehensive bridal makeup including skin prep, lash application, dupatta setting, and intricate hair design for Barat and Nikkah events.',
   },
   {
-    id: 2,
-    cat: 'bridal',
-    title: 'Walima Soft Glam',
-    description: 'Soft bridal makeup look and hair styling tailored for Walima/reception events.',
-    waText: 'Hello, I would like to inquire about your Walima bridal makeup rates.'
+    id: 'b2',
+    category: 'bridal',
+    title: 'Walima & Soft Glam Bridal Look',
+    description: 'Soft, luminous bridal glam tailored for reception functions with customized hair styling.',
+  },
+
+  // Party Makeup Category
+  {
+    id: 'p1',
+    category: 'party',
+    title: 'Senior Artist Party Makeup',
+    description: 'Full party makeup crafted by senior artists (Afia, Kulsoom, Yumna) with eye glam and contouring for guests and family.',
   },
   {
-    id: 3,
-    cat: 'bridal',
-    title: 'Mehendi / Mayun Glow',
-    description: 'Festive event makeup and traditional hair styling for Mehndi and Mayun functions.',
-    waText: 'Hello, I am interested in booking Mehndi/Mayun makeup.'
+    id: 'p2',
+    category: 'party',
+    title: 'Glamorous Event Makeover & Hairstyling',
+    description: 'Glamorous event makeup paired with signature hairstyles (curls, updo, or sleek finish).',
   },
+
+  // Facials & Skin Care
   {
-    id: 4,
-    cat: 'party',
-    title: 'Signature Party Makeup',
-    description: 'Full party/guest makeup including lash application, contouring, and salon hair styling (curls, straightening, or half-updo).',
-    waText: 'Hello, I would like to check rates for party makeup.'
-  },
-  {
-    id: 5,
-    cat: 'skin',
+    id: 's1',
+    category: 'skin',
     title: 'Hydra Facial Infusion',
-    description: 'Deep-cleansing facial focused on hydration and skin cleansing. Specific devices and steps depend on the package chosen.',
-    waText: 'Hello, I want to inquire about Hydra Facial options and pricing.'
+    description: 'Deep pore cleansing and hydration performed by skin specialists (Sima Shah, Saima, Rukhsana).',
   },
   {
-    id: 6,
-    cat: 'skin',
-    title: 'Double Glow Facial',
-    description: 'Brightening facial focused on skin polish and soothing masks. Facial steps vary by skin type.',
-    waText: 'Hello, I would like to know details about the Double Glow Facial.'
+    id: 's2',
+    category: 'skin',
+    title: 'Whitening & Brightening Facial',
+    description: 'Skin polishing and brightening facial designed to restore glow and smooth skin texture.',
+  },
+
+  // Hair Care & Color
+  {
+    id: 'h1',
+    category: 'hair',
+    title: 'Keratin & Hair Protein Treatments',
+    description: 'Smoothing hair treatment designed to tame frizz and leave hair soft, silky, and manageable.',
   },
   {
-    id: 7,
-    cat: 'hair',
-    title: 'Keratin & Protein Treatments',
-    description: 'Smoothing hair conditioning treatment designed to reduce frizz and improve texture. Results depend on hair condition and aftercare.',
-    waText: 'Hello, I want to ask about hair protein and keratin treatments.'
+    id: 'h2',
+    category: 'hair',
+    title: 'Balayage & Hair Coloring',
+    description: 'Custom dimensional hair coloring, highlights, and modern balayage techniques.',
+  },
+
+  // Mani-Pedi & Massage
+  {
+    id: 'n1',
+    category: 'nails',
+    title: 'Whitening Manicure & Spa Pedicure',
+    description: 'Deep nail grooming, exfoliation, polish, and relaxing massage care for hands and feet.',
   },
   {
-    id: 8,
-    cat: 'nails',
-    title: 'Manicure & Pedicure Spa',
-    description: 'Complete hands and feet grooming service with soak, exfoliation, cuticle care, massage, and polish.',
-    waText: 'Hello, I would like to book a Mani-Pedi appointment.'
+    id: 'n2',
+    category: 'nails',
+    title: 'Relaxing Head & Body Massage',
+    description: 'Stress-relieving body massage therapy offered as a standalone service or package add-on.',
+  },
+
+  // Waxing & Threading
+  {
+    id: 'w1',
+    category: 'waxing',
+    title: 'Full Body & Face Waxing',
+    description: 'Painless hair removal services for face, arms, legs, or full body using gentle wax formulas.',
+  },
+  {
+    id: 'w2',
+    category: 'waxing',
+    title: 'Eyebrow Threading & Shaping',
+    description: 'Precise eyebrow threading and facial hair removal tailored to your facial structure.',
   }
 ];
 
 export const ServicesMenu = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const filtered = activeCategory === 'all'
-    ? serviceCatalog
-    : serviceCatalog.filter(item => item.cat === activeCategory);
+  const categories = [
+    { key: 'all', label: 'All Services' },
+    { key: 'bridal', label: 'Bridal' },
+    { key: 'party', label: 'Party Makeup' },
+    { key: 'skin', label: 'Facials & Skin' },
+    { key: 'hair', label: 'Hair Care & Color' },
+    { key: 'nails', label: 'Mani-Pedi & Massage' },
+    { key: 'waxing', label: 'Waxing & Threading' },
+  ];
+
+  const filteredServices = selectedCategory === 'all'
+    ? fullServiceCatalog
+    : fullServiceCatalog.filter(service => service.category === selectedCategory);
 
   return (
-    <section className="w-full px-5 md:px-12 py-12" id="services-catalog">
+    <section className="w-full px-5 md:px-12 py-12 bg-white" id="services-catalog">
       <div className="max-w-[1380px] mx-auto space-y-8">
+        
+        {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">Service Menu</span>
-          <h2 className="font-serif text-[28px] md:text-[36px] font-medium text-[#25181C]">Salon &amp; Studio Offerings</h2>
+          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">SERVICES CATALOG</span>
+          <h2 className="font-serif text-[28px] md:text-[36px] font-medium text-[#25181C]">
+            Explore Salon &amp; Studio Offerings
+          </h2>
           <p className="text-xs text-[#4E4639]">
-            Services are performed by beauty professionals using standard products. For details on product brands or therapist qualifications, please ask the salon directly.
+            Select a category to filter services. All services are performed by experienced specialists at the Main Tariq Road studio.
           </p>
         </div>
 
-        {/* Filter Tabs */}
+        {/* Category Tabs Filter */}
         <div className="flex flex-wrap items-center justify-center gap-2">
-          {[
-            { key: 'all', label: 'All Services' },
-            { key: 'bridal', label: 'Bridal' },
-            { key: 'party', label: 'Party Makeup' },
-            { key: 'skin', label: 'Facials & Skin' },
-            { key: 'hair', label: 'Hair Care' },
-            { key: 'nails', label: 'Nails & Spa' },
-          ].map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                activeCategory === cat.key
-                  ? 'bg-[#25181C] text-white'
+              onClick={() => setSelectedCategory(cat.key)}
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                selectedCategory === cat.key
+                  ? 'bg-[#25181C] text-white shadow-sm'
                   : 'bg-[#FFE8ED] text-[#25181C] hover:bg-[#FBE2E7]'
               }`}
             >
@@ -103,29 +137,36 @@ export const ServicesMenu = () => {
           ))}
         </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {filtered.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl p-5 shadow-sm border border-stone-100 flex flex-col justify-between space-y-4">
+        {/* Dynamic Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-2">
+          {filteredServices.map((item) => (
+            <div
+              key={item.id}
+              className="p-6 rounded-xl border border-stone-200 bg-[#FFF8F8] flex flex-col justify-between space-y-4 hover:border-[#974358] transition-colors"
+            >
               <div className="space-y-2">
                 <h3 className="font-serif text-lg font-semibold text-[#25181C]">{item.title}</h3>
                 <p className="text-xs text-[#4E4639] leading-relaxed">{item.description}</p>
               </div>
-              <div>
-                <p className="text-[11px] text-stone-500 italic mb-2">Price &amp; Duration: On request</p>
+
+              <div className="pt-3 border-t border-stone-200 flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-[#775A19]">
+                  Rates on request
+                </span>
                 <a
-                  className="inline-flex items-center gap-1.5 text-[#974358] hover:text-[#782A3F] text-xs font-bold uppercase tracking-wider"
-                  href={`https://wa.me/923333959805?text=${encodeURIComponent(item.waText)}`}
+                  href={`https://wa.me/923333959805?text=Hello%20Aaira%20Khan%20Salon,%20I%20would%20like%20to%20inquire%20about%20rates%20for%20${encodeURIComponent(item.title)}.`}
                   target="_blank"
                   rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#974358] hover:underline"
                 >
-                  <span>Inquire via WhatsApp</span>
+                  <span>Inquire</span>
                   <span className="material-symbols-outlined text-[14px]">chevron_right</span>
                 </a>
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
