@@ -4,6 +4,7 @@ import { ServicesMenu } from "@/components/home/ServicesMenu";
 import { Testimonials } from "@/components/home/Testimonials";
 import { LocationMap } from "@/components/home/LocationMap";
 import { Navbar } from "@/components/home/Navbar";
+import { TeamHighlight } from "@/components/home/TeamHighlight";
 
 export default function HomePage() {
   return (
@@ -25,13 +26,19 @@ export default function HomePage() {
         <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm space-y-3">
           <div className="flex items-center gap-2 text-[#775A19]">
             <span className="material-symbols-outlined text-[20px]">info</span>
-            <h3 className="font-serif font-semibold text-base text-[#25181C]">Appointment &amp; Walk-in Guidance</h3>
+            <h3 className="font-serif font-semibold text-base text-[#25181C]">
+              Appointment &amp; Walk-in Guidance
+            </h3>
           </div>
           <p className="text-xs text-[#4E4639] leading-relaxed">
-            While walk-in clients for quick services (mani-pedi, haircutting, basic facials) are accommodated based on chair availability, advance reservations via WhatsApp or phone are required for bridal makeup, party packages, and long-duration hair treatments.
+            While walk-in clients for quick services (mani-pedi, haircutting,
+            basic facials) are accommodated based on chair availability, advance
+            reservations via WhatsApp or phone are required for bridal makeup,
+            party packages, and long-duration hair treatments.
           </p>
         </div>
       </section>
+      <TeamHighlight />
 
       <section id="reviews">
         <Testimonials />
