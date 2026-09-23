@@ -9,11 +9,37 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#FFF8F8] font-sans text-[#25181C]">
       <Navbar />
+      {/* Section Wrappers with Scroll Anchors */}
       <HeroSection />
-      <SpecialOffers />
-      <ServicesMenu />
-      <Testimonials />
-      <LocationMap />
+
+      <section id="promotions">
+        <SpecialOffers />
+      </section>
+
+      <section id="services-catalog">
+        <ServicesMenu />
+      </section>
+
+      {/* Added Realistic Booking Instructions Banner */}
+      <section className="max-w-[1380px] mx-auto px-5 md:px-12 py-6">
+        <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm space-y-3">
+          <div className="flex items-center gap-2 text-[#775A19]">
+            <span className="material-symbols-outlined text-[20px]">info</span>
+            <h3 className="font-serif font-semibold text-base text-[#25181C]">Appointment &amp; Walk-in Guidance</h3>
+          </div>
+          <p className="text-xs text-[#4E4639] leading-relaxed">
+            While walk-in clients for quick services (mani-pedi, haircutting, basic facials) are accommodated based on chair availability, advance reservations via WhatsApp or phone are required for bridal makeup, party packages, and long-duration hair treatments.
+          </p>
+        </div>
+      </section>
+
+      <section id="reviews">
+        <Testimonials />
+      </section>
+
+      <section id="location">
+        <LocationMap />
+      </section>
 
       {/* Global Disclaimer Footer Bar */}
       <footer className="w-full bg-[#25181C] text-stone-300 px-5 md:px-12 py-8 border-t border-stone-800 text-xs">
