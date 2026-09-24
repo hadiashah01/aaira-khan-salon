@@ -5,58 +5,100 @@ import { ServicesMenu } from "@/components/home/ServicesMenu";
 import { TeamHighlight } from "@/components/home/TeamHighlight";
 import { Testimonials } from "@/components/home/Testimonials";
 import { LocationMap } from "@/components/home/LocationMap";
+import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#FFF8F8] font-sans text-[#25181C]">
+    <main
+      id="top"
+      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-20 md:pb-0"
+    >
       <Navbar />
 
       <HeroSection />
 
-      <section id="promotions">
-        <SpecialOffers />
-      </section>
+      <SpecialOffers />
 
-      <section id="services-catalog">
-        <ServicesMenu />
-      </section>
+      <ServicesMenu />
 
-      {/* Appointment Guidance Box */}
-      <section className="max-w-[1380px] mx-auto px-5 md:px-12 py-4">
-        <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm space-y-2">
-          <div className="flex items-center gap-2 text-[#775A19]">
-            <span className="material-symbols-outlined text-[20px]">info</span>
-            <h3 className="font-serif font-semibold text-base text-[#25181C]">Appointment &amp; Walk-in Guidance</h3>
-          </div>
-          <p className="text-xs text-[#4E4639] leading-relaxed">
-            Walk-in clients for quick services (mani-pedi, haircut, basic facials) are accommodated based on chair availability. Advance reservations via WhatsApp or phone are required for bridal makeup, party packages, and long-duration hair treatments.
-          </p>
-        </div>
-      </section>
+      {/* <TeamHighlight /> */}
+      <WhyChooseUs />
 
-      <TeamHighlight />
+      <Testimonials />
 
-      <section id="reviews">
-        <Testimonials />
-      </section>
+      <LocationMap />
+      <FinalCTA />
 
-      <section id="location">
-        <LocationMap />
-      </section>
-
-      {/* Footer */}
-      <footer className="w-full bg-[#25181C] text-stone-300 px-5 md:px-12 py-8 border-t border-stone-800 text-xs">
-        <div className="max-w-[1380px] mx-auto space-y-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <footer className="bg-[#24171B] px-5 py-10 text-stone-300 md:px-12">
+        <div className="mx-auto max-w-[1380px]">
+          <div className="grid gap-8 md:grid-cols-2">
             <div>
-              <p className="font-serif text-base text-white font-semibold">Aaira Khan Salon &amp; Studio</p>
-              <p className="mt-1 text-stone-400">Shop #1, Main Tariq Road, Delhi Society, Delhi CHS, Karachi, Sindh 75850, Pakistan.</p>
-              <p className="text-stone-400">Call: 021-34536026 | WhatsApp: 0333-3959805.</p>
+              <p className="font-serif text-lg font-semibold text-white">
+                Aaira Khan Salon & Studio
+              </p>
+
+              <p className="mt-2 max-w-lg text-[11px] leading-5 text-stone-400">
+                Main Tariq Road, Delhi Society, PECHS, Karachi, Pakistan.
+              </p>
+
+              <div className="mt-3 flex flex-wrap gap-4 text-[11px]">
+                <a
+                  href="tel:+922134536026"
+                  className="text-stone-300 hover:text-white"
+                >
+                  021-34536026
+                </a>
+
+                <a
+                  href="https://wa.me/923333959805"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-stone-300 hover:text-white"
+                >
+                  WhatsApp
+                </a>
+              </div>
             </div>
-            <p className="text-stone-400">© 2026 Aaira Khan Salon &amp; Studio. All Rights Reserved.</p>
+
+            <div className="md:text-right">
+              <p className="text-[10px] uppercase tracking-wider text-stone-500">
+                Quick Links
+              </p>
+
+              <div className="mt-3 flex flex-wrap gap-4 md:justify-end">
+                <a
+                  href="#services-catalog"
+                  className="text-[11px] text-stone-300 hover:text-white"
+                >
+                  Services
+                </a>
+
+                <a
+                  href="#reviews"
+                  className="text-[11px] text-stone-300 hover:text-white"
+                >
+                  Reviews
+                </a>
+
+                <a
+                  href="#location"
+                  className="text-[11px] text-stone-300 hover:text-white"
+                >
+                  Location
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="pt-3 border-t border-stone-800 text-[11px] text-stone-400 leading-relaxed">
-            <strong className="text-stone-300">Disclaimer:</strong> All services, promotions, and timings are subject to change directly by the salon. Information presented here is based on publicly available posts and directories up to 2025–2026. Please confirm all exact package details and availability via phone or WhatsApp prior to booking.
+
+          <div className="mt-8 border-t border-stone-800 pt-5 text-[10px] leading-5 text-stone-500">
+            Information, services, rates and opening hours may change. Please
+            confirm current availability and booking details directly with the
+            salon.
+          </div>
+
+          <div className="mt-4 text-[10px] text-stone-500">
+            © {new Date().getFullYear()} Aaira Khan Salon & Studio
           </div>
         </div>
       </footer>

@@ -8,6 +8,11 @@ body {
   margin: 0;
   min-width: 320px;
   background: #fff9fa;
+  color: #24171b;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 * {
