@@ -1,81 +1,136 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
+
+const googleMapsUrl =
+  "https://www.google.com/maps/place/Aaira+Khan+Salon+%26+Studio/@24.877671,67.0610268,17z/data=!3m1!4b1!4m6!3m5!1s0x3eb33f26fc1d9107:0x4df05e686c43cefe!8m2!3d24.877671!4d67.0636071!16s%2Fg%2F11vwh17dp2";
+
+const mapEmbedUrl =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.467472093217!2d67.0610268!3d24.877671!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f26fc1d9107%3A0x4df05e686c43cefe!2sAaira%20Khan%20Salon%20%26%20Studio!5e0!3m2!1sen!2spk!4v1700000000000!5m2!1sen!2spk";
 
 export const LocationMap = () => {
   return (
-    <section className="w-full px-5 md:px-12 py-12 bg-white" id="location">
-      <div className="max-w-[1380px] mx-auto space-y-6">
-        
-        <div>
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">LOCALITY &amp; CONTACT</span>
-          <h2 className="font-serif text-[28px] md:text-[36px] font-medium text-[#25181C] mt-0.5">
-            Visit Our Studio – Main Tariq Road, Karachi
+    <section
+      id="location"
+      className="bg-white px-5 py-16 md:px-12 md:py-20"
+    >
+      <div className="mx-auto max-w-[1380px]">
+        <div className="max-w-3xl">
+          <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
+            LOCATION & CONTACT
+          </span>
+
+          <h2 className="mt-2 font-serif text-3xl font-bold text-[#24171B] md:text-4xl">
+            Visit the studio
           </h2>
+
+          <p className="mt-3 text-sm leading-6 text-[#625356]">
+            Find the studio on Main Tariq Road and contact the salon directly
+            before visiting to confirm availability.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Details Column */}
-          <div className="space-y-5 bg-[#FFF8F8] p-6 rounded-xl border border-stone-200">
-            <div>
-              <h3 className="font-serif text-base font-bold text-[#25181C] flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[#974358] text-lg">location_on</span>
-                Studio Address
-              </h3>
-              <p className="text-xs text-[#4E4639] mt-1 leading-relaxed">
-                Shop #1, Main Tariq Road, Delhi Society, Delhi CHS, Karachi, Sindh 75850, Pakistan.
-              </p>
-            </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-12">
+          {/* Details */}
+          <div className="lg:col-span-4">
+            <div className="flex h-full flex-col rounded-2xl border border-[#E9DFE2] bg-[#FFF8F9] p-6">
+              <div className="space-y-6">
+                <div className="flex gap-3">
+                  <span className="material-symbols-outlined text-[#974358]">
+                    location_on
+                  </span>
 
-            <div>
-              <h3 className="font-serif text-base font-bold text-[#25181C] flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[#974358] text-lg">call</span>
-                Contact Numbers
-              </h3>
-              <p className="text-xs text-[#4E4639] mt-1 space-y-1">
-                <span className="block">Landline: <a href="tel:02134536026" className="font-semibold underline">021-34536026</a></span>
-                <span className="block">WhatsApp: <a href="https://wa.me/923333959805" target="_blank" rel="noreferrer" className="font-semibold underline">0333-3959805</a></span>
-              </p>
-            </div>
+                  <div>
+                    <h3 className="text-xs font-bold text-[#24171B]">
+                      Studio Address
+                    </h3>
 
-            <div>
-              <h3 className="font-serif text-base font-bold text-[#25181C] flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[#974358] text-lg">schedule</span>
-                Opening Hours
-              </h3>
-              <p className="text-xs text-[#4E4639] mt-1 leading-relaxed">
-                Operating hours vary by day. Please call or WhatsApp ahead to confirm studio timings or arrange early bridal slots.
-              </p>
-            </div>
+                    <p className="mt-1 text-sm  leading-5 text-[#625356]">
+                      Main Tariq Road, Delhi Society, PECHS, Karachi, Pakistan
+                    </p>
+                  </div>
+                </div>
 
-            <a
-              href="https://maps.app.goo.gl/Upabu4KGUDtyvkTF8"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full bg-[#25181C] text-white py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-stone-800 transition-colors"
-            >
-              <span>Get Directions on Google Maps</span>
-              <span className="material-symbols-outlined text-sm">open_in_new</span>
-            </a>
+                <div className="flex gap-3">
+                  <span className="material-symbols-outlined text-[#974358]">
+                    call
+                  </span>
+
+                  <div>
+                    <h3 className="text-xs font-bold text-[#24171B]">
+                      Contact
+                    </h3>
+
+                    <div className="mt-1 space-y-1 text-sm leading-6">
+                      <a
+                        href="tel:+922134536026"
+                        className="block text-[#625356]  hover:text-[#974358]"
+                      >
+                        021-34536026
+                      </a>
+
+                      <a
+                        href="https://wa.me/923333959805"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block text-[#625356]  hover:text-[#974358]"
+                      >
+                        WhatsApp: +92 333 3959805
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <span className="material-symbols-outlined text-[#974358]">
+                    schedule
+                  </span>
+
+                  <div>
+                    <h3 className="text-xs font-bold text-[#24171B]">
+                      Opening Hours
+                    </h3>
+
+                    <p className="mt-1 text-sm  leading-5 text-[#625356]">
+                      Monday – Sunday
+                      <br />
+                      11:00 AM – 8:00 PM
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-7">
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#24171B] px-4 text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#3A292E]"
+                >
+                  Get Directions
+                  <span className="material-symbols-outlined text-[15px]">
+                    open_in_new
+                  </span>
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Map Embed Container */}
-          <div className="md:col-span-2 rounded-xl overflow-hidden border border-stone-200 h-[340px] bg-stone-100">
+          {/* Map */}
+          <div className="min-h-[320px] overflow-hidden rounded-2xl border border-[#E9DFE2] bg-[#F4F0F1] shadow-sm lg:col-span-8">
             <iframe
-              title="Aaira Khan Salon Google Map Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.663185360875!2d67.0620803!3d24.8753239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33eeb6d2b5555%3A0x6283b8b15d038fa6!2sAaira%20Khan%20Salon%20%26%20Studio!5e0!3m2!1sen!2spk!4v1700000000000!5m2!1sen!2spk"
+              title="Aaira Khan Salon & Studio location map"
+              src={mapEmbedUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
-              allowFullScreen=""
               loading="lazy"
+              allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+              className="min-h-[320px] w-full"
+            />
           </div>
-
         </div>
-
       </div>
     </section>
   );

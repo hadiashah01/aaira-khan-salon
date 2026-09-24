@@ -1,54 +1,72 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-const teamMembers = [
+const teamMentions = [
   {
-    name: 'Afia, Kulsoom & Yumna',
-    role: 'Senior Makeup Artists',
-    note: 'Mentioned across multiple reviews for professional party makeup and soft glam execution.',
+    name: "Afia, Kulsoom & Yumna",
+    category: "Makeup Artists",
+    note: "Names mentioned by clients in makeup-related feedback.",
   },
   {
-    name: 'Saima, Rabia & Momina',
-    role: 'Facial & Skin Specialists',
-    note: 'Praised for relaxing facial techniques, deep cleansing, and skin brightening.',
+    name: "Saima, Rabia & Momina",
+    category: "Beauty Services",
+    note: "Names appearing in client feedback about salon services.",
   },
   {
-    name: 'Areeba & Alishba',
-    role: 'Spa & Beauty Specialists',
-    note: 'Highlighted for outstanding pedicure work and precise eyebrow shaping.',
+    name: "Areeba & Alishba",
+    category: "Beauty Services",
+    note: "Names mentioned in customer feedback about beauty services.",
   },
   {
-    name: 'Elma, Ramsha & Eman',
-    role: 'Consultation & Management',
-    note: 'Commended for friendly guidance, warm coordination, and a welcoming salon environment.',
+    name: "Ramsha & Eman",
+    category: "Salon Team",
+    note: "Names mentioned in customer feedback and salon interactions.",
   },
 ];
 
 export const TeamHighlight = () => {
   return (
-    <section className="w-full px-5 md:px-12 py-12 bg-white">
-      <div className="max-w-[1380px] mx-auto space-y-6">
-        <div>
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#775A19]">EXPERIENCED SPECIALISTS</span>
-          <h2 className="font-serif text-[28px] md:text-[36px] font-medium text-[#25181C] mt-0.5">
-            Our Dedicated Team at Aaira Khan Salon &amp; Studio
+    <section className="bg-white px-5 py-14 md:px-12 md:py-16">
+      <div className="mx-auto max-w-[1380px]">
+        <div className="max-w-3xl">
+          <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
+            THE SALON TEAM
+          </span>
+
+          <h2 className="mt-2 font-serif text-3xl font-bold text-[#24171B] md:text-4xl">
+            People clients mention by name
           </h2>
-          <p className="text-xs text-[#4E4639] max-w-3xl mt-1 leading-relaxed">
-            Our team members are regularly highlighted in Google reviews for their polite nature and professional work. Clients frequently mention specific artists and therapists by name.
+
+          <p className="mt-3 text-sm leading-6 text-[#625356]">
+            Several team members are mentioned by name in customer feedback.
+            Exact roles and availability should be confirmed directly with the
+            salon when booking.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {teamMembers.map((staff, idx) => (
-            <div key={idx} className="bg-[#FFF8F8] p-5 rounded-xl border border-stone-200 space-y-2">
-              <div className="w-10 h-10 rounded-full bg-[#FBE2E7] flex items-center justify-center text-[#974358] font-serif font-bold text-base">
-                {staff.name.charAt(0)}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {teamMentions.map((member) => (
+            <article
+              key={member.name}
+              className="rounded-xl border border-[#E9DFE2] bg-[#FFF9FA] p-5"
+            >
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F6E0E5] font-serif font-bold text-[#974358]">
+                {member.name.charAt(0)}
               </div>
-              <h3 className="font-serif text-base font-semibold text-[#25181C] pt-1">{staff.name}</h3>
-              <p className="text-xs font-semibold text-[#775A19]">{staff.role}</p>
-              <p className="text-[11px] text-[#4E4639] leading-relaxed pt-1">{staff.note}</p>
-            </div>
+
+              <h3 className="mt-4 font-serif text-base font-bold text-[#24171B]">
+                {member.name}
+              </h3>
+
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[#8A6330]">
+                {member.category}
+              </p>
+
+              <p className="mt-3 text-[11px] leading-5 text-[#625356]">
+                {member.note}
+              </p>
+            </article>
           ))}
         </div>
       </div>
