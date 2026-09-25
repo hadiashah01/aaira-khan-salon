@@ -7,24 +7,29 @@ import { Testimonials } from "@/components/home/Testimonials";
 import { LocationMap } from "@/components/home/LocationMap";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { FAQ } from "@/components/home/FAQ";
+import Gallery from "@/components/home/Gallery";
+import { MobileBookingBar } from "@/components/home/MobileBookingBar";
 
 export default function HomePage() {
   return (
     <main
       id="top"
-      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-20 md:pb-0"
+      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B]  md:pb-0"
     >
       <Navbar />
 
       <HeroSection />
 
       <SpecialOffers />
+      <MobileBookingBar/>
 
       <ServicesMenu />
+      <FAQ />
 
       {/* <TeamHighlight /> */}
       <WhyChooseUs />
-
+      <Gallery />
       <Testimonials />
 
       <LocationMap />
