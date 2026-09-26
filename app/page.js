@@ -1,28 +1,28 @@
-import { Navbar } from "@/components/home/Navbar";
-import { HeroSection } from "@/components/home/HeroSection";
-import { SpecialOffers } from "@/components/home/SpecialOffers";
-import { ServicesMenu } from "@/components/home/ServicesMenu";
-import { TeamHighlight } from "@/components/home/TeamHighlight";
-import { Testimonials } from "@/components/home/Testimonials";
-import { LocationMap } from "@/components/home/LocationMap";
-import { WhyChooseUs } from "@/components/home/WhyChooseUs";
-import { FinalCTA } from "@/components/home/FinalCTA";
-import { FAQ } from "@/components/home/FAQ";
-import Gallery from "@/components/home/Gallery";
-import { MobileBookingBar } from "@/components/home/MobileBookingBar";
+import { Navbar } from "@/app/components/home/Navbar";
+import { HeroSection } from "@/app/components/home/HeroSection";
+import { SpecialOffers } from "@/app/components/home/SpecialOffers";
+import { ServicesMenu } from "@/app/components/home/ServicesMenu";
+import { TeamHighlight } from "@/app/components/home/TeamHighlight";
+import { Testimonials } from "@/app/components/home/Testimonials";
+import { LocationMap } from "@/app/components/home/LocationMap";
+import { WhyChooseUs } from "@/app/components/home/WhyChooseUs";
+import { FinalCTA } from "@/app/components/home/FinalCTA";
+import { FAQ } from "@/app/components/home/FAQ";
+import Gallery from "@/app/components/home/Gallery";
+import { MobileBookingBar } from "@/app/components/home/MobileBookingBar";
 
 export default function HomePage() {
   return (
     <main
       id="top"
-      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B]  md:pb-0"
+      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-16 md:pb-0"
     >
       <Navbar />
 
       <HeroSection />
 
       <SpecialOffers />
-      <MobileBookingBar/>
+      <MobileBookingBar />
 
       <ServicesMenu />
       <FAQ />
