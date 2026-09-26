@@ -1,82 +1,28 @@
 "use client";
 
-import React from "react";
-
-const realReviews = [
-  {
-    id: 1,
-    author: "Syeda Alishba",
-    time: "7 months ago",
-    tag: "Party Makeup",
-    text: "I had an amazing experience with Afia for my party makeup. She is truly a senior and very professional makeup artist. From understanding my look to perfect execution, everything was on point.",
-    stars: 5,
-  },
-  {
-    id: 2,
-    author: "Adeena Shariq",
-    time: "1 month ago",
-    tag: "Makeover",
-    text: "I searched a lot whole week and finally decided on Aaira salon. It was my first experience and I liked it a lot! Staff is very cooperative and polite.",
-    stars: 5,
-  },
-  {
-    id: 3,
-    author: "Mehwish Hammad",
-    time: "1 month ago",
-    tag: "Facial & Haircut",
-    text: "Today I took a facial and haircut, it was a very good experience. Facial was done by Rukhsana—she did a great job and the haircut was good as well.",
-    stars: 5,
-  },
-  {
-    id: 4,
-    author: "Nida Akram",
-    time: "7 months ago",
-    tag: "Hydra Facial",
-    text: "We got service done from Aaira. Hydra Facial was done by Sima Shah, makeup was done by Ayesha, and styling was done by Kiran. We really liked their work.",
-    stars: 5,
-  },
-  {
-    id: 5,
-    author: "Hina Sheikh",
-    time: "8 months ago",
-    tag: "Bridal & Spa",
-    text: "Today I took bridal service from Aaira Khan, Hydra Facial from Saima, pedicure, and body service from Munnaza. Both gave the best service, I felt very relaxed and totally satisfied.",
-    stars: 5,
-  },
-  {
-    id: 6,
-    author: "Joti Sateesh",
-    time: "2 weeks ago",
-    tag: "Makeup",
-    text: "I got makeup done by a senior artist. She has a very soft nature and made a lot of effort in doing my makeup, which made us very satisfied.",
-    stars: 5,
-  },
-  {
-    id: 7,
-    author: "Aneeqa Salman",
-    time: "1 month ago",
-    tag: "Waxing",
-    text: "Good job! First time tried waxing and fully satisfied. Such a lovely and cooperative staff.",
-    stars: 5,
-  },
-  {
-    id: 8,
-    author: "Rabia Rizwan",
-    time: "6 months ago",
-    tag: "Bridal & Management",
-    text: "Wonderful experience and the manager lady there was so humble and cooperative. Will visit again for more services.",
-    stars: 5,
-  },
-];
-const googleMapsUrl =
-  "https://www.google.com/maps/place/Aaira+Khan+Salon+%26+Studio/@24.877671,67.0610268,17z/data=!3m1!4b1!4m6!3m5!1s0x3eb33f26fc1d9107:0x4df05e686c43cefe!8m2!3d24.877671!4d67.0636071!16s%2Fg%2F11vwh17dp2";
+import React, { useEffect, useState } from "react";
 
 export const Testimonials = () => {
+  const [reviews, setReviews] = useState([]);
+  const [googleMapsUrl, setGoogleMapsUrl] = useState("");
+
+  useEffect(() => {
+    const loadTestimonialsData = async () => {
+      const reviewsResponse = await fetch("/api/reviews");
+      const reviewsData = await reviewsResponse.json();
+
+      const businessResponse = await fetch("/api/business");
+      const businessData = await businessResponse.json();
+
+      setReviews(reviewsData);
+      setGoogleMapsUrl(businessData.googleMapsUrl);
+    };
+
+    loadTestimonialsData();
+  }, []);
+
   return (
-    <section
-      id="reviews"
-      className="bg-[#FFF5F7] px-5 py-16 md:px-12 md:py-20"
-    >
+    <section id="reviews" className="bg-[#FFF5F7] px-5 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-[1380px]">
         {/* Header */}
         <div className="flex flex-col gap-5 border-b border-[#EEDDE1] pb-7 md:flex-row md:items-end md:justify-between">
@@ -111,7 +57,7 @@ export const Testimonials = () => {
 
         {/* Reviews */}
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {realReviews.map((review) => (
+          {reviews.map((review) => (
             <article
               key={review.id}
               className="flex flex-col justify-between rounded-xl border border-[#E8DEE1] bg-white p-5 shadow-sm"
