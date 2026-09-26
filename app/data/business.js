@@ -11,6 +11,12 @@ export const business = {
 
   bookingMessage:
     "Hello Aaira Khan Salon, I would like to book an appointment.",
+  socials: {
+    instagram: "https://www.instagram.com/aaira_khan_salon/",
+    facebook: "https://www.facebook.com/aairakhan.salon",
+    youtube: "https://www.youtube.com/@AairaKhanSalonStudio",
+    tiktok: "https://www.tiktok.com/@aaira_khan_salon",
+  },
 
   hours: {
     monday: "11:00 AM – 9:00 PM",

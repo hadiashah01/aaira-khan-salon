@@ -12,6 +12,12 @@ import { MobileBookingBar } from "@/app/components/home/MobileBookingBar";
 import { business } from "@/app/data/business";
 import { getPhoneUrl, getWhatsAppBaseUrl } from "@/app/lib/contact";
 
+import { YouTubeIcon } from "@/app/components/ui/YouTubeIcon";
+import { TikTokIcon } from "@/app/components/ui/TikTokIcon";
+import { InstagramIcon } from "@/app/components/ui/InstagramIcon";
+import { FacebookIcon } from "@/app/components/ui/FacebookIcon";
+import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
+
 export default function HomePage() {
   return (
     <main
@@ -44,6 +50,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1380px]">
           <div className="grid gap-8 md:grid-cols-2">
             {/* Business */}
+            {/* Business */}
             <div>
               <p className="font-serif text-lg font-semibold text-white">
                 {business.name}
@@ -53,10 +60,10 @@ export default function HomePage() {
                 {business.address}.
               </p>
 
-              <div className="mt-3 flex flex-wrap gap-4 text-[11px]">
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[11px]">
                 <a
                   href={getPhoneUrl()}
-                  className="text-stone-300 hover:text-white"
+                  className="text-stone-300 transition-colors hover:text-white"
                 >
                   {business.phone}
                 </a>
@@ -65,8 +72,9 @@ export default function HomePage() {
                   href={getWhatsAppBaseUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-stone-300 hover:text-white"
+                  className="inline-flex items-center gap-1.5 text-stone-300 transition-colors hover:text-white"
                 >
+                  <WhatsAppIcon className="h-3.5 w-3.5" />
                   WhatsApp
                 </a>
 
@@ -74,10 +82,59 @@ export default function HomePage() {
                   href={business.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-stone-300 hover:text-white"
+                  className="text-stone-300 transition-colors hover:text-white"
                 >
                   Directions
                 </a>
+              </div>
+
+              {/* Social links */}
+              <div className="mt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-500">
+                  Follow the Studio
+                </p>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <a
+                    href={business.socials.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="rounded-lg border border-stone-700 px-3 py-2 text-[10px] font-semibold text-stone-300 transition-colors hover:border-stone-500 hover:text-white"
+                  >
+                    <InstagramIcon className="h-4 w-4" />
+                  </a>
+
+                  <a
+                    href={business.socials.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    className="rounded-lg border border-stone-700 px-3 py-2 text-[10px] font-semibold text-stone-300 transition-colors hover:border-stone-500 hover:text-white"
+                  >
+                    <FacebookIcon className="h-4 w-4" />
+                  </a>
+
+                  <a
+                    href={business.socials.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube"
+                    className="rounded-lg border border-stone-700 px-3 py-2 text-[10px] font-semibold text-stone-300 transition-colors hover:border-stone-500 hover:text-white"
+                  >
+                    <YouTubeIcon className="h-4 w-4" />
+                  </a>
+
+                  <a
+                    href={business.socials.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                    className="rounded-lg border border-stone-700 px-3 py-2 text-[10px] font-semibold text-stone-300 transition-colors hover:border-stone-500 hover:text-white"
+                  >
+                    <TikTokIcon className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
 
