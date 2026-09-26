@@ -2,60 +2,73 @@
 
 import React from "react";
 import { HeroVideo } from "./HeroVideo";
-
-const whatsappUrl =
-  "https://wa.me/923333959805?text=Hello%20Aaira%20Khan%20Salon,%20I%20would%20like%20to%20book%20an%20appointment.";
+import { business } from "@/app/data/business";
+import { getPhoneUrl, getWhatsAppUrl } from "@/app/lib/contact";
 
 export const HeroSection = () => {
+  const bookingUrl = getWhatsAppUrl(business.bookingMessage);
+
   return (
     <section
       id="home"
-      className="w-full bg-gradient-to-b from-[#FFF0F2] via-[#FFF8F8] to-white border-b border-[#F5DCE2]"
+      className="w-full border-b border-[#F5DCE2] bg-gradient-to-b from-[#FFF0F2] via-[#FFF8F8] to-white"
     >
-      <div className="max-w-[1380px] mx-auto px-5 md:px-12 py-10 sm:py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="mx-auto max-w-[1380px] px-5 py-10 sm:py-12 md:px-12 lg:py-20">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
           {/* Content */}
           <div className="lg:col-span-7">
             <div className="space-y-6">
               {/* Location */}
-              <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#775A19] bg-[#FFDEA5]/50 px-3.5 py-2 rounded-full border border-[#FFDEA5]">
-                <span className="material-symbols-outlined text-[16px]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#FFDEA5] bg-[#FFDEA5]/50 px-3.5 py-2 text-[11px] font-bold uppercase tracking-widest text-[#775A19] sm:text-xs">
+                <span
+                  className="material-symbols-outlined text-[16px]"
+                  aria-hidden="true"
+                >
                   location_on
                 </span>
 
-                <span>Main Tariq Road • Delhi Society • Karachi</span>
+                <span>{business.locationLabel}</span>
               </div>
 
               {/* Heading */}
-              <h1 className="font-serif text-[2.15rem] sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-[#25181C] leading-[1.08] tracking-[-0.02em] max-w-3xl">
+              <h1 className="max-w-3xl font-serif text-[2.15rem] font-bold leading-[1.08] tracking-[-0.02em] text-[#25181C] sm:text-4xl md:text-5xl lg:text-[3.5rem]">
                 Bridal Makeup, Beauty & Hair for Your Special Moments
               </h1>
 
               {/* Supporting copy */}
-             <p className="text-base sm:text-[17px] text-[#382A2E] leading-7 max-w-2xl">
+              <p className="max-w-2xl text-base leading-7 text-[#382A2E] sm:text-[17px]">
                 Bridal makeup, party glam, hair treatments, Hydra Facials, and
                 beauty care at Main Tariq Road — tailored to your occasion,
                 preferred look, and schedule.
               </p>
 
               {/* Trust points */}
-              <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs sm:text-sm text-[#382A2E]">
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#382A2E] sm:text-sm">
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[17px] text-[#974358]">
+                  <span
+                    className="material-symbols-outlined text-[17px] text-[#974358]"
+                    aria-hidden="true"
+                  >
                     check_circle
                   </span>
                   Bridal &amp; Party Makeup
                 </span>
 
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[17px] text-[#974358]">
+                  <span
+                    className="material-symbols-outlined text-[17px] text-[#974358]"
+                    aria-hidden="true"
+                  >
                     check_circle
                   </span>
                   Hair &amp; Skin Treatments
                 </span>
 
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[17px] text-[#974358]">
+                  <span
+                    className="material-symbols-outlined text-[17px] text-[#974358]"
+                    aria-hidden="true"
+                  >
                     check_circle
                   </span>
                   Appointment-Based Service
@@ -65,22 +78,28 @@ export const HeroSection = () => {
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
-                  href="https://wa.me/923333959805?text=Hello%20Aaira%20Khan%20Salon,%20I%20would%20like%20to%20book%20an%20appointment."
+                  href={bookingUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  className="bg-[#974358] text-white px-5 py-3.5 rounded-xl text-sm font-bold hover:bg-[#83384b] transition-all shadow-md inline-flex items-center gap-2"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#974358] px-5 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#83384b]"
                 >
-                  <span className="material-symbols-outlined text-lg">
+                  <span
+                    className="material-symbols-outlined text-lg"
+                    aria-hidden="true"
+                  >
                     chat
                   </span>
                   Book on WhatsApp
                 </a>
 
                 <a
-                  href="tel:02134536026"
-                  className="bg-white border border-stone-300 text-[#25181C] px-5 py-3.5 rounded-xl text-sm font-bold hover:bg-stone-50 transition-all inline-flex items-center gap-2"
+                  href={getPhoneUrl()}
+                  className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-3.5 text-sm font-bold text-[#25181C] transition-all hover:bg-stone-50"
                 >
-                  <span className="material-symbols-outlined text-lg">
+                  <span
+                    className="material-symbols-outlined text-lg"
+                    aria-hidden="true"
+                  >
                     call
                   </span>
                   Call the Studio
@@ -95,10 +114,10 @@ export const HeroSection = () => {
           </div>
 
           {/* Featured visual */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-[430px] bg-white p-3 sm:p-4 rounded-2xl border border-[#F5DCE2] shadow-xl">
-              <div className="flex justify-center pb-3 border-b border-stone-100 mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#974358] bg-[#FFD9DF]/60 px-3 py-1.5 rounded-full">
+          <div className="flex justify-center lg:col-span-5">
+            <div className="w-full max-w-[430px] rounded-2xl border border-[#F5DCE2] bg-white p-3 shadow-xl sm:p-4">
+              <div className="mb-3 flex justify-center border-b border-stone-100 pb-3">
+                <span className="rounded-full bg-[#FFD9DF]/60 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#974358]">
                   Featured Bridal Look
                 </span>
               </div>

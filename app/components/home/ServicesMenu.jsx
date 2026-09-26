@@ -32,9 +32,7 @@ export const ServicesMenu = () => {
   const filteredServices =
     selectedCategory === "all"
       ? services
-      : services.filter(
-          (service) => service.category === selectedCategory,
-        );
+      : services.filter((service) => service.category === selectedCategory);
 
   return (
     <section
@@ -148,7 +146,6 @@ export const ServicesMenu = () => {
                       className="inline-flex items-center gap-1 text-[12px] font-bold text-[#974358] hover:underline"
                     >
                       Inquire
-
                       <span className="material-symbols-outlined text-[14px]">
                         arrow_forward
                       </span>

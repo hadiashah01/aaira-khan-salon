@@ -1,11 +1,16 @@
 export const business = {
   name: "Aaira Khan Salon & Studio",
 
+  locationLabel: "Main Tariq Road · Delhi Society · Karachi",
+
   address: "Main Tariq Road, Delhi Society, PECHS, Karachi, Pakistan",
 
   phone: "021-34536026",
 
   whatsapp: "+923333959805",
+
+  bookingMessage:
+    "Hello Aaira Khan Salon, I would like to book an appointment.",
 
   hours: {
     monday: "11:00 AM – 9:00 PM",

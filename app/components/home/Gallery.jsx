@@ -17,7 +17,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section className="bg-[#FFF8F8] px-5 py-16 md:px-12 md:py-20">
+    <section id="gallery" className="bg-[#FFF8F8] px-5 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-[1380px]">
 
         {/* Heading */}

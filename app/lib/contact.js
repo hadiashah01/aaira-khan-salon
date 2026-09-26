@@ -1,11 +1,19 @@
 import { business } from "@/app/data/business";
 
 export const getWhatsAppUrl = (message = "") => {
-  return `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
-    message
-  )}`;
+  const phone = business.whatsapp.replace(/\D/g, "");
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 };
 
 export const getPhoneUrl = () => {
-  return `tel:${business.phone.replace(/\D/g, "")}`;
+  const phone = business.phone.replace(/\D/g, "");
+
+  return `tel:${phone}`;
+};
+
+export const getWhatsAppBaseUrl = () => {
+  const phone = business.whatsapp.replace(/\D/g, "");
+
+  return `https://wa.me/${phone}`;
 };
