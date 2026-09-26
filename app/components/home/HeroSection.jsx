@@ -4,7 +4,8 @@ import React from "react";
 import { HeroVideo } from "./HeroVideo";
 import { business } from "@/app/data/business";
 import { getPhoneUrl, getWhatsAppUrl } from "@/app/lib/contact";
-
+import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
+ 
 export const HeroSection = () => {
   const bookingUrl = getWhatsAppUrl(business.bookingMessage);
 
@@ -83,9 +84,7 @@ export const HeroSection = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-[#974358] px-5 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#83384b]"
                 >
-                  <span className="material-symbols-outlined text-lg">
-                    chat
-                  </span>
+                  <WhatsAppIcon className="h-6 w-6" />
                   Book on WhatsApp
                 </a>
 

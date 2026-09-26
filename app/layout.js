@@ -1,14 +1,54 @@
 import "./globals.css";
+import { Inter, Playfair_Display } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata = {
-  title: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
+  title: {
+    default: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
+    template: "%s | Aaira Khan Salon & Studio",
+  },
+
   description:
     "Aaira Khan Salon & Studio on Main Tariq Road, Karachi. Explore bridal makeup, party makeup, hair, skin and beauty services.",
+
+  applicationName: "Aaira Khan Salon & Studio",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_PK",
+    siteName: "Aaira Khan Salon & Studio",
+    title: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
+    description:
+      "Bridal makeup, party makeup, hair, skin and beauty services at Main Tariq Road, Karachi.",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
+    description:
+      "Bridal makeup, party makeup, hair, skin and beauty services at Main Tariq Road, Karachi.",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
