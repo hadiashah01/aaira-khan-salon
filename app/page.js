@@ -19,37 +19,94 @@ import { FacebookIcon } from "@/app/components/ui/FacebookIcon";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 
 export default function HomePage() {
+ const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  name: business.name,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: business.address,
+    addressLocality: "Karachi",
+    addressRegion: "Sindh",
+    addressCountry: "PK",
+  },
+  telephone: business.phone,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: business.coordinates.latitude,
+    longitude: business.coordinates.longitude,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Monday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Tuesday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Wednesday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Thursday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Friday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: "11:00",
+      closes: "21:00",
+    },
+  ],
+};
   return (
     <main
       id="top"
       className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-16 md:pb-0"
     >
+      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
       <Navbar />
-
       <HeroSection />
-
       <SpecialOffers />
-
       <ServicesMenu />
-
       <FAQ />
-
       <WhyChooseUs />
-
       <Gallery />
-
       <Testimonials />
-
       <LocationMap />
-
       <FinalCTA />
-
       <MobileBookingBar />
-
       <footer className="bg-[#24171B] px-5 py-10 text-stone-300 md:px-12">
         <div className="mx-auto max-w-[1380px]">
           <div className="grid gap-8 md:grid-cols-2">
-            {/* Business */}
             {/* Business */}
             <div>
               <p className="font-serif text-lg font-semibold text-white">
