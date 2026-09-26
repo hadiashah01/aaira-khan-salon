@@ -1,86 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
-
-const fullServiceCatalog = [
-  {
-    id: "b1",
-    category: "bridal",
-    image: "/images/services/barat-bridal.jpg",
-    title: "Barat & Nikkah Bridal Makeover",
-    description:
-      "A complete bridal makeup experience with makeup, lashes, dupatta setting and hair styling.",
-    highlights: ["Skin Prep", "Lashes", "Dupatta Setting"],
-    featured: true,
-  },
-  {
-    id: "b2",
-    category: "bridal",
-    image: "/images/services/walima-bridal.jpg",
-    title: "Walima & Soft Glam Bridal Look",
-    description:
-      "A refined reception look with customized makeup and coordinated hair styling.",
-    highlights: ["Soft Glam", "Hair Styling", "Long Wear"],
-    featured: false,
-  },
-  {
-    id: "p1",
-    category: "party",
-    image: "/images/services/party-makeup.jpg",
-    title: "Senior Artist Party Makeup",
-    description:
-      "Party makeup tailored around your preferred eye look, complexion and overall style.",
-    highlights: ["Eye Glam", "Contouring", "Lip Shade"],
-    featured: true,
-  },
-  {
-    id: "s1",
-    category: "skin",
-    image: "/images/services/facial-infusion.jpg",
-    title: "Hydra Facial Infusion",
-    description:
-      "A facial treatment focused on cleansing, exfoliation and hydration for refreshed-looking skin.",
-    highlights: ["Cleansing", "Exfoliation", "Hydration"],
-    featured: true,
-  },
-  {
-    id: "h1",
-    category: "hair",
-    image: "/images/services/keratin-treatment.jpg",
-    title: "Keratin & Hair Protein Treatments",
-    description:
-      "Hair treatment focused on reducing frizz and improving manageability.",
-    highlights: ["Frizz Control", "Smooth Finish", "Hair Care"],
-    featured: false,
-  },
-  {
-    id: "w2",
-    category: "waxing",
-    image: "/images/services/eyebrow-threading.jpg",
-    title: "Eyebrow Threading & Waxing",
-    description:
-      "Eyebrow shaping and waxing services tailored to the selected treatment.",
-    highlights: ["Shaping", "Waxing", "Quick Service"],
-    featured: false,
-  },
-];
-
-const categories = [
-  { key: "all", label: "All Services", icon: "grid_view" },
-  { key: "bridal", label: "Bridal", icon: "favorite" },
-  { key: "party", label: "Party", icon: "auto_awesome" },
-  { key: "skin", label: "Skin", icon: "water_drop" },
-  { key: "hair", label: "Hair", icon: "content_cut" },
-  { key: "waxing", label: "Waxing", icon: "brush" },
-];
+import React, { useEffect, useState } from "react";
+import { getWhatsAppUrl } from "@/app/lib/contact";
 
 export const ServicesMenu = () => {
+  const [services, setServices] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch("/api/services");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch services");
+        }
+
+        const data = await response.json();
+
+        setServices(data.services);
+        setCategories(data.categories);
+      } catch (error) {
+        console.error("Failed to load services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const filteredServices =
     selectedCategory === "all"
-      ? fullServiceCatalog
-      : fullServiceCatalog.filter(
+      ? services
+      : services.filter(
           (service) => service.category === selectedCategory,
         );
 
@@ -89,7 +41,7 @@ export const ServicesMenu = () => {
       id="services-catalog"
       className="bg-white px-5 py-16 md:px-12 md:py-20"
     >
-      <div className="mx-auto max-w-[1380px]">
+      <div className="mx-auto max-w-345">
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
@@ -126,6 +78,7 @@ export const ServicesMenu = () => {
                 <span className="material-symbols-outlined text-[15px]">
                   {category.icon}
                 </span>
+
                 {category.label}
               </button>
             );
@@ -135,9 +88,7 @@ export const ServicesMenu = () => {
         {/* Cards */}
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredServices.map((item) => {
-            const whatsappMessage = encodeURIComponent(
-              `Hello Aaira Khan Salon, I would like to inquire about ${item.title}.`,
-            );
+            const whatsappMessage = `Hello Aaira Khan Salon, I would like to inquire about ${item.title}.`;
 
             return (
               <article
@@ -149,7 +100,7 @@ export const ServicesMenu = () => {
                 }`}
               >
                 {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#F5EEEE]">
+                <div className="relative aspect-16/10 overflow-hidden bg-[#F5EEEE]">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -191,12 +142,13 @@ export const ServicesMenu = () => {
                     </span>
 
                     <a
-                      href={`https://wa.me/923333959805?text=${whatsappMessage}`}
+                      href={getWhatsAppUrl(whatsappMessage)}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center gap-1 text-[12px] font-bold text-[#974358] hover:underline"
                     >
                       Inquire
+
                       <span className="material-symbols-outlined text-[14px]">
                         arrow_forward
                       </span>
