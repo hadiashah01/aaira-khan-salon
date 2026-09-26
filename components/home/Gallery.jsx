@@ -1,8 +1,25 @@
-import { galleryImages } from "@/app/data/gallery";
+"use client";
+
+import React, { useEffect, useState } from "react";
+
 export default function Gallery() {
+  const [galleryImages, setGalleryImages] = useState([]);
+
+  useEffect(() => {
+    const loadGallery = async () => {
+      const response = await fetch("/api/gallery");
+      const data = await response.json();
+
+      setGalleryImages(data);
+    };
+
+    loadGallery();
+  }, []);
+
   return (
     <section className="bg-[#FFF8F8] px-5 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-[1380px]">
+
         {/* Heading */}
         <div className="mb-10 max-w-2xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#974358]">
@@ -21,28 +38,32 @@ export default function Gallery() {
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+
           {/* Large Image */}
-          <div className="group col-span-2 row-span-2 overflow-hidden rounded-2xl">
-            <img
-              src={galleryImages[0].src}
-              alt={galleryImages[0].alt}
-              className="h-full min-h-[420px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
+          {galleryImages.length > 0 && (
+            <div className="group col-span-2 row-span-2 overflow-hidden rounded-2xl">
+              <img
+                src={galleryImages[0].src}
+                alt={galleryImages[0].alt}
+                className="h-full min-h-[420px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          )}
 
           {/* Other Images */}
           {galleryImages.slice(1).map((image, index) => (
             <div
               key={index}
-              className="group aspect-square overflow-hidden rounded-2xl "
+              className="group aspect-square overflow-hidden rounded-2xl"
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 object-top"
+                className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           ))}
+
         </div>
       </div>
     </section>
