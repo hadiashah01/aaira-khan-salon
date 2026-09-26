@@ -34,7 +34,7 @@ export const faqItems = [
   {
     question: "What are the salon's opening hours?",
     answer:
-      "Public listings show approximate opening hours of 11:00 AM to 8:00 PM, Monday to Sunday. For bridal appointments, late slots, holidays, or special arrangements, confirm the current timing directly with the salon.",
+      "Public listings show approximate opening hours of 11:00 AM to 9:00 PM, Monday to Sunday. For bridal appointments, late slots, holidays, or special arrangements, confirm the current timing directly with the salon.",
   },
   {
     question: "Is an advance deposit required for bridal bookings?",
