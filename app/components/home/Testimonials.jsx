@@ -8,34 +8,49 @@ export const Testimonials = () => {
 
   useEffect(() => {
     const loadTestimonialsData = async () => {
-      const reviewsResponse = await fetch("/api/reviews");
-      const reviewsData = await reviewsResponse.json();
+      try {
+        const [reviewsResponse, businessResponse] = await Promise.all([
+          fetch("/api/reviews"),
+          fetch("/api/business"),
+        ]);
 
-      const businessResponse = await fetch("/api/business");
-      const businessData = await businessResponse.json();
+        if (!reviewsResponse.ok || !businessResponse.ok) {
+          throw new Error("Failed to load testimonial data");
+        }
 
-      setReviews(reviewsData);
-      setGoogleMapsUrl(businessData.googleMapsUrl);
+        const [reviewsData, businessData] = await Promise.all([
+          reviewsResponse.json(),
+          businessResponse.json(),
+        ]);
+
+        setReviews(reviewsData);
+        setGoogleMapsUrl(businessData.googleMapsUrl);
+      } catch (error) {
+        console.error("Failed to load testimonials:", error);
+      }
     };
 
     loadTestimonialsData();
   }, []);
 
   return (
-    <section id="reviews" className="bg-[#FFF5F7] px-5 py-16 md:px-12 md:py-20">
+    <section
+      id="reviews"
+      className="border-y border-[#F5DCE2] bg-[#FFF5F7] px-5 py-16 md:px-12 md:py-20"
+    >
       <div className="mx-auto max-w-[1380px]">
         {/* Header */}
         <div className="flex flex-col gap-5 border-b border-[#EEDDE1] pb-7 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
               CLIENT FEEDBACK
             </span>
 
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[#24171B] md:text-4xl">
+            <h2 className="mt-2 font-serif text-3xl font-bold leading-tight text-[#24171B] md:text-4xl">
               What clients are saying
             </h2>
 
-            <p className="mt-3 text-sm leading-6 text-[#625356]">
+            <p className="mt-3 text-sm leading-6 text-[#625356] md:text-base">
               Selected customer feedback highlighting experiences with makeup,
               hair, skin and beauty services.
             </p>
@@ -57,45 +72,43 @@ export const Testimonials = () => {
 
         {/* Reviews */}
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {reviews.map((review) => (
-            <article
-              key={review.id}
-              className="flex flex-col justify-between rounded-xl border border-[#E8DEE1] bg-white p-5 shadow-sm"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3">
-                  <span className="rounded-md bg-[#F9E5E9] px-2 py-1 text-[8px] font-bold uppercase tracking-wider text-[#974358]">
-                    {review.tag}
-                  </span>
+          {reviews.map((review) => {
+            return (
+              <article
+                key={review.id}
+                className="flex flex-col justify-between rounded-xl border border-[#E8DEE1] bg-white p-5 shadow-sm"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="rounded-md bg-[#F9E5E9] px-2 py-1 text-[8px] font-bold uppercase tracking-wider text-[#974358]">
+                      {review.tag}
+                    </span>
+                  </div>
 
-                  <span className="shrink-0 text-[9px] text-[#958589]">
-                    {review.time}
-                  </span>
+                  <div
+                    className="mt-3 text-[11px] tracking-wide text-[#B27722]"
+                    aria-label={`${review.stars} out of 5 stars`}
+                  >
+                    {"★".repeat(review.stars)}
+                  </div>
+
+                  <blockquote className="mt-3 text-sm leading-5 text-[#403437]">
+                    “{review.text}”
+                  </blockquote>
                 </div>
 
-                <div
-                  className="mt-3 text-[11px] tracking-wide text-[#B27722]"
-                  aria-label={`${review.stars} out of 5 stars`}
-                >
-                  {"★".repeat(review.stars)}
+                <div className="mt-5 border-t border-[#F0E7E9] pt-3">
+                  <p className="text-xs font-bold text-[#24171B]">
+                    {review.author}
+                  </p>
+
+                  <p className="mt-0.5 text-[9px] text-[#958589]">
+                    Google review
+                  </p>
                 </div>
-
-                <blockquote className="mt-3 text-sm leading-5 text-[#403437]">
-                  “{review.text}”
-                </blockquote>
-              </div>
-
-              <div className="mt-5 border-t border-[#F0E7E9] pt-3">
-                <p className="text-xs font-bold text-[#24171B]">
-                  {review.author}
-                </p>
-
-                <p className="mt-0.5 text-[9px] text-[#958589]">
-                  Google review
-                </p>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

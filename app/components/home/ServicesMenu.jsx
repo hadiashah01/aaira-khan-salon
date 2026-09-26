@@ -39,25 +39,25 @@ export const ServicesMenu = () => {
       id="services-catalog"
       className="bg-white px-5 py-16 md:px-12 md:py-20"
     >
-      <div className="mx-auto max-w-345">
-        {/* Heading */}
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
+      <div className="mx-auto max-w-[1380px]">
+        {/* Header */}
+        <div className="max-w-3xl">
+          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
             SERVICES
           </span>
 
-          <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight text-[#24171B] md:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-tight text-[#24171B] md:text-4xl">
             Beauty services for every occasion
           </h2>
 
-          <p className="mt-3 text-sm leading-6 text-[#594A4E]">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#625356] md:text-base">
             Explore the salon's main service categories and contact the studio
             for exact rates and availability.
           </p>
         </div>
 
         {/* Filters */}
-        <div className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-none md:justify-center">
+        <div className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
           {categories.map((category) => {
             const isActive = selectedCategory === category.key;
 
@@ -97,8 +97,7 @@ export const ServicesMenu = () => {
                     : "border border-[#E8DFE1] shadow-sm hover:-translate-y-0.5 hover:shadow-md"
                 }`}
               >
-                {/* Image */}
-                <div className="relative aspect-16/10 overflow-hidden bg-[#F5EEEE]">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#F5EEEE]">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -113,13 +112,12 @@ export const ServicesMenu = () => {
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="p-5">
                   <h3 className="font-serif text-lg font-bold leading-snug text-[#24171B]">
                     {item.title}
                   </h3>
 
-                  <p className="mt-2 text-sm leading-5 text-[#625356]">
+                  <p className="mt-2 text-sm leading-6 text-[#625356]">
                     {item.description}
                   </p>
 
@@ -146,6 +144,7 @@ export const ServicesMenu = () => {
                       className="inline-flex items-center gap-1 text-[12px] font-bold text-[#974358] hover:underline"
                     >
                       Inquire
+
                       <span className="material-symbols-outlined text-[14px]">
                         arrow_forward
                       </span>
@@ -158,7 +157,7 @@ export const ServicesMenu = () => {
         </div>
 
         {/* Booking guidance */}
-        <div className="mt-8 rounded-xl border border-[#E9DDE0] bg-[#FFF8F9] px-5 py-4">
+        <div className="mt-8 rounded-xl border border-[#E9DFE2] bg-[#FFF8F9] px-5 py-4">
           <div className="flex items-start gap-3">
             <span className="material-symbols-outlined mt-0.5 text-[18px] text-[#974358]">
               info

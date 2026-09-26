@@ -3,6 +3,7 @@
 import React from "react";
 import { business } from "@/app/data/business";
 import { getPhoneUrl, getWhatsAppUrl } from "@/app/lib/contact";
+import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 
 export const MobileBookingBar = () => {
   const bookingUrl = getWhatsAppUrl(business.bookingMessage);
@@ -16,12 +17,7 @@ export const MobileBookingBar = () => {
           rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-[#974358] text-xs font-bold uppercase tracking-wide text-white"
         >
-          <span
-            className="material-symbols-outlined text-[17px]"
-            aria-hidden="true"
-          >
-            calendar_month
-          </span>
+          <WhatsAppIcon className="h-[17px] w-[17px]" />
           Book Appointment
         </a>
 

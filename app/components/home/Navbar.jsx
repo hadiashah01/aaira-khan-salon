@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { business } from "@/app/data/business";
+
+import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 import {
   getPhoneUrl,
   getWhatsAppBaseUrl,
@@ -14,7 +16,6 @@ const navLinks = [
   { label: "Services", href: "#services-catalog" },
   { label: "Gallery", href: "#gallery" },
   { label: "Reviews", href: "#reviews" },
-  { label: "Location", href: "#location" },
 ];
 
 export const Navbar = () => {
@@ -26,14 +27,14 @@ export const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#EEDDE1] bg-[#FFF9FA]/95 backdrop-blur-xl">
-      {/* Utility bar */}
+      {/* Utility Bar */}
       <div className="bg-[#24171B] text-white">
-        <div className="mx-auto flex min-h-8 max-w-[1380px] items-center justify-between gap-4 px-5 text-[10px] font-medium tracking-wide md:px-12">
+        <div className="mx-auto flex min-h-9 max-w-[1380px] items-center justify-between gap-4 px-5 text-[10px] font-medium tracking-wide md:px-12">
           <span className="hidden sm:block">{business.locationLabel}</span>
 
           <a
             href={getPhoneUrl()}
-            className="mx-auto transition-opacity hover:opacity-75 sm:mx-0"
+            className="transition-opacity hover:opacity-75"
           >
             Bookings: {business.phone}
           </a>
@@ -42,28 +43,25 @@ export const Navbar = () => {
             href={getWhatsAppBaseUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-1 text-[#FFD8DF] hover:underline md:inline-flex"
+            className="hidden items-center gap-1.5 text-[#FFD8DF] hover:underline sm:inline-flex"
           >
-            <span
-              className="material-symbols-outlined text-[14px]"
-              aria-hidden="true"
-            >
-              chat
-            </span>
+            {/* WhatsApp icon */}
+            <WhatsAppIcon className="h-[14px] w-[14px]" />
             WhatsApp
           </a>
         </div>
       </div>
 
-      {/* Main navigation */}
+      {/* Main Navigation */}
       <nav
         aria-label="Main navigation"
-        className="mx-auto flex max-w-[1380px] items-center justify-between px-5 py-4 md:px-12"
+        className="mx-auto flex min-h-[72px] max-w-[1380px] items-center justify-between gap-6 px-5 md:px-12"
       >
+        {/* Logo */}
         <a
           href="#top"
           aria-label={`${business.name} home`}
-          className="group shrink-0"
+          className="shrink-0"
         >
           <span className="block font-serif text-[21px] font-bold leading-none tracking-tight text-[#24171B] md:text-2xl">
             Aaira Khan
@@ -74,34 +72,38 @@ export const Navbar = () => {
           </span>
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-5 lg:flex">
+        {/* 
+          TABLET + DESKTOP NAVIGATION
+          md:flex = tablet se visible
+          lg:flex ki zarurat nahi
+        */}
+        <div className="hidden flex-1 items-center justify-center gap-4 md:flex lg:gap-6">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#55484B] transition-colors hover:text-[#974358]"
+              className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.08em] text-[#55484B] transition-colors hover:text-[#974358] lg:text-[11px]"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* Desktop CTA */}
+        {/* Tablet + Desktop CTA */}
         <a
           href={bookingUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden rounded-lg bg-[#974358] px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-sm transition-all hover:bg-[#81374A] hover:shadow-md md:inline-flex"
+          className="hidden shrink-0 rounded-lg bg-[#974358] px-3.5 py-2.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white shadow-sm transition-all hover:bg-[#81374A] hover:shadow-md sm:inline-flex md:px-4 md:text-[10px]"
         >
           Book Appointment
         </a>
 
-        {/* Mobile menu button */}
+        {/* MOBILE ONLY Hamburger */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#EAD9DD] bg-white text-[#24171B] transition-colors hover:bg-[#FFF0F3] md:hidden"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EAD9DD] bg-white text-[#24171B] transition-colors hover:bg-[#FFF0F3] md:hidden"
           aria-label={
             isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
           }
@@ -117,7 +119,7 @@ export const Navbar = () => {
         </button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* MOBILE MENU ONLY */}
       {isMobileMenuOpen && (
         <div
           id="mobile-navigation"
@@ -140,14 +142,9 @@ export const Navbar = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMenu}
-              className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-[#974358] py-3 text-xs font-bold uppercase tracking-wider text-white"
+              className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-[#974358] py-3 text-xs font-bold uppercase tracking-wider text-white"
             >
-              <span
-                className="material-symbols-outlined text-base"
-                aria-hidden="true"
-              >
-                chat
-              </span>
+              <WhatsAppIcon className="h-[17px] w-[17px]" />
               Book via WhatsApp
             </a>
           </div>
