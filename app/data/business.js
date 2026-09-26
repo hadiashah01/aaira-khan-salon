@@ -8,13 +8,13 @@ export const business = {
   whatsapp: "+923333959805",
 
   hours: {
-    monday: "11:00 AM – 8:00 PM",
-    tuesday: "11:00 AM – 8:00 PM",
-    wednesday: "11:00 AM – 8:00 PM",
-    thursday: "11:00 AM – 8:00 PM",
-    friday: "11:00 AM – 8:00 PM",
-    saturday: "11:00 AM – 8:00 PM",
-    sunday: "11:00 AM – 8:00 PM",
+    monday: "11:00 AM – 9:00 PM",
+    tuesday: "11:00 AM – 9:00 PM",
+    wednesday: "11:00 AM – 9:00 PM",
+    thursday: "11:00 AM – 9:00 PM",
+    friday: "11:00 AM – 9:00 PM",
+    saturday: "11:00 AM – 9:00 PM",
+    sunday: "11:00 AM – 9:00 PM",
   },
 
   googleMapsUrl:
@@ -28,5 +28,3 @@ export const business = {
     longitude: 67.0636071,
   },
 };
-export const googleMapsUrl =
-  "https://www.google.com/maps/place/Aaira+Khan+Salon+%26+Studio/@24.877671,67.0610268,17z/data=!3m1!4b1!4m6!3m5!1s0x3eb33f26fc1d9107:0x4df05e686c43cefe!8m2!3d24.877671!4d67.0636071!16s%2Fg%2F11vwh17dp2";
