@@ -69,28 +69,34 @@ The main content flow is:
 
 ```mermaid
 flowchart LR
-    A["UI Components"] --> B["Business Data"]
+    A["UI Components"] --> B["API Routes"]
     A --> C["Contact Helpers"]
-    A --> D["API Routes"]
+    B --> D["Data Files"]
+    C --> E["Phone & WhatsApp URLs"]
 
-    B --> E["Business Information"]
-    C --> F["Phone & WhatsApp URLs"]
+    D --> D1["business.js"]
+    D --> D2["services.js"]
+    D --> D3["offers.js"]
+    D --> D4["reviews.js"]
+    D --> D5["gallery.js"]
+    D --> D6["faqs.js"]
+    D --> D7["why-us.js"]
 
-    D --> G["Services"]
-    D --> H["Offers"]
-    D --> I["Reviews"]
-    D --> J["Gallery"]
-    D --> K["FAQs"]
-    D --> L["Why Us"]
+    B --> F["/api/business"]
+    B --> G["/api/services"]
+    B --> H["/api/offers"]
+    B --> I["/api/reviews"]
+    B --> J["/api/gallery"]
+    B --> K["/api/faqs"]
+    B --> L["/api/why-us"]
 
-    E --> M["Page Content"]
-    F --> M
-    G --> M
-    H --> M
-    I --> M
-    J --> M
-    K --> M
-    L --> M
+    F --> D1
+    G --> D2
+    H --> D3
+    I --> D4
+    J --> D5
+    K --> D6
+    L --> D7
 ```
 
 ## Project Structure
@@ -108,35 +114,45 @@ flowchart TD
     B --> B1["home/"]
     B --> B2["ui/"]
 
-    B1 --> C1["Navbar"]
-    B1 --> C2["HeroSection"]
-    B1 --> C3["SpecialOffers"]
-    B1 --> C4["ServicesMenu"]
-    B1 --> C5["FAQ"]
-    B1 --> C6["WhyChooseUs"]
-    B1 --> C7["Gallery"]
-    B1 --> C8["Testimonials"]
-    B1 --> C9["LocationMap"]
-    B1 --> C10["FinalCTA"]
-    B1 --> C11["MobileBookingBar"]
+    B1 --> B3["Navbar"]
+    B1 --> B4["HeroSection"]
+    B1 --> B5["SpecialOffers"]
+    B1 --> B6["ServicesMenu"]
+    B1 --> B7["FAQ"]
+    B1 --> B8["WhyChooseUs"]
+    B1 --> B9["Gallery"]
+    B1 --> B10["Testimonials"]
+    B1 --> B11["LocationMap"]
+    B1 --> B12["FinalCTA"]
+    B1 --> B13["MobileBookingBar"]
 
-    B2 --> C12["Brand & Social Icons"]
+    B2 --> B14["Brand & Social Icons"]
 
-    C --> D1["business.js"]
-    D --> D2["contact.js"]
+    C --> C1["business.js"]
+    C --> C2["services.js"]
+    C --> C3["offers.js"]
+    C --> C4["reviews.js"]
+    C --> C5["gallery.js"]
+    C --> C6["faqs.js"]
+    C --> C7["why-us.js"]
 
-    E --> E1["business"]
-    E --> E2["services"]
-    E --> E3["offers"]
-    E --> E4["reviews"]
-    E --> E5["gallery"]
-    E --> E6["faqs"]
-    E --> E7["why-us"]
+    D --> D1["contact.js"]
+
+    E --> E1["business/"]
+    E --> E2["services/"]
+    E --> E3["offers/"]
+    E --> E4["reviews/"]
+    E --> E5["gallery/"]
+    E --> E6["faqs/"]
+    E --> E7["why-us/"]
  ```
 ## Data Architecture
 
-Business information is maintained through a centralized configuration:
+The project separates content data, API access, and presentation logic to keep the application organized and maintainable.
 
+### Centralized Business Configuration
+
+Core business information is maintained in:
 `app/data/business.js`
 
 It contains the salon's:
@@ -158,7 +174,24 @@ Contact URL generation is handled separately through:
 
 This provides reusable helpers for phone and WhatsApp actions without duplicating contact URL logic across components.
 
-Customer-facing content is exposed through dedicated API routes:
+### Content Data
+
+Customer-facing content is organized into dedicated data files inside:
+
+`app/data/`
+
+- `services.js`
+- `offers.js`
+- `reviews.js`
+- `gallery.js`
+- `faqs.js`
+- `why-us.js`
+- `business.js`
+
+
+### API Layer
+
+Dedicated Next.js API routes expose the data to the client components:
 
 - `/api/business`
 - `/api/services`
@@ -168,7 +201,15 @@ Customer-facing content is exposed through dedicated API routes:
 - `/api/faqs`
 - `/api/why-us`
 
-This keeps content retrieval separate from the presentation components that render it.
+The API layer keeps data access separate from the presentation layer. Components fetch the required content through these endpoints instead of embedding the content directly inside the UI components.
+
+### Data Flow
+
+The overall flow is:
+
+**Data Files → API Routes → UI Components → Rendered Sections**
+
+This separation makes the content easier to update while keeping the presentation components focused on rendering and interaction.
 
 ## SEO
 
