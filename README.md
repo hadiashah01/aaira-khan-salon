@@ -7,6 +7,7 @@ A modern, responsive web experience for Aaira Khan Salon & Studio, Karachi, buil
 ## Table of Contents
 
 - [Overview](#overview)
+- [Preview and Live Demo](#preview-and-live-demo)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
@@ -26,6 +27,16 @@ The website brings the salon's key information and customer-facing actions into 
 The main content flow is:
 
 **Discover → Explore Services → View Work → Read Reviews → Find Location → Book**
+
+## Preview and Live Demo
+
+Click the preview to visit the live page 👇
+
+[![Aaira Khan Salon & Studio Preview](./public/images/aaira-khan-salon.png)](https://aaira-khan-salon.vercel.app/)
+### Responsive Views
+
+- [Tablet](public/images/aaira-khan-salon-tab.png)
+- [Mobile](public/images/aaira-khan-salon-mob.png)
 
 ## Features
 
@@ -145,7 +156,8 @@ flowchart TD
     E --> E5["gallery/"]
     E --> E6["faqs/"]
     E --> E7["why-us/"]
- ```
+```
+
 ## Data Architecture
 
 The project separates content data, API access, and presentation logic to keep the application organized and maintainable.
@@ -187,7 +199,6 @@ Customer-facing content is organized into dedicated data files inside:
 - `faqs.js`
 - `why-us.js`
 - `business.js`
-
 
 ### API Layer
 

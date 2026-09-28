@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 export const LocationMap = () => {
   const [business, setBusiness] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadBusinessData = async () => {
@@ -18,21 +19,29 @@ export const LocationMap = () => {
         setBusiness(data);
       } catch (error) {
         console.error("Failed to load business data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     loadBusinessData();
   }, []);
 
+  if (isLoading) {
+    return (
+      <section id="location" className="bg-white px-5 py-16 md:px-12 md:py-20">
+        <div className="mx-auto max-w-[1380px]">
+          <div className="h-[420px] animate-pulse rounded-2xl bg-[#F4F0F1]" />
+        </div>
+      </section>
+    );
+  }
+
   if (!business) {
     return null;
   }
-
   return (
-    <section
-      id="location"
-      className="bg-white px-5 py-16 md:px-12 md:py-20"
-    >
+    <section id="location" className="bg-white px-5 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-[1380px]">
         {/* Header */}
         <div className="max-w-3xl">
@@ -135,7 +144,6 @@ export const LocationMap = () => {
                   className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#24171B] px-4 text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#3A292E]"
                 >
                   Get Directions
-
                   <span className="material-symbols-outlined text-[15px]">
                     open_in_new
                   </span>
@@ -145,19 +153,27 @@ export const LocationMap = () => {
           </div>
 
           {/* Map */}
-          <div className="min-h-[320px] overflow-hidden rounded-2xl border border-[#E9DFE2] bg-[#F4F0F1] shadow-sm lg:col-span-8">
-            <iframe
-              title={`${business.name} location map`}
-              src={business.mapEmbedUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              className="min-h-[320px] w-full"
-            />
-          </div>
+<div className="relative h-[320px] overflow-hidden rounded-2xl border border-[#E9DFE2] bg-[#F4F0F1] shadow-sm sm:h-[380px] lg:col-span-8 lg:h-[420px]">
+
+  {/* Static fallback — visible if the iframe is not painted */}
+  <img
+    src="/images/map.png"
+    alt="Aaira Khan Salon & Studio location map"
+    className="absolute inset-0 h-full w-full object-cover"
+  />
+
+  {/* Live Google Map */}
+  <iframe
+    title={`${business.name} location map`}
+    src={business.mapEmbedUrl}
+    width="100%"
+    height="100%"
+    loading="eager"
+    allowFullScreen
+    referrerPolicy="no-referrer-when-downgrade"
+    className="relative z-10 block h-full w-full border-0"
+  />
+</div>
         </div>
       </div>
     </section>
