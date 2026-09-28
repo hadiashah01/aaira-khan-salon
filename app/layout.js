@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-   metadataBase: new URL("https://aaira-khan-salon.vercel.app/"),
+  metadataBase: new URL("https://aaira-khan-salon.vercel.app/"),
 
   title: {
     default: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
@@ -25,20 +25,18 @@ export const metadata = {
     "Aaira Khan Salon & Studio on Main Tariq Road, Karachi. Explore bridal makeup, party makeup, hair, skin and beauty services.",
 
   applicationName: "Aaira Khan Salon & Studio",
-
- 
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 
   openGraph: {
     type: "website",
     locale: "en_PK",
     siteName: "Aaira Khan Salon & Studio",
-    title: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
-    description:
-      "Bridal makeup, party makeup, hair, skin and beauty services at Main Tariq Road, Karachi.",
-  },
-
-  twitter: {
-    card: "summary_large_image",
     title: "Aaira Khan Salon & Studio | Bridal Makeup & Beauty in Karachi",
     description:
       "Bridal makeup, party makeup, hair, skin and beauty services at Main Tariq Road, Karachi.",
@@ -49,7 +47,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        <meta name="google-site-verification" content="6Yt3Sm_zxUbSaJHLghqlo9xt33aZkVaNaURhEtPiuo0" />
+        <meta
+          name="google-site-verification"
+          content="6Yt3Sm_zxUbSaJHLghqlo9xt33aZkVaNaURhEtPiuo0"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
