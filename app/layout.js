@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Inter, Playfair_Display } from "next/font/google";
 
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>{children}</body>
+      <Analytics/>
     </html>
   );
 }
