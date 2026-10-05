@@ -1,16 +1,16 @@
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Bodoni_Moda, Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({
+const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-bodoni",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -46,18 +46,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html
+      lang="en"
+      className={`${bodoniModa.variable} ${plusJakartaSans.variable}`}
+    >
       <head>
         <meta
           name="google-site-verification"
           content="6Yt3Sm_zxUbSaJHLghqlo9xt33aZkVaNaURhEtPiuo0"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
 
         <link
           rel="stylesheet"
@@ -66,7 +64,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>{children}</body>
-      <Analytics/>
+      <Analytics />
     </html>
   );
 }

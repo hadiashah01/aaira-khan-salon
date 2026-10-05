@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-jakarta);
+  --font-serif: var(--font-bodoni);
 }
 
 html {
@@ -15,6 +15,7 @@ body {
   min-width: 320px;
   background: #fff9fa;
   color: #24171b;
+  font-family: var(--font-jakarta), sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -48,4 +49,8 @@ a:focus-visible {
 
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.font-bodoni {
+  font-family: var(--font-bodoni), serif;
 }
