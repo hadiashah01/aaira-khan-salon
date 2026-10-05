@@ -5,117 +5,286 @@ import { HeroVideo } from "./HeroVideo";
 import { business } from "@/app/data/business";
 import { getPhoneUrl, getWhatsAppUrl } from "@/app/lib/contact";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
- 
+
 export const HeroSection = () => {
   const bookingUrl = getWhatsAppUrl(business.bookingMessage);
 
   return (
     <section
       id="home"
-      className="w-full border-b border-[#F1E3E6] bg-gradient-to-b from-[#FFF0F2] via-[#FFF8F8] to-white"
+      aria-label="Aaira Khan Salon & Studio Introduction"
+      className="relative w-full overflow-hidden bg-[#FDFBF7] text-[#1A1412] antialiased selection:bg-[#C5A059] selection:text-[#FDFBF7]"
     >
-      <div className="mx-auto max-w-[1380px] px-5 py-12 sm:py-14 md:px-12 lg:py-20">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-          {/* Content */}
-          <div className="lg:col-span-7">
-            <div className="space-y-6">
-              {/* Location */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#E8D4A9] bg-[#F8F1E3] px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#8A6330] sm:text-xs">
-                <span
-                  className="material-symbols-outlined text-[16px]"
-                  aria-hidden="true"
-                >
-                  location_on
-                </span>
+      <style jsx global>{`
+        /* Quiet, cinematic editorial motion system */
+        @keyframes editorialFadeUp {
+          0% {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-                <span>{business.locationLabel}</span>
+        @keyframes editorialFadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        .motion-fade-header {
+          animation: editorialFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0s
+            forwards;
+          opacity: 0;
+        }
+
+        .motion-headline {
+          animation: editorialFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s
+            forwards;
+          opacity: 0;
+        }
+
+        .motion-body-focus {
+          animation: editorialFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s
+            forwards;
+          opacity: 0;
+        }
+
+        .motion-actions {
+          animation: editorialFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s
+            forwards;
+          opacity: 0;
+        }
+
+        .motion-lookbook {
+          animation: editorialFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s
+            forwards;
+          opacity: 0;
+        }
+
+        /* Microscopic tactile hover lift */
+        .btn-editorial-hover {
+          transition:
+            transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            background-color 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease;
+          will-change: transform;
+        }
+        .btn-editorial-hover:hover {
+          transform: translateY(-1px);
+        }
+        .btn-editorial-hover:active {
+          transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .motion-fade-header,
+          .motion-headline,
+          .motion-body-focus,
+          .motion-actions,
+          .motion-lookbook {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          .btn-editorial-hover:hover {
+            transform: none !important;
+          }
+        }
+      `}</style>
+
+      {/* Subtle Alabaster & Champagne Border Structure */}
+      <div className="relative mx-auto max-w-[1440px] px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-24 lg:px-16 lg:pt-20 lg:pb-28">
+        {/* Global Metadata & Geographic Anchor Line (Delay: 0.0s) */}
+
+        {/* Asymmetrical Editorial Composition */}
+        <div className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-20">
+          {/* Left Column: Bodoni Moda Display Typography & Booking Integration (7 Cols) */}
+          <div className="flex flex-col justify-between lg:col-span-7 lg:pr-2">
+            <div className="space-y-8 lg:space-y-10">
+              {/* Display Headline Block (Delay: 0.2s - Soft 12px drift upward over 0.8s) */}
+              <div className="motion-headline space-y-4">
+                <div className="inline-flex items-center gap-2.5">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C5A059]">
+                    AAIRA KHAN SALON & STUDIO KARACHI
+                  </span>
+                  <span
+                    className="h-px w-8 bg-[#C5A059]/40"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* Main Display Heading: Razor-Sharp High-Contrast Bodoni Moda */}
+                <h1 className="font-bodoni text-[2.75rem] font-normal leading-[1.06] tracking-[-0.025em] text-[#1A1412] sm:text-5xl md:text-5xl lg:text-[4.25rem] xl:text-[4.65rem]">
+                  Bridal Beauty, Makeup & Hair for{" "}
+                  <span className="font-bodoni italic font-normal text-[#C5A059]">
+                    Special Moments
+                  </span>
+                </h1>
               </div>
 
-              {/* Heading */}
-              <h1 className="max-w-3xl font-serif text-[2.15rem] font-bold leading-[1.08] tracking-[-0.02em] text-[#24171B] sm:text-4xl md:text-5xl lg:text-[3.5rem]">
-                Bridal Makeup, Beauty & Hair for Your Special Moments
-              </h1>
+              {/* Description Paragraph & Architectural Focus Points (Delay: 0.4s) */}
+              <div className="motion-body-focus space-y-8 lg:space-y-10">
+                {/* Editorial Excerpt */}
+                <p className="max-w-xl text-base font-light leading-relaxed text-[#544B43] sm:text-[17px] sm:leading-8">
+                  Bridal makeup, party glam, hair treatments, Hydra Facials, and
+                  beauty care at Main Tariq Road — tailored to your occasion,
+                  preferred look, and schedule.
+                </p>
 
-              {/* Supporting copy */}
-              <p className="max-w-2xl text-base leading-7 text-[#4F4347] sm:text-[17px]">
-                Bridal makeup, party glam, hair treatments, Hydra Facials, and
-                beauty care at Main Tariq Road — tailored to your occasion,
-                preferred look, and schedule.
-              </p>
-
-              {/* Trust points */}
-              <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#4F4347] sm:text-sm">
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className="material-symbols-outlined text-[17px] text-[#974358]"
-                    aria-hidden="true"
-                  >
-                    check_circle
-                  </span>
-                  Bridal & Party Makeup
-                </span>
-
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className="material-symbols-outlined text-[17px] text-[#974358]"
-                    aria-hidden="true"
-                  >
-                    check_circle
-                  </span>
-                  Hair & Skin Treatments
-                </span>
-
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className="material-symbols-outlined text-[17px] text-[#974358]"
-                    aria-hidden="true"
-                  >
-                    check_circle
-                  </span>
-                  Appointment-Based Service
-                </span>
+                {/* Architectural Service Ribbons: Hairline Dividers */}
+                <div className="border-t border-b border-[#EAE3D5] py-5 sm:py-6">
+                  <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+                    <div className="space-y-1">
+                      <dt className="text-[10px] uppercase tracking-[0.2em] text-[#8C8174]">
+                        Focus 01
+                      </dt>
+                      <dd className="text-xs font-medium tracking-wide uppercase text-[#1F1916] flex items-center gap-2">
+                        <span
+                          className="h-1 w-1 rounded-full bg-[#C5A059]"
+                          aria-hidden="true"
+                        />
+                        Bridal &amp; Occasion Glam
+                      </dd>
+                    </div>
+                    <div className="space-y-1">
+                      <dt className="text-[10px] uppercase tracking-[0.2em] text-[#8C8174]">
+                        Focus 02
+                      </dt>
+                      <dd className="text-xs font-medium tracking-wide uppercase text-[#1F1916] flex items-center gap-2">
+                        <span
+                          className="h-1 w-1 rounded-full bg-[#C5A059]"
+                          aria-hidden="true"
+                        />
+                        Hair & Skin Treatments
+                      </dd>
+                    </div>
+                    <div className="space-y-1">
+                      <dt className="text-[10px] uppercase tracking-[0.2em] text-[#8C8174]">
+                        Focus 03
+                      </dt>
+                      <dd className="text-xs font-medium tracking-wide uppercase text-[#1F1916] flex items-center gap-2">
+                        <span
+                          className="h-1 w-1 rounded-full bg-[#C5A059]"
+                          aria-hidden="true"
+                        />
+                        Skin & Facial Care
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a
-                  href={bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#974358] px-5 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#83384b]"
-                >
-                  <WhatsAppIcon className="h-6 w-6" />
-                  Book on WhatsApp
-                </a>
+              {/* Conversion-Focused CTA Architecture (Delay: 0.6s & Microscopic Hover Lift) */}
+              <div className="motion-actions pt-2">
+                <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center">
+                  {/* Primary WhatsApp Action in Rich Espresso with Soft -1px translateY hover */}
+                  <a
+                    href={bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-editorial-hover group relative inline-flex items-center justify-center gap-3.5 rounded-none border border-[#1A1412] bg-[#1A1412] px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-[#FDFBF7] hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#1A1412] focus:outline-none focus:ring-1 focus:ring-[#C5A059]"
+                  >
+                    <WhatsAppIcon className="h-4 w-4" />
+                    <span>Book on WhatsApp</span>
+                  </a>
 
-                <a
-                  href={getPhoneUrl()}
-                  className="inline-flex items-center gap-2 rounded-xl border border-[#DCCED2] bg-white px-5 py-3.5 text-sm font-bold text-[#24171B] transition-all hover:bg-[#FFF8F9]"
-                >
-                  <span className="material-symbols-outlined text-lg">
-                    call
-                  </span>
-                  Call the Studio
-                </a>
+                  {/* Secondary Atelier Studio Contact with Soft -1px translateY hover */}
+                  <a
+                    href={getPhoneUrl()}
+                    className="btn-editorial-hover inline-flex items-center justify-center gap-2.5 rounded-none border border-[#CFBE9B] bg-transparent px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-[#1A1412] hover:border-[#1A1412] hover:bg-[#F5EFE4] focus:outline-none focus:ring-1 focus:ring-[#1A1412]"
+                  >
+                    <span className="material-symbols-outlined text-[17px]">
+                      call
+                    </span>
+                    <span>Call the Studio</span>
+                  </a>
+                </div>
+
+                <p className="mt-4 flex items-center gap-2 text-xs italic text-[#786D62]">
+                  <span
+                    className="inline-block h-1 w-1 rounded-full bg-[#C5A059]"
+                    aria-hidden="true"
+                  />
+                  Advance booking is recommended for bridal appointments and
+                  longer treatments.
+                </p>
               </div>
+            </div>
 
-              <p className="text-xs text-[#7A6D70]">
-                For bridal packages and long-duration treatments, advance
-                booking is recommended.
-              </p>
+            {/* Bottom Anchor Trust Line */}
+            <div className="motion-fade-header mt-10 flex items-center justify-start border-t border-[#EAE3D5] pt-6 text-[11px] text-[#7A7065]">
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-[#1A1412]">
+                  Google Reviews
+                </span>
+                <span className="font-semibold text-[#C5A059]">4.6 ★</span>
+                <span className="text-[#968B7E]">667 Reviews</span>
+              </div>
             </div>
           </div>
 
-          {/* Featured visual */}
-          <div className="flex justify-center lg:col-span-5">
-            <div className="w-full max-w-[430px] rounded-2xl border border-[#E9DFE2] bg-white p-3 shadow-xl sm:p-4">
-              <div className="mb-3 flex justify-center border-b border-[#F0E7E9] pb-3">
-                <span className="rounded-full bg-[#F9E5E9] px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#974358]">
-                  Featured Bridal Look
-                </span>
+          {/* Right Column: Lookbook Atelier Exhibition Frame (5 Cols) with Subtle Entry Drift */}
+          <div className="motion-lookbook lg:col-span-5 flex flex-col justify-center">
+            <div className="relative mx-auto w-full max-w-[480px]">
+              {/* Primary Gallery Cassette */}
+              <div className="relative bg-[#FAF6EE] p-3">
+                {/* Cassette Header Bar */}
+                <div className="mb-2.5 flex items-center justify-between border-b border-[#E8DFCF] px-2 pb-2.5 text-[10px] uppercase tracking-[0.2em] text-[#72675C]">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-[#C5A059]"
+                      aria-hidden="true"
+                    />
+                    <span className="font-semibold text-[#1A1412]">
+                      Lookbook Archive
+                    </span>
+                  </div>
+                  <span className="font-bodoni italic text-xs capitalize text-[#877C6F]">
+                    Karachi
+                  </span>
+                </div>
+
+                {/* Video Asset Frame with Deep Espresso Matting */}
+                <div className="relative overflow-hidden bg-[#140F0E]">
+                  <HeroVideo />
+                </div>
+
+                {/* Cassette Footer & Archive Catalog Index */}
+                <div className="mt-3 flex items-center justify-between px-1 text-[11px] text-[#63594F]">
+                  <span className="font-bodoni italic text-sm text-[#261E1A]">
+                    BRIDAL LOOK
+                  </span>
+                  <span className="font-mono text-[10px] tracking-wider text-[#968B7E]">
+                    LOOK 01 / 08
+                  </span>
+                </div>
               </div>
 
-              <HeroVideo />
+              <div className="mt-4 flex items-center justify-between   px-4 py-3 text-xs">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="material-symbols-outlined text-[16px] text-[#C5A059]"
+                    aria-hidden="true"
+                  >
+                    auto_awesome
+                  </span>
+
+                  <span className="font-medium uppercase tracking-[0.14em] text-[#1A1412]">
+                    Bridal &amp; Occasion Glam
+                  </span>
+                </div>
+
+                <span className="text-[11px] text-[#786D62]">
+                  Makeup · Hair · Facials
+                </span>
+              </div>
             </div>
           </div>
         </div>
