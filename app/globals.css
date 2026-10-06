@@ -61,49 +61,29 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
-/* ================================
-   Aaira Khan Design System (High Contrast System)
-================================ */
-
 :root {
-  /* Brand / Primary Accents (Champagne Gold) */
-  --color-primary: #D4AF37;        /* High-visibility Gold CTA Button Background */
-  --color-primary-dark: #A08020;   /* Hover State Gold */
-
-  /* Dark Luxury Base */
-  --color-secondary: #0D090A;      /* Rich Obsidian Deep Background */
-  --color-tertiary: #C59B27;       /* Sub-titles & Highlight Badges */
-
-  /* Text Contrast Standards */
-  --color-text: #F5F0F2;           /* Primary White/Off-white Text (High Contrast on Dark) */
-  --color-text-dark: #0D090A;      /* Dark Text for Light Surface Cards */
-  --color-text-muted: #A3969A;     /* Secondary Sub-text */
-
-  /* Card Surfaces & Background Layering */
-  --color-background: #0D090A;    /* Base Page Canvas */
-  --color-surface: #181214;       /* Primary Card Surface (Noticeable elevation) */
-  --color-surface-soft: #261E21;  /* Hover / Active Component State */
-  --color-surface-light: #FAF7F2; /* Optional Light Section Card Surface */
-
-  /* Sharp Borders for Component Separation */
-  --color-border: #4A383E;         /* Clear Visible Component Outlines */
-  --color-border-light: #2D2226;   /* Subtle Inner Dividers */
-
-  /* Luxury Accent Highlight */
-  --color-accent: #C72C41;         /* Velvet Crimson Accent */
+  --color-primary: #D4AF37;
+  --color-primary-dark: #A08020;
+  --color-secondary: #0D090A;
+  --color-tertiary: #C59B27;
+  --color-text: #F5F0F2;
+  --color-text-dark: #0D090A;
+  --color-text-muted: #A3969A;
+  --color-background: #0D090A;
+  --color-surface: #181214;
+  --color-surface-soft: #261E21;
+  --color-surface-light: #FAF7F2;
+  --color-border: #4A383E;
+  --color-border-light: #2D2226;
+  --color-accent: #C72C41;
   --color-accent-dark: #8C1C2B;
-
-  /* Typography Variables */
-  --font-display: var(--font-oranienbaum);
-  --font-body: var(--font-montserrat);
-
-  /* Structure */
+  --font-display: var(--font-bodoni);
+  --font-body: var(--font-jakarta);
   --content-max-width: 1400px;
   --page-gutter: 4rem;
   --section-spacing: 6rem;
 }
 
-/* Hide scrollbar */
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;

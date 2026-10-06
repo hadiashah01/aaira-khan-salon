@@ -33,13 +33,10 @@ export const WhyChooseUs = () => {
     >
       <div className="mx-auto max-w-[1320px] px-6 sm:px-10 lg:px-16 font-sans">
         
-        {/* Main Grid */}
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 ">
           
-          {/* Left Column: Content */}
           <div className="flex flex-col justify-start lg:col-span-7">
             
-            {/* Left-Aligned Header */}
             <div className="mb-8 sm:mb-10">
               <span className="block mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]">
                 WHY VISIT US
@@ -50,7 +47,6 @@ export const WhyChooseUs = () => {
               </h2>
             </div>
 
-            {/* Reasons 2x2 Grid with Card Interactions */}
             {reasons.length === 0 ? (
               <div className="flex min-h-[160px] items-center justify-center bg-[var(--color-surface)] p-6 text-center text-xs font-normal text-[var(--color-text-muted)]">
                 Loading studio values...
@@ -63,7 +59,6 @@ export const WhyChooseUs = () => {
                     className="group flex flex-col pt-5 border-t border-[var(--color-border-light,rgba(255,255,255,0.1))] transition-colors duration-300 hover:border-[var(--color-primary)] cursor-pointer"
                   >
                     <div className="flex items-start gap-4 text-left">
-                      {/* Material Icon (Hover interaction intact) */}
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-text)] transition-all duration-300 group-hover:scale-105 group-hover:bg-[var(--color-surface)] group-hover:text-[var(--color-primary)]">
                         <span
                           className="material-symbols-outlined text-[22px]"
@@ -73,7 +68,6 @@ export const WhyChooseUs = () => {
                         </span>
                       </div>
 
-                      {/* Text Details */}
                       <div className="space-y-1">
                         <h3 className="font-serif text-base font-medium tracking-wide text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]">
                           {reason.title}
@@ -90,7 +84,6 @@ export const WhyChooseUs = () => {
 
           </div>
 
-          {/* Right Column: Image without borders & lowered down on Y-axis */}
           <div className="relative flex justify-center lg:col-span-4 lg:justify-end pt-4 sm:pt-6 lg:pt-10">
             <div className="relative h-[360px] ring-[1.4px] ring-[var(--color-primary)] ring-offset-6 ring-offset-[var(--color-background)] w-[260px] sm:h-[390px] sm:w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface-soft)]">
               <Image

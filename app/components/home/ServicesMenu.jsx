@@ -8,7 +8,6 @@ export const ServicesMenu = () => {
   const [services, setServices] = useState([]);
   const carouselRef = useRef(null);
 
-  // Drag Scroll & Scroll Indicator States
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -35,7 +34,6 @@ export const ServicesMenu = () => {
     fetchServices();
   }, []);
 
-  // Update Scroll Progress Bar State
   const handleScroll = () => {
     if (!carouselRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
@@ -61,10 +59,6 @@ export const ServicesMenu = () => {
   }, [services]);
 
   const displayServices = services.length > 0 ? [...services, ...services] : [];
-
-  // -----------------------------
-  // Drag Scroll Handlers
-  // -----------------------------
 
   const handleMouseDown = (e) => {
     if (!carouselRef.current) return;
@@ -105,7 +99,6 @@ export const ServicesMenu = () => {
       className="relative w-full overflow-hidden bg-[var(--color-background)] py-16 text-[var(--color-text)] antialiased selection:bg-[var(--color-primary)] selection:text-[var(--color-secondary)] md:py-24"
     >
       <div className="mx-auto max-w-[1380px] px-5 font-sans sm:px-8 md:px-12 lg:px-16">
-        {/* Section Masthead */}
         <div className="flex flex-col items-center gap-6 pb-8 text-center md:pb-10">
           <div className="inline-flex items-center gap-2.5">
             <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--color-primary)]">
@@ -125,7 +118,6 @@ export const ServicesMenu = () => {
           </div>
         </div>
 
-        {/* Services Carousel */}
         {services.length === 0 ? (
           <div className="flex min-h-[240px] items-center justify-center bg-[var(--color-surface)] p-8 text-center text-sm font-light text-[var(--color-text-muted)]">
             Loading treatment portfolio...
@@ -149,7 +141,6 @@ export const ServicesMenu = () => {
                   key={`${item.id}-${index}`}
                   className="group flex w-[240px] xs:w-[260px] sm:w-[290px] shrink-0 flex-col items-center text-center cursor-pointer"
                 >
-                  {/* Clickable Service Card Wrapper with Flex Growth for Equal Height Baseline */}
                   <a
                     href={getWhatsAppUrl(whatsappMessage)}
                     target="_blank"
@@ -160,7 +151,6 @@ export const ServicesMenu = () => {
                     className="flex flex-col items-center justify-between h-full w-full"
                   >
                     <div className="flex flex-col items-center w-full">
-                      {/* Service Image Container */}
                       <div className="w-full pt-2 sm:pt-4">
                         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
                           <img
@@ -172,20 +162,17 @@ export const ServicesMenu = () => {
                         </div>
                       </div>
 
-                      {/* Title Container with Minimum Height for Consistent Vertical Alignment */}
                       <div className="mt-5 sm:mt-6 flex min-h-[3.5rem] items-center justify-center w-full px-2">
                         <h3 className="font-serif text-lg sm:text-[1.25rem] md:text-[1.35rem] font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] break-words leading-snug">
                           {item.title}
                         </h3>
                       </div>
 
-                      {/* Description */}
                       <p className="mt-2 line-clamp-3 text-xs sm:text-sm font-normal tracking-wide leading-relaxed text-[var(--color-text-muted)] px-1">
                         {item.description}
                       </p>
                     </div>
 
-                    {/* WhatsApp Action Link (Pinning to Bottom Across All Cards) */}
                     <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 group-hover:text-[var(--color-primary-dark)]">
                       <span>Inquire</span>
                       <span className="material-symbols-outlined text-[15px] transition-transform duration-300 ease-out group-hover:translate-x-1">
@@ -199,7 +186,6 @@ export const ServicesMenu = () => {
           </div>
         )}
 
-        {/* Universal Scroll Indicator Bar */}
         <div className="mt-6 flex w-full justify-center">
           <div className="h-[3px] w-32 sm:w-48 overflow-hidden rounded-full bg-[var(--color-surface-soft,rgba(255,255,255,0.1))]">
             <div
@@ -209,7 +195,6 @@ export const ServicesMenu = () => {
           </div>
         </div>
 
-        {/* Booking Guidance Note */}
         <div className="mt-10 sm:mt-16">
           <div className="flex items-start gap-4 rounded-xl bg-[var(--color-surface)] p-6 sm:p-7">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-primary)]">
