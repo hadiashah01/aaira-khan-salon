@@ -105,7 +105,6 @@ export const ServicesMenu = () => {
       className="relative w-full overflow-hidden bg-[var(--color-background)] py-16 text-[var(--color-text)] antialiased selection:bg-[var(--color-primary)] selection:text-[var(--color-secondary)] md:py-24"
     >
       <div className="mx-auto max-w-[1380px] px-5 font-sans sm:px-8 md:px-12 lg:px-16">
-
         {/* Section Masthead */}
         <div className="flex flex-col items-center gap-6 pb-8 text-center md:pb-10">
           <div className="inline-flex items-center gap-2.5">
@@ -138,7 +137,7 @@ export const ServicesMenu = () => {
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className={`scrollbar-none mt-8 sm:mt-12 flex gap-5 sm:gap-7 overflow-x-auto  ${
+            className={`scrollbar-none mt-8 sm:mt-12 flex gap-5 sm:gap-7 overflow-x-auto py-7${
               isMouseDown ? "cursor-grabbing select-none" : "cursor-grab"
             }`}
           >
@@ -148,39 +147,9 @@ export const ServicesMenu = () => {
               return (
                 <div
                   key={`${item.id}-${index}`}
-                  className="group flex w-[240px] xs:w-[260px] sm:w-[290px] shrink-0 flex-col items-center text-center"
+                  className="group flex w-[240px] xs:w-[260px] sm:w-[290px] shrink-0 flex-col items-center text-center cursor-pointer"
                 >
-                  {/* Service Image Container */}
-                  <div className="w-full pt-2 sm:pt-4">
-                    <div
-                      className={`relative h-[340px] xs:h-[360px] sm:h-[380px] w-full overflow-hidden bg-[var(--color-surface-soft)] transition-[border-radius] duration-500 ease-out ${
-                        index % 2 === 0
-                          ? "rounded-t-full group-hover:rounded-b-full"
-                          : "rounded-b-full group-hover:rounded-t-full"
-                      }`}
-                    >
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 640px) 260px, 290px"
-                        draggable={false}
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Title (Wrapped for Responsive Screens) */}
-                  <h3 className="mt-5 sm:mt-6 font-serif text-lg sm:text-[1.25rem] md:text-[1.35rem] font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 hover:text-[var(--color-primary)] w-full break-words leading-snug px-2">
-                    {item.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="mt-2 line-clamp-3 text-xs sm:text-sm font-normal tracking-wide leading-relaxed text-[var(--color-text-muted)] px-1">
-                    {item.description}
-                  </p>
-
-                  {/* WhatsApp Action */}
+                  {/* Clickable Service Card Wrapper with Flex Growth for Equal Height Baseline */}
                   <a
                     href={getWhatsAppUrl(whatsappMessage)}
                     target="_blank"
@@ -188,13 +157,41 @@ export const ServicesMenu = () => {
                     onClick={(e) => {
                       if (hasDragged) e.preventDefault();
                     }}
-                    className="mt-4 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-primary-dark)]"
+                    className="flex flex-col items-center justify-between h-full w-full"
                   >
-                    <span>Inquire</span>
+                    <div className="flex flex-col items-center w-full">
+                      {/* Service Image Container */}
+                      <div className="w-full pt-2 sm:pt-4">
+                        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+                          <img
+                            src="/images/aaira-khan-white-bg.jpg"
+                            alt="Aaira Khan Logo Background"
+                            className="h-full w-full object-cover object-center"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-light)]/90 via-transparent to-[var(--color-surface-light)]/90" />
+                        </div>
+                      </div>
 
-                    <span className="material-symbols-outlined text-[13px]">
-                      arrow_forward
-                    </span>
+                      {/* Title Container with Minimum Height for Consistent Vertical Alignment */}
+                      <div className="mt-5 sm:mt-6 flex min-h-[3.5rem] items-center justify-center w-full px-2">
+                        <h3 className="font-serif text-lg sm:text-[1.25rem] md:text-[1.35rem] font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] break-words leading-snug">
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      {/* Description */}
+                      <p className="mt-2 line-clamp-3 text-xs sm:text-sm font-normal tracking-wide leading-relaxed text-[var(--color-text-muted)] px-1">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* WhatsApp Action Link (Pinning to Bottom Across All Cards) */}
+                    <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 group-hover:text-[var(--color-primary-dark)]">
+                      <span>Inquire</span>
+                      <span className="material-symbols-outlined text-[15px] transition-transform duration-300 ease-out group-hover:translate-x-1">
+                        arrow_forward
+                      </span>
+                    </div>
                   </a>
                 </div>
               );
@@ -202,7 +199,7 @@ export const ServicesMenu = () => {
           </div>
         )}
 
-        {/* Universal Scroll Indicator Bar (Visible on ALL Screens) */}
+        {/* Universal Scroll Indicator Bar */}
         <div className="mt-6 flex w-full justify-center">
           <div className="h-[3px] w-32 sm:w-48 overflow-hidden rounded-full bg-[var(--color-surface-soft,rgba(255,255,255,0.1))]">
             <div
@@ -237,7 +234,6 @@ export const ServicesMenu = () => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

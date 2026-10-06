@@ -19,74 +19,81 @@ import { FacebookIcon } from "@/app/components/ui/FacebookIcon";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 
 export default function HomePage() {
- const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  name: business.name,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: business.address,
-    addressLocality: "Karachi",
-    addressRegion: "Sindh",
-    addressCountry: "PK",
-  },
-  telephone: business.phone,
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: business.coordinates.latitude,
-    longitude: business.coordinates.longitude,
-  },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Monday",
-      opens: "11:00",
-      closes: "21:00",
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    name: business.name,
+    "image": "https://aaira-khan-salon.vercel.app/images/og-image.jfif",
+    url: "https://aaira-khan-salon.vercel.app/",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: business.address,
+      addressLocality: "Karachi",
+      addressRegion: "Sindh",
+      addressCountry: "PK",
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Tuesday",
-      opens: "11:00",
-      closes: "21:00",
+    telephone: business.phone,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: business.coordinates.latitude,
+      longitude: business.coordinates.longitude,
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Wednesday",
-      opens: "11:00",
-      closes: "21:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Thursday",
-      opens: "11:00",
-      closes: "21:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Friday",
-      opens: "11:00",
-      closes: "21:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Saturday",
-      opens: "11:00",
-      closes: "21:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Sunday",
-      opens: "11:00",
-      closes: "21:00",
-    },
-  ],
-};
+    sameAs: [
+      business.socials.instagram,
+      business.socials.facebook,
+      business.socials.youtube,
+      business.socials.tiktok,
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Monday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Tuesday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Wednesday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Thursday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Friday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Sunday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+    ],
+  };
   return (
     <main
       id="top"
       className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-16 md:pb-0"
     >
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
