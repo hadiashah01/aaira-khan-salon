@@ -62,10 +62,6 @@ export const ServicesMenu = () => {
 
   const displayServices = services.length > 0 ? [...services, ...services] : [];
 
-  // -----------------------------
-  // Drag Scroll Handlers
-  // -----------------------------
-
   const handleMouseDown = (e) => {
     if (!carouselRef.current) return;
 
@@ -162,13 +158,22 @@ export const ServicesMenu = () => {
                     <div className="flex flex-col items-center w-full">
                       {/* Service Image Container */}
                       <div className="w-full pt-2 sm:pt-4">
-                        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                          <img
-                            src="/images/aaira-khan-white-bg.jpg"
-                            alt="Aaira Khan Logo Background"
-                            className="h-full w-full object-cover object-center"
+                        <div
+                          className={`relative h-[340px] xs:h-[360px] sm:h-[380px] w-full overflow-hidden bg-[var(--color-surface-soft)] transition-[border-radius] duration-500 ease-out ${
+                            index % 2 === 0
+                              ? "rounded-t-full group-hover:rounded-b-full"
+                              : "rounded-b-full group-hover:rounded-t-full"
+                          }`}
+                        >
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            loading="eager"
+                            sizes="(max-width: 640px) 260px, 290px"
+                            draggable={false}
+                            className="object-cover"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-light)]/90 via-transparent to-[var(--color-surface-light)]/90" />
                         </div>
                       </div>
 
