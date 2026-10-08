@@ -1,16 +1,17 @@
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Bodoni_Moda, Plus_Jakarta_Sans } from "next/font/google";
+import { Oranienbaum, Montserrat } from "next/font/google";
 
-const bodoniModa = Bodoni_Moda({
+const oranienbaum = Oranienbaum({
   subsets: ["latin"],
-  variable: "--font-bodoni",
+  variable: "--font-oranienbaum",
+  weight: ["400"],
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-montserrat",
   display: "swap",
 });
 export const metadata = {
@@ -64,7 +65,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${bodoniModa.variable} ${plusJakartaSans.variable}`}
+      className={`${oranienbaum.variable} ${montserrat.variable}`}
     >
       <head>
         <meta
@@ -79,8 +80,10 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body>{children}</body>
-      <Analytics />
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
