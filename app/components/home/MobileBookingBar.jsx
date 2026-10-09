@@ -11,7 +11,7 @@ export const MobileBookingBar = () => {
   return (
     <aside
       aria-label="Quick mobile booking and studio contact actions"
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-neutral-200/80 bg-[#FAF9F6]/95 px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] backdrop-blur-md text-[#1A1A1A] antialiased md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--color-border-light)]/40 bg-[var(--color-surface-light)]/95 px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] text-[var(--color-text-dark)] antialiased backdrop-blur-md md:hidden"
     >
       <style jsx global>{`
         .btn-editorial-active {
@@ -32,9 +32,9 @@ export const MobileBookingBar = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book Appointment via WhatsApp"
-          className="btn-editorial-active flex h-11 items-center justify-center gap-2 rounded-sm bg-[#D4AF37] px-3 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm hover:bg-[#b8952b] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] shadow-sm transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
         >
-          <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current text-white" />
+          <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current" />
           
           {/* Responsive Text: Short on <380px, Full on >=380px */}
           <span className="truncate xs:hidden">Book</span>
@@ -45,10 +45,10 @@ export const MobileBookingBar = () => {
         <a
           href={getPhoneUrl()}
           aria-label="Call Salon Studio"
-          className="btn-editorial-active flex h-11 items-center justify-center gap-2 rounded-sm border border-neutral-300 bg-white px-3 text-[11px] font-bold uppercase tracking-wider text-[#1A1A1A] hover:border-[#D4AF37] hover:text-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-surface)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
         >
           <svg
-            className="h-4 w-4 shrink-0 text-[#D4AF37]"
+            className="h-4 w-4 shrink-0 text-[var(--color-primary)]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -63,8 +63,8 @@ export const MobileBookingBar = () => {
           </svg>
           
           {/* Responsive Text */}
-          <span className="truncate xs:hidden">Call</span>
-          <span className="hidden truncate xs:inline">Call Studio</span>
+          <span className="truncate xs:hidden text-[var(--color-primary)]">Call</span>
+          <span className="text-[var(--color-primary)] hidden truncate xs:inline">Call Studio</span>
         </a>
 
       </div>

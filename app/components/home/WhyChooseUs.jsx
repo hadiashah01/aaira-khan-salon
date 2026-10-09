@@ -23,18 +23,18 @@ export const WhyChooseUs = () => {
   return (
     <section
       id="why-us"
-      className="relative w-full bg-[var(--color-background)] py-16 text-[var(--color-text)] md:py-24 font-sans"
+      className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-background)] py-16 font-sans text-[var(--color-text)] md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-5">
           
           {/* Left Text Grid (Expands on Mobile & Tablet) */}
           <div className="flex flex-col justify-start lg:col-span-7 space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
                 WHY VISIT US
               </span>
-              <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text)] sm:text-4xl lg:text-5xl">
+              <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text)] sm:text-4xl md:text-5xl">
                 Beauty services designed around your occasion
               </h2>
             </div>
@@ -44,7 +44,7 @@ export const WhyChooseUs = () => {
                 {reasons.map((reason, index) => (
                   <div 
                     key={reason.title || index} 
-                    className="group flex flex-col p-5 rounded-2xl bg-[var(--color-surface)] transition-all duration-300 hover:bg-[var(--color-surface-soft)] cursor-pointer"
+                    className="group flex h-full transform-none cursor-pointer flex-col justify-between rounded-2xl bg-[var(--color-surface)] p-5 transition-colors duration-300 ease-out hover:bg-[var(--color-surface-soft)]"
                   >
                     <div className="flex items-start gap-4 text-left h-full">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-primary)]">
@@ -53,11 +53,11 @@ export const WhyChooseUs = () => {
                         </span>
                       </div>
 
-                      <div className="flex flex-col flex-1 justify-start">
-                        <h3 className="font-serif text-sm font-bold tracking-wide text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors">
+                      <div className="flex flex-1 flex-col justify-start">
+                        <h3 className="font-serif text-base font-bold tracking-wide text-[var(--color-text)] transition-colors group-hover:text-[var(--color-primary)] sm:text-lg">
                           {reason.title}
                         </h3>
-                        <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-muted)] line-clamp-3">
+                        <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
                           {reason.text}
                         </p>
                       </div>
@@ -69,10 +69,10 @@ export const WhyChooseUs = () => {
           </div>
 
           {/* Right Arched Image - Hidden on Mobile & Tablet */}
-          <div className="relative hidden lg:flex justify-end lg:col-span-5">
-            <div className="relative h-[400px] w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface)] ring-1 ring-[var(--color-primary)] ring-offset-4 ring-offset-[var(--color-background)] shadow-2xl">
+          <div className="relative hidden lg:flex justify-center   lg:col-span-5">
+            <div className="relative h-[450px] w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface)] ring-2 ring-[var(--color-primary)] ring-offset-4 ring-offset-[var(--color-background)] shadow-2xl">
               <Image
-                src="/images/why-us-salon.png"
+                src="/images/why-us-salon.jpg"
                 alt="Aaira Khan Salon"
                 fill
                 sizes="280px"

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
 export const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
@@ -56,19 +57,20 @@ export const Testimonials = () => {
     <section
       id="reviews"
       aria-label="Client Feedback & Reviews"
-      className="relative w-full bg-[var(--color-surface-light)] py-16 text-[var(--color-text-dark)] md:py-24 font-sans"
+      className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-surface-light)] py-16 font-sans text-[var(--color-text-dark)] md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
-        
         {/* Header Block with Arched Client Portrait */}
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          
           <div className="shrink-0">
-            <div className="relative h-[280px] w-[200px] sm:h-[320px] sm:w-[230px] overflow-hidden rounded-t-[120px] rounded-b-none bg-white shadow-sm">
-              <img
+            <div className="relative h-[450px] w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface)] ring-2 ring-[var(--color-primary)] ring-offset-4 ring-offset-white shadow-2xl">
+              <Image
                 src="/images/gallery/bridal-03.png"
-                alt="Aaira Khan Salon Client"
-                className="h-full w-full object-cover object-top"
+                alt="Aaira Khan Salon"
+                fill
+                sizes="280px"
+                className="object-cover"
+                priority
               />
             </div>
           </div>
@@ -78,12 +80,13 @@ export const Testimonials = () => {
               CLIENT REVIEWS
             </span>
 
-            <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl lg:text-5xl">
+            <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl">
               What clients are saying
             </h2>
 
-            <p className="text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)]">
-              Real feedback shared by clients after visiting our salon for bridal makeup, hair styling, and skincare services.
+            <p className="text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
+              Real feedback shared by clients after visiting our salon for
+              bridal makeup, hair styling, and skincare services.
             </p>
 
             <div className="pt-2 flex justify-center lg:justify-start">
@@ -91,20 +94,18 @@ export const Testimonials = () => {
                 href={googleMapsUrl || "https://maps.google.com"}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-[var(--color-secondary)] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-all duration-300 cursor-pointer shadow-sm"
+                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
               >
                 <span className="text-[var(--color-primary)]">★</span>
                 <span>View Google Reviews</span>
               </a>
             </div>
           </div>
-
         </div>
 
         {/* Reviews Carousel */}
         {reviews.length > 0 && (
           <div className="relative mt-12">
-            
             <div
               ref={sliderRef}
               onScroll={(e) => handleScrollState(e.currentTarget)}
@@ -113,25 +114,25 @@ export const Testimonials = () => {
               {reviews.map((review, index) => (
                 <div
                   key={review.id || index}
-                  className="flex-shrink-0 w-[280px] sm:w-[340px] flex flex-col justify-between bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"
+                  className="flex h-full w-[280px] shrink-0 transform-none flex-col justify-between rounded-2xl bg-[var(--color-surface-light)] p-6 shadow-sm sm:w-[340px]"
                 >
                   <div>
                     <div className="text-3xl font-serif text-[var(--color-primary-dark)] leading-none mb-2">
                       “
                     </div>
 
-                    <p className="text-xs leading-relaxed text-[#544B43] line-clamp-4 min-h-[72px]">
+                    <p className="line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
                       {review.text}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-[var(--color-border-light)]/40 flex items-center gap-3">
+                  <div className="mt-6 flex items-center gap-3 pt-4">
                     <div className="h-9 w-9 rounded-full bg-[var(--color-secondary)] text-white flex items-center justify-center text-xs font-bold shrink-0">
                       {review.author?.[0] || "C"}
                     </div>
 
                     <div className="truncate">
-                      <h3 className="font-serif text-xs font-bold text-[var(--color-text-dark)] truncate">
+                      <h3 className="truncate font-serif text-base font-bold text-[var(--color-text-dark)] sm:text-lg">
                         {review.author}
                       </h3>
                       <p className="text-[10px] text-[var(--color-text-muted)] truncate mt-0.5">
@@ -149,7 +150,7 @@ export const Testimonials = () => {
                 type="button"
                 onClick={() => handleScroll("left")}
                 disabled={!canScrollLeft}
-                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
+                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95 ${
                   !canScrollLeft
                     ? "opacity-30 cursor-not-allowed bg-white text-[var(--color-text-muted)]"
                     : "bg-[var(--color-primary)] text-[var(--color-secondary)] hover:opacity-90 cursor-pointer shadow-sm"
@@ -175,7 +176,7 @@ export const Testimonials = () => {
                 type="button"
                 onClick={() => handleScroll("right")}
                 disabled={!canScrollRight}
-                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
+                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95 ${
                   !canScrollRight
                     ? "opacity-30 cursor-not-allowed bg-white text-[var(--color-text-muted)]"
                     : "bg-white text-[var(--color-text-dark)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] cursor-pointer shadow-sm"
@@ -197,10 +198,8 @@ export const Testimonials = () => {
                 </svg>
               </button>
             </div>
-
           </div>
         )}
-
       </div>
     </section>
   );

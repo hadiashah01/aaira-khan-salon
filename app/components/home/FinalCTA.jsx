@@ -30,7 +30,7 @@ export const FinalCTA = () => {
   return (
     <section 
       id="booking-cta" 
-      className="relative w-full overflow-hidden bg-[var(--color-surface-light)] py-16 text-[var(--color-text-dark)] antialiased md:py-24 font-sans"
+      className="relative w-full max-w-full overflow-hidden bg-[var(--color-surface-light)] py-16 font-sans text-[var(--color-text-dark)] antialiased md:py-24"
     >
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -48,22 +48,22 @@ export const FinalCTA = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 md:px-12 lg:px-16">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         <div className="grid grid-cols-1 items-center lg:grid-cols-12">
           
           {/* Floating Luxury Card */}
-          <div className="w-full bg-white p-8 text-[var(--color-text-dark)] shadow-2xl sm:p-12 md:p-14 lg:col-span-6 lg:p-16  rounded-xl backdrop-blur-sm">
+          <div className="relative w-full rounded-2xl bg-[var(--color-surface-light)] p-8 text-[var(--color-text-dark)] shadow-2xl backdrop-blur-sm sm:p-12 md:p-14 lg:col-span-6 lg:col-start-2 lg:p-16">
             
             <span className="block text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--color-primary-dark)]">
               Studio Appointments
             </span>
 
-            <h2 className="mt-4 font-serif text-3xl font-light leading-[1.2] tracking-tight text-[var(--color-text-dark)] sm:text-4xl md:text-[2.6rem]">
+            <h2 className="mt-4 font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl md:text-nowrap">
               We’d love to welcome you <br />
-              <span className="italic font-light text-[var(--color-text-muted)]">at our studio</span>
+              <span className="font-light italic text-[var(--color-primary)]">at our studio</span>
             </h2>
 
-            <p className="mt-5 text-sm font-normal leading-relaxed text-[#4a383e] sm:text-base">
+            <p className="mt-5 line-clamp-3 text-xs font-normal leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
               Whether you need bridal makeup, hair styling, or skin care—reserve your preferred time directly with our artists.
             </p>
 
@@ -74,7 +74,7 @@ export const FinalCTA = () => {
                 href={getWhatsAppUrl(bookingMessage)}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex  min-h-[50px] items-center justify-center gap-2.5 bg-[var(--color-secondary)] px-7 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-md transition-all duration-300 hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] hover:shadow-lg cursor-pointer rounded-lg"
+                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
               >
                 <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current" />
                 <span>Book via WhatsApp</span>
@@ -83,7 +83,7 @@ export const FinalCTA = () => {
               {/* Direct Phone Action */}
               <a
                 href={`tel:${business.phone?.replace(/\D/g, "")}`}
-                className="inline-flex min-h-[50px] items-center justify-center gap-2.5 border border-[var(--color-secondary)]/30 bg-transparent px-7 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-text-dark)] transition-all duration-300 hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary)]/10 cursor-pointer rounded-lg"
+                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-[var(--color-secondary)]/30 bg-transparent px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary-dark)] active:scale-95"
               >
                 <svg
                   className="h-4 w-4 shrink-0 text-current"

@@ -97,13 +97,13 @@ export const ServicesMenu = () => {
     <section
       id="services-catalog"
       aria-label="Aaira Khan Salon Services & Treatment Catalog"
-      className="relative w-full overflow-hidden bg-[var(--color-background)] py-16 text-[var(--color-text)] antialiased md:py-24"
+      className="relative w-full max-w-full overflow-hidden bg-[var(--color-background)] py-16 font-sans text-[var(--color-text)] antialiased md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16 font-sans">
         
         {/* Section Header */}
         <div className="flex flex-col items-center gap-2 pb-8 text-center md:pb-10 space-y-1">
-          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary)]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
             SERVICES
           </span>
 
@@ -111,7 +111,7 @@ export const ServicesMenu = () => {
             Beauty services for every occasion
           </h2>
 
-          <p className="mx-auto max-w-2xl text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)]">
+          <p className="mx-auto max-w-2xl text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
             Explore our main beauty categories and get in touch directly to discuss availability and bookings.
           </p>
         </div>
@@ -138,7 +138,7 @@ export const ServicesMenu = () => {
               return (
                 <div
                   key={`${item.id}-${index}`}
-                  className="group flex w-[250px] sm:w-[280px] shrink-0 flex-col items-center text-center cursor-pointer"
+                  className="group flex h-full w-[250px] shrink-0 cursor-pointer flex-col items-center text-center sm:w-[280px]"
                 >
                   <a
                     href={getWhatsAppUrl(whatsappMessage)}
@@ -147,7 +147,7 @@ export const ServicesMenu = () => {
                     onClick={(e) => {
                       if (hasDragged) e.preventDefault();
                     }}
-                    className="flex flex-col items-center justify-between h-full w-full"
+                    className="flex h-full w-full flex-col items-center justify-between"
                   >
                     <div className="flex flex-col items-center w-full">
                       {/* Organic Arch Frame */}
@@ -173,19 +173,19 @@ export const ServicesMenu = () => {
 
                       {/* Title */}
                       <div className="mt-5 flex min-h-[3rem] items-center justify-center w-full px-2">
-                        <h3 className="font-serif text-lg font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] leading-snug">
+                        <h3 className="font-serif text-base font-bold leading-snug tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] sm:text-lg">
                           {item.title}
                         </h3>
                       </div>
 
                       {/* Description */}
-                      <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] px-1">
+                      <p className="mt-1 line-clamp-3 px-1 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
                         {item.description}
                       </p>
                     </div>
 
                     {/* Clean Action Label */}
-                    <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 group-hover:text-white">
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200  ">
                       <span>Inquire</span>
                       <span className="material-symbols-outlined text-[14px] transition-transform duration-300 ease-out group-hover:translate-x-1">
                         arrow_forward
@@ -218,11 +218,11 @@ export const ServicesMenu = () => {
             </div>
 
             <div className="space-y-1">
-              <h3 className="font-serif text-base font-medium tracking-wide text-[var(--color-text)]">
+              <h3 className="font-serif text-base font-bold tracking-wide text-[var(--color-text)] sm:text-lg">
                 Booking guidance
               </h3>
 
-              <p className="text-xs leading-relaxed text-[var(--color-text-muted)]">
+              <p className="line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
                 Contact the salon before visiting to confirm current rates, availability, and whether your selected service requires an advance appointment.
               </p>
             </div>

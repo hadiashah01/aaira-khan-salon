@@ -2,7 +2,7 @@
 
 export const HeroVideo = () => {
   return (
-    <div className="relative w-full aspect-[4/5] max-h-[620px] overflow-hidden rounded-3xl bg-[#0d090a] shadow-2xl">
+    <div className="relative aspect-[4/5] max-h-[620px] w-full overflow-hidden rounded-2xl bg-[var(--color-background)]">
       <video
         autoPlay
         loop

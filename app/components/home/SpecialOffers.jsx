@@ -25,7 +25,7 @@ export const SpecialOffers = () => {
   return (
     <section
       id="promotions"
-      className="relative w-full bg-[var(--color-surface-light)] py-16 text-[var(--color-text-dark)] md:py-24 font-sans"
+      className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-surface-light)] py-16 font-sans text-[var(--color-text-dark)] md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         
@@ -37,7 +37,7 @@ export const SpecialOffers = () => {
           <h2 className="font-serif text-3xl font-normal tracking-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl">
             Current Offers &amp; Packages
           </h2>
-          <p className="mx-auto max-w-xl text-xs sm:text-sm text-[var(--color-text-muted)]">
+          <p className="mx-auto max-w-xl text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
             Ask the studio about current package availability and seasonal offers before booking.
           </p>
         </div>
@@ -48,11 +48,11 @@ export const SpecialOffers = () => {
             Loading current salon offers...
           </div>
         ) : (
-          <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:gap-8">
             {offers.map((offer, index) => (
               <div
                 key={offer.id || index}
-                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:shadow-md"
+                className="group flex h-full transform-none flex-col justify-between overflow-hidden rounded-2xl bg-[var(--color-surface-light)] shadow-sm  "
               >
                 {/* Image Frame */}
                 <div className="relative h-[240px] w-full overflow-hidden bg-[var(--color-surface-soft)]">
@@ -66,15 +66,15 @@ export const SpecialOffers = () => {
                 </div>
 
                 {/* Content Container */}
-                <div className="flex flex-1 flex-col justify-between p-6 space-y-4">
+                <div className="flex h-[60%]   flex-col justify-between  p-6">
                   <div className="space-y-1.5">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-primary-dark)]">
                       {offer.category || "PROMOTION"}
                     </span>
-                    <h3 className="font-serif text-lg font-bold text-[var(--color-text-dark)]">
+                    <h3 className="font-serif text-base font-bold text-[var(--color-text-dark)] sm:text-lg">
                       {offer.title}
                     </h3>
-                    <p className="text-xs leading-relaxed text-[#544B43] line-clamp-3">
+                    <p className="line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
                       {offer.description}
                     </p>
                   </div>
@@ -89,7 +89,7 @@ export const SpecialOffers = () => {
                       href={getWhatsAppUrl(offer.message)}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 bg-[var(--color-secondary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] text-white px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 shrink-0 cursor-pointer"
+                      className="inline-flex min-h-[48px] shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
                     >
                       <span>Book Now</span>
                       <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

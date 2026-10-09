@@ -10,7 +10,7 @@ export const HeroSection = () => {
   const bookingUrl = getWhatsAppUrl(business.bookingMessage);
 
   return (
-    <section className="relative w-full bg-[var(--color-surface-light)] py-12 md:py-20 text-[var(--color-text-dark)] overflow-hidden font-sans">
+    <section className="relative w-full overflow-hidden bg-[var(--color-surface-light)] py-16 font-sans text-[var(--color-text-dark)] md:py-24">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
           
@@ -23,14 +23,14 @@ export const HeroSection = () => {
               <span>SKINCARE</span>
             </div>
 
-            <h1 className="font-serif text-4xl font-normal leading-[1.12] tracking-tight text-[var(--color-text-dark)] sm:text-5xl md:text-6xl">
+            <h1 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl">
               Elevate Your Beauty at <br />
               <span className="italic text-[var(--color-primary-dark)] font-serif">
                 Aaira Khan Salon
               </span>
             </h1>
 
-            <p className="max-w-lg text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
+            <p className="max-w-lg text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
               Experience signature bridal transformations, luxury hair treatments, and personalized skin care in a serene Tariq Road studio.
             </p>
 
@@ -40,7 +40,7 @@ export const HeroSection = () => {
                 href={bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 bg-[var(--color-secondary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] text-white px-8 py-4 rounded-full text-xs font-bold uppercase tracking-[0.18em] transition-all duration-300 shadow-sm transform hover:-translate-y-0.5 cursor-pointer"
+                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
               >
                 <WhatsAppIcon className="h-4 w-4 fill-current" />
                 <span>Book via WhatsApp</span>
@@ -48,7 +48,7 @@ export const HeroSection = () => {
 
               <a
                 href="#services-catalog"
-                className="inline-flex items-center justify-center px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-text-dark)] hover:text-[var(--color-primary-dark)] transition-colors duration-300"
+                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
               >
                 Explore Services &rarr;
               </a>

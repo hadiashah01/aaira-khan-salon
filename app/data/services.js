@@ -2,7 +2,7 @@ export const fullServiceCatalog = [
   {
     id: "b1",
     category: "bridal",
-    image: "/images/services/barat-bridal.jpg",
+    image: "/images/services/bridal-00.png",
     title: "Barat & Nikkah Bridal Makeover",
     description:
       "A complete bridal makeup experience with makeup, lashes, dupatta setting and hair styling.",
@@ -12,7 +12,7 @@ export const fullServiceCatalog = [
   {
     id: "b2",
     category: "bridal",
-    image: "/images/services/walima-bridal.jpg",
+    image: "/images/services/walima-bridal.webp",
     title: "Walima & Soft Glam Bridal Look",
     description:
       "A refined reception look with customized makeup and coordinated hair styling.",
@@ -22,7 +22,7 @@ export const fullServiceCatalog = [
   {
     id: "p1",
     category: "party",
-    image: "/images/services/party-makeup.jpg",
+    image: "/images/services/party-makeup.png",
     title: "Senior Artist Party Makeup",
     description:
       "Party makeup tailored around your preferred eye look, complexion and overall style.",
@@ -32,7 +32,7 @@ export const fullServiceCatalog = [
   {
     id: "s1",
     category: "skin",
-    image: "/images/services/facial-infusion.jpg",
+    image: "/images/services/facial-infusion.png",
     title: "Hydra Facial Infusion",
     description:
       "A facial treatment focused on cleansing, exfoliation and hydration for refreshed-looking skin.",
@@ -42,7 +42,7 @@ export const fullServiceCatalog = [
   {
     id: "h1",
     category: "hair",
-    image: "/images/services/keratin-treatment.jpg",
+    image: "/images/services/keratin-treatment.png",
     title: "Keratin & Hair Protein Treatments",
     description:
       "Hair treatment focused on reducing frizz and improving manageability.",
@@ -52,7 +52,7 @@ export const fullServiceCatalog = [
   {
     id: "w2",
     category: "waxing",
-    image: "/images/services/eyebrow-threading.jpg",
+    image: "/images/services/eyebrow-threading.png",
     title: "Eyebrow Threading & Waxing",
     description:
       "Eyebrow shaping and waxing services tailored to the selected treatment.",
