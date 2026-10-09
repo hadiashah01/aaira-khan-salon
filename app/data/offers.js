@@ -7,6 +7,7 @@ export const offers = [
       "Packages for Nikkah, Barat, Walima, Mehndi, and guest party makeup.",
     note: "Package details available on request",
     cta: "WhatsApp for Details",
+    image:"/images/gallery/offerimg-1.jpeg",
     message:
       "Hello Aaira Khan Salon, I would like to check your current bridal and party makeup packages.",
   },
@@ -19,6 +20,7 @@ export const offers = [
       "Ask about current offers for treatments such as keratin, protein treatments, and Hydra Facials.",
     note: "Current availability may vary",
     cta: "Ask About Offers",
+    image:"/images/hairTreatment.jpg",
     message:
       "Hello Aaira Khan Salon, I would like to ask about your current hair and skin treatment offers.",
   },

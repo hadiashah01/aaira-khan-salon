@@ -105,8 +105,8 @@ export default function HomePage() {
       <Gallery />
       <Testimonials />
       <LocationMap />
-      <FinalCTA />
       <SocialMediaStrip />
+      <FinalCTA />
       <MobileBookingBar />
       <Footer />
     </main>

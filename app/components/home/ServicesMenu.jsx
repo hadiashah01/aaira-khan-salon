@@ -25,7 +25,6 @@ export const ServicesMenu = () => {
         }
 
         const data = await response.json();
-
         setServices(data.services || []);
       } catch (error) {
         console.error("Failed to load services:", error);
@@ -98,32 +97,28 @@ export const ServicesMenu = () => {
     <section
       id="services-catalog"
       aria-label="Aaira Khan Salon Services & Treatment Catalog"
-      className="relative w-full overflow-hidden bg-[var(--color-background)] py-16 text-[var(--color-text)] antialiased selection:bg-[var(--color-primary)] selection:text-[var(--color-secondary)] md:py-24"
+      className="relative w-full overflow-hidden bg-[var(--color-background)] py-16 text-[var(--color-text)] antialiased md:py-24"
     >
-      <div className="mx-auto max-w-[1380px] px-5 font-sans sm:px-8 md:px-12 lg:px-16">
-        {/* Section Masthead */}
-        <div className="flex flex-col items-center gap-6 pb-8 text-center md:pb-10">
-          <div className="inline-flex items-center gap-2.5">
-            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--color-primary)]">
-              SERVICES
-            </span>
-          </div>
+      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16 font-sans">
+        
+        {/* Section Header */}
+        <div className="flex flex-col items-center gap-2 pb-8 text-center md:pb-10 space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary)]">
+            SERVICES
+          </span>
 
-          <div className="max-w-3xl space-y-3">
-            <h2 className="font-serif text-3xl font-normal leading-[1.15] tracking-tight text-[var(--color-text)] sm:text-4xl md:text-[2.75rem]">
-              Beauty services for every occasion
-            </h2>
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text)] sm:text-4xl md:text-5xl">
+            Beauty services for every occasion
+          </h2>
 
-            <p className="mx-auto max-w-2xl text-sm font-normal tracking-wide leading-relaxed text-[var(--color-text-muted)] sm:text-base sm:leading-7">
-              Explore the salon&apos;s main service categories and contact the
-              studio for exact rates and availability.
-            </p>
-          </div>
+          <p className="mx-auto max-w-2xl text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)]">
+            Explore our main beauty categories and get in touch directly to discuss availability and bookings.
+          </p>
         </div>
 
-        {/* Services Carousel */}
+        {/* Services Drag Carousel */}
         {services.length === 0 ? (
-          <div className="flex min-h-[240px] items-center justify-center bg-[var(--color-surface)] p-8 text-center text-sm font-light text-[var(--color-text-muted)]">
+          <div className="flex min-h-[240px] items-center justify-center bg-[var(--color-surface)] p-8 text-center text-xs text-[var(--color-text-muted)] rounded-2xl">
             Loading treatment portfolio...
           </div>
         ) : (
@@ -133,7 +128,7 @@ export const ServicesMenu = () => {
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className={`scrollbar-none mt-8 sm:mt-12 flex gap-5 sm:gap-7 overflow-x-auto py-7${
+            className={`scrollbar-none mt-6 flex gap-6 overflow-x-auto py-4 ${
               isMouseDown ? "cursor-grabbing select-none" : "cursor-grab"
             }`}
           >
@@ -143,9 +138,8 @@ export const ServicesMenu = () => {
               return (
                 <div
                   key={`${item.id}-${index}`}
-                  className="group flex w-[240px] xs:w-[260px] sm:w-[290px] shrink-0 flex-col items-center text-center cursor-pointer"
+                  className="group flex w-[250px] sm:w-[280px] shrink-0 flex-col items-center text-center cursor-pointer"
                 >
-                  {/* Clickable Service Card Wrapper with Flex Growth for Equal Height Baseline */}
                   <a
                     href={getWhatsAppUrl(whatsappMessage)}
                     target="_blank"
@@ -156,10 +150,10 @@ export const ServicesMenu = () => {
                     className="flex flex-col items-center justify-between h-full w-full"
                   >
                     <div className="flex flex-col items-center w-full">
-                      {/* Service Image Container */}
-                      <div className="w-full pt-2 sm:pt-4">
+                      {/* Organic Arch Frame */}
+                      <div className="w-full pt-2">
                         <div
-                          className={`relative h-[340px] xs:h-[360px] sm:h-[380px] w-full overflow-hidden bg-[var(--color-surface-soft)] transition-[border-radius] duration-500 ease-out ${
+                          className={`relative h-[340px] w-full overflow-hidden bg-[var(--color-surface-soft)]/40 transition-[border-radius] duration-500 ease-out ${
                             index % 2 === 0
                               ? "rounded-t-full group-hover:rounded-b-full"
                               : "rounded-b-full group-hover:rounded-t-full"
@@ -170,30 +164,30 @@ export const ServicesMenu = () => {
                             alt={item.title}
                             fill
                             loading="eager"
-                            sizes="(max-width: 640px) 260px, 290px"
+                            sizes="280px"
                             draggable={false}
                             className="object-cover"
                           />
                         </div>
                       </div>
 
-                      {/* Title Container with Minimum Height for Consistent Vertical Alignment */}
-                      <div className="mt-5 sm:mt-6 flex min-h-[3.5rem] items-center justify-center w-full px-2">
-                        <h3 className="font-serif text-lg sm:text-[1.25rem] md:text-[1.35rem] font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] break-words leading-snug">
+                      {/* Title */}
+                      <div className="mt-5 flex min-h-[3rem] items-center justify-center w-full px-2">
+                        <h3 className="font-serif text-lg font-normal tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] leading-snug">
                           {item.title}
                         </h3>
                       </div>
 
                       {/* Description */}
-                      <p className="mt-2 line-clamp-3 text-xs sm:text-sm font-normal tracking-wide leading-relaxed text-[var(--color-text-muted)] px-1">
+                      <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] px-1">
                         {item.description}
                       </p>
                     </div>
 
-                    {/* WhatsApp Action Link (Pinning to Bottom Across All Cards) */}
-                    <div className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 group-hover:text-[var(--color-primary-dark)]">
+                    {/* Clean Action Label */}
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)] transition-colors duration-200 group-hover:text-white">
                       <span>Inquire</span>
-                      <span className="material-symbols-outlined text-[15px] transition-transform duration-300 ease-out group-hover:translate-x-1">
+                      <span className="material-symbols-outlined text-[14px] transition-transform duration-300 ease-out group-hover:translate-x-1">
                         arrow_forward
                       </span>
                     </div>
@@ -204,9 +198,9 @@ export const ServicesMenu = () => {
           </div>
         )}
 
-        {/* Universal Scroll Indicator Bar */}
+        {/* Scroll Progress Bar */}
         <div className="mt-6 flex w-full justify-center">
-          <div className="h-[3px] w-32 sm:w-48 overflow-hidden rounded-full bg-[var(--color-surface-soft,rgba(255,255,255,0.1))]">
+          <div className="h-[3px] w-32 sm:w-48 overflow-hidden rounded-full bg-[var(--color-surface-soft)]">
             <div
               className="h-full bg-[var(--color-primary)] transition-all duration-150 ease-out"
               style={{ width: `${scrollProgress}%` }}
@@ -215,30 +209,26 @@ export const ServicesMenu = () => {
         </div>
 
         {/* Booking Guidance Note */}
-        <div className="mt-10 sm:mt-16">
-          <div className="flex items-start gap-4 rounded-xl bg-[var(--color-surface)] p-6 sm:p-7">
+        <div className="mt-12">
+          <div className="flex items-start gap-4 rounded-2xl bg-[var(--color-surface)] p-6 sm:p-7">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-primary)]">
-              <span
-                className="material-symbols-outlined text-[20px]"
-                aria-hidden="true"
-              >
+              <span className="material-symbols-outlined text-lg" aria-hidden="true">
                 info
               </span>
             </div>
 
-            <div className="space-y-1.5">
-              <h3 className="font-serif text-base sm:text-lg font-medium tracking-wide text-[var(--color-text)]">
+            <div className="space-y-1">
+              <h3 className="font-serif text-base font-medium tracking-wide text-[var(--color-text)]">
                 Booking guidance
               </h3>
 
-              <p className="text-xs sm:text-sm font-normal leading-relaxed tracking-wide text-[var(--color-text-muted)]">
-                Contact the salon before visiting to confirm current rates,
-                availability, and whether your selected service requires an
-                advance appointment.
+              <p className="text-xs leading-relaxed text-[var(--color-text-muted)]">
+                Contact the salon before visiting to confirm current rates, availability, and whether your selected service requires an advance appointment.
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

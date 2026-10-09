@@ -23,7 +23,6 @@ export const SocialMediaStrip = () => {
   const socialLinks = [
     {
       name: "Instagram",
-      handle: "@aairakhansalon",
       url: socials?.instagram || "https://instagram.com",
       icon: (
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -34,8 +33,16 @@ export const SocialMediaStrip = () => {
       ),
     },
     {
+      name: "YouTube",
+      url: socials?.youtube || "https://youtube.com",
+      icon: (
+        <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      ),
+    },
+    {
       name: "Facebook",
-      handle: "Aaira Khan Salon",
       url: socials?.facebook || "https://facebook.com",
       icon: (
         <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -45,7 +52,6 @@ export const SocialMediaStrip = () => {
     },
     {
       name: "TikTok",
-      handle: "@aairakhansalon",
       url: socials?.tiktok || "https://tiktok.com",
       icon: (
         <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -56,45 +62,31 @@ export const SocialMediaStrip = () => {
   ];
 
   return (
-    <section className="w-full bg-[var(--color-surface-light)] py-14 text-[var(--color-text-dark)] border-t border-[var(--color-border-light)]/40">
+    <section className="w-full bg-[var(--color-surface-light)] py-12 text-[var(--color-text-dark)] font-sans">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-6">
+        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           
-          {/* Section Heading & Subtitle */}
-          <div className="text-center md:text-left space-y-1">
+          <div className="text-center sm:text-left space-y-0.5">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
               JOIN OUR COMMUNITY
             </span>
-            <h3 className="font-serif text-2xl font-normal tracking-wide text-[var(--color-text-dark)] sm:text-3xl">
-              Follow Us & Stay Inspired
+            <h3 className="font-serif text-xl font-normal text-[var(--color-text-dark)] sm:text-2xl">
+              Follow Us &amp; Stay Inspired
             </h3>
-            <p className="text-xs text-[var(--color-text-muted)]">
-              Get real-time updates, bridal reveals & daily transformations.
-            </p>
           </div>
 
-          {/* Seamless Borderless Curved Cards */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          {/* Single Box Housing All 4 Icons */}
+          <div className="inline-flex items-center gap-2 rounded-2xl bg-white p-2 shadow-sm">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3.5 bg-white hover:bg-[var(--color-primary)] px-5 py-3 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5  "
+                aria-label={social.name}
+                className="flex h-11 w-11 items-center justify-center rounded-xl text-[var(--color-text-dark)] transition-all duration-300 hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95 cursor-pointer"
               >
-                <span className="text-[var(--color-text-dark)] group-hover:text-[var(--color-secondary)] transition-colors duration-300">
-                  {social.icon}
-                </span>
-
-                <div className="flex flex-col text-left">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-dark)] group-hover:text-[var(--color-secondary)] transition-colors duration-300">
-                    {social.name}
-                  </span>
-                  <span className="text-[10px] text-[var(--color-text-muted)] group-hover:text-[var(--color-secondary)]/80 transition-colors duration-300">
-                    {social.handle}
-                  </span>
-                </div>
+                {social.icon}
               </a>
             ))}
           </div>

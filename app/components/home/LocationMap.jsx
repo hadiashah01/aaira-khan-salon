@@ -4,176 +4,106 @@ import React, { useEffect, useState } from "react";
 
 export const LocationMap = () => {
   const [business, setBusiness] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
   useEffect(() => {
     const loadBusinessData = async () => {
       try {
         const response = await fetch("/api/business");
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch business data");
+        if (response.ok) {
+          const data = await response.json();
+          setBusiness(data);
         }
-
-        const data = await response.json();
-        setBusiness(data);
       } catch (error) {
         console.error("Failed to load business data:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
-
     loadBusinessData();
   }, []);
 
-  if (isLoading) {
-    return (
-      <section id="location" className="bg-white px-5 py-16 md:px-12 md:py-20">
-        <div className="mx-auto max-w-[1380px]">
-          <div className="h-[420px] animate-pulse rounded-2xl bg-[#F4F0F1]" />
-        </div>
-      </section>
-    );
-  }
+  const handleCopyPhone = (text) => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(text);
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2200);
+    }
+  };
 
-  if (!business) {
-    return null;
-  }
+  if (!business) return null;
+
   return (
-    <section id="location" className="bg-white px-5 py-16 md:px-12 md:py-20">
-      <div className="mx-auto max-w-[1380px]">
-        {/* Header */}
-        <div className="max-w-3xl">
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
-            LOCATION & CONTACT
+    <section id="location" className="relative w-full bg-[var(--color-surface-light)] py-16 text-[var(--color-text-dark)] md:py-24 font-sans">
+      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
+        
+        <div className="mx-auto mb-10 max-w-2xl text-center space-y-1">
+          <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
+            LOCATION &amp; CONTACT
           </span>
-
-          <h2 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-tight text-[#24171B] md:text-4xl">
+          <h2 className="font-serif text-3xl font-normal text-[var(--color-text-dark)] sm:text-4xl md:text-5xl">
             Visit the studio
           </h2>
-
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#625356] md:text-base">
-            Find the studio on Main Tariq Road and contact the salon directly
-            before visiting to confirm availability.
+          <p className="text-xs sm:text-sm text-[var(--color-text-muted)]">
+            Find the studio on Main Tariq Road and contact us directly to confirm appointments.
           </p>
         </div>
 
-        <div className="mt-9 grid gap-5 lg:grid-cols-12">
-          {/* Details */}
-          <div className="lg:col-span-4">
-            <div className="flex h-full flex-col rounded-2xl border border-[#E9DFE2] bg-[#FFF9FA] p-6">
-              <div className="space-y-6">
-                {/* Address */}
-                <div className="flex gap-3">
-                  <span className="material-symbols-outlined text-[#974358]">
-                    location_on
-                  </span>
-
-                  <div>
-                    <h3 className="text-xs font-bold text-[#24171B]">
-                      Studio Address
-                    </h3>
-
-                    <p className="mt-1 text-sm leading-6 text-[#625356]">
-                      {business.address}
-                    </p>
-                  </div>
+        <div className="grid gap-8 lg:grid-cols-12 items-stretch">
+          
+          {/* Contact Details Card */}
+          <div className="flex flex-col justify-between bg-[var(--color-secondary)] p-6 sm:p-8 text-white rounded-2xl shadow-sm lg:col-span-5 space-y-6">
+            <div className="space-y-5">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
+                  <span className="material-symbols-outlined text-lg">location_on</span>
                 </div>
-
-                {/* Contact */}
-                <div className="flex gap-3">
-                  <span className="material-symbols-outlined text-[#974358]">
-                    call
-                  </span>
-
-                  <div>
-                    <h3 className="text-xs font-bold text-[#24171B]">
-                      Contact
-                    </h3>
-
-                    <div className="mt-1 space-y-1 text-sm leading-6">
-                      <a
-                        href={`tel:${business.phone.replace(/\D/g, "")}`}
-                        className="block text-[#625356] hover:text-[#974358]"
-                      >
-                        {business.phone}
-                      </a>
-
-                      <a
-                        href={`https://wa.me/${business.whatsapp.replace(
-                          /\D/g,
-                          "",
-                        )}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="block text-[#625356] hover:text-[#974358]"
-                      >
-                        WhatsApp: {business.whatsapp}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Opening Hours */}
-                <div className="flex gap-3">
-                  <span className="material-symbols-outlined text-[#974358]">
-                    schedule
-                  </span>
-
-                  <div>
-                    <h3 className="text-xs font-bold text-[#24171B]">
-                      Opening Hours
-                    </h3>
-
-                    <p className="mt-1 text-sm leading-6 text-[#625356]">
-                      Monday – Sunday
-                      <br />
-                      {business.hours.monday}
-                    </p>
-                  </div>
+                <div>
+                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Studio Address</h3>
+                  <p className="text-xs sm:text-sm font-medium text-[#f5f0f2] mt-0.5">{business.address}</p>
                 </div>
               </div>
 
-              {/* Directions */}
-              <div className="mt-auto pt-7">
-                <a
-                  href={business.googleMapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#24171B] px-4 text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#3A292E]"
-                >
-                  Get Directions
-                  <span className="material-symbols-outlined text-[15px]">
-                    open_in_new
-                  </span>
-                </a>
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
+                  <span className="material-symbols-outlined text-lg">call</span>
+                </div>
+                <div className="flex-1 space-y-0.5">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Contact</h3>
+                    <button type="button" onClick={() => handleCopyPhone(business.phone)} className="text-[10px] font-mono text-[var(--color-primary)] hover:underline cursor-pointer">
+                      {copiedPhone ? "Copied ✓" : "Copy"}
+                    </button>
+                  </div>
+                  <a href={`tel:${business.phone.replace(/\D/g, "")}`} className="block text-xs sm:text-sm font-medium text-[#f5f0f2] hover:text-[var(--color-primary)]">
+                    {business.phone}
+                  </a>
+                </div>
               </div>
             </div>
+
+            <a
+              href={business.googleMapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-11 w-full items-center justify-center gap-2 bg-[var(--color-primary)] px-6 text-xs font-bold uppercase tracking-widest text-[var(--color-secondary)] rounded-xl transition-all hover:bg-[#c5a059] cursor-pointer"
+            >
+              <span>Get Directions</span>
+              <span className="material-symbols-outlined text-base">open_in_new</span>
+            </a>
           </div>
 
-          {/* Map */}
-<div className="relative h-[320px] overflow-hidden rounded-2xl border border-[#E9DFE2] bg-[#F4F0F1] shadow-sm sm:h-[380px] lg:col-span-8 lg:h-[420px]">
+          {/* Compact Map Frame (Reduced Height on Mobile) */}
+          <div className="relative h-[240px] sm:h-[320px] lg:h-full min-h-[240px] overflow-hidden rounded-2xl bg-white shadow-sm lg:col-span-7">
+            <iframe
+              title={`${business.name} location map`}
+              src={business.mapEmbedUrl}
+              width="100%"
+              height="100%"
+              loading="eager"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full border-0"
+            />
+          </div>
 
-  {/* Static fallback — visible if the iframe is not painted */}
-  <img
-    src="/images/map.png"
-    alt="Aaira Khan Salon & Studio location map"
-    className="absolute inset-0 h-full w-full object-cover"
-  />
-
-  {/* Live Google Map */}
-  <iframe
-    title={`${business.name} location map`}
-    src={business.mapEmbedUrl}
-    width="100%"
-    height="100%"
-    loading="eager"
-    allowFullScreen
-    referrerPolicy="no-referrer-when-downgrade"
-    className="relative z-10 block h-full w-full border-0"
-  />
-</div>
         </div>
       </div>
     </section>

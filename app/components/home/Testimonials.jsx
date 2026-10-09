@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
   const [googleMapsUrl, setGoogleMapsUrl] = useState("");
+  const sliderRef = useRef(null);
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
     const loadTestimonialsData = async () => {
@@ -14,9 +18,7 @@ export const Testimonials = () => {
           fetch("/api/business"),
         ]);
 
-        if (!reviewsResponse.ok || !businessResponse.ok) {
-          throw new Error("Failed to load testimonial data");
-        }
+        if (!reviewsResponse.ok || !businessResponse.ok) return;
 
         const [reviewsData, businessData] = await Promise.all([
           reviewsResponse.json(),
@@ -33,83 +35,172 @@ export const Testimonials = () => {
     loadTestimonialsData();
   }, []);
 
+  const handleScrollState = (element) => {
+    if (!element) return;
+    const { scrollLeft, scrollWidth, clientWidth } = element;
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+  };
+
+  const handleScroll = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = sliderRef.current.clientWidth * 0.85;
+      sliderRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section
       id="reviews"
-      className="border-y border-[#F5DCE2] bg-[#FFF5F7] px-5 py-16 md:px-12 md:py-20"
+      aria-label="Client Feedback & Reviews"
+      className="relative w-full bg-[var(--color-surface-light)] py-16 text-[var(--color-text-dark)] md:py-24 font-sans"
     >
-      <div className="mx-auto max-w-[1380px]">
-        {/* Header */}
-        <div className="flex flex-col gap-5 border-b border-[#EEDDE1] pb-7 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8A6330]">
-              CLIENT FEEDBACK
+      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
+        
+        {/* Header Block with Arched Client Portrait */}
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          
+          <div className="shrink-0">
+            <div className="relative h-[280px] w-[200px] sm:h-[320px] sm:w-[230px] overflow-hidden rounded-t-[120px] rounded-b-none bg-white shadow-sm">
+              <img
+                src="/images/gallery/bridal-03.png"
+                alt="Aaira Khan Salon Client"
+                className="h-full w-full object-cover object-top"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3 text-center lg:text-left max-w-2xl">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
+              CLIENT REVIEWS
             </span>
 
-            <h2 className="mt-2 font-serif text-3xl font-bold leading-tight text-[#24171B] md:text-4xl">
+            <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl lg:text-5xl">
               What clients are saying
             </h2>
 
-            <p className="mt-3 text-sm leading-6 text-[#625356] md:text-base">
-              Selected customer feedback highlighting experiences with makeup,
-              hair, skin and beauty services.
+            <p className="text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)]">
+              Real feedback shared by clients after visiting our salon for bridal makeup, hair styling, and skincare services.
             </p>
+
+            <div className="pt-2 flex justify-center lg:justify-start">
+              <a
+                href={googleMapsUrl || "https://maps.google.com"}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-[var(--color-secondary)] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-all duration-300 cursor-pointer shadow-sm"
+              >
+                <span className="text-[var(--color-primary)]">★</span>
+                <span>View Google Reviews</span>
+              </a>
+            </div>
           </div>
 
-          <a
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg border border-[#DCCED2] bg-white px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-[#24171B] transition-colors hover:bg-[#FFF9FA] md:self-auto"
-          >
-            <span className="text-base">★</span>
-            View Google Maps
-            <span className="material-symbols-outlined text-sm">
-              open_in_new
-            </span>
-          </a>
         </div>
 
-        {/* Reviews */}
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {reviews.map((review) => {
-            return (
-              <article
-                key={review.id}
-                className="flex flex-col justify-between rounded-xl border border-[#E8DEE1] bg-white p-5 shadow-sm"
+        {/* Reviews Carousel */}
+        {reviews.length > 0 && (
+          <div className="relative mt-12">
+            
+            <div
+              ref={sliderRef}
+              onScroll={(e) => handleScrollState(e.currentTarget)}
+              className="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth pb-4 pt-2"
+            >
+              {reviews.map((review, index) => (
+                <div
+                  key={review.id || index}
+                  className="flex-shrink-0 w-[280px] sm:w-[340px] flex flex-col justify-between bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"
+                >
+                  <div>
+                    <div className="text-3xl font-serif text-[var(--color-primary-dark)] leading-none mb-2">
+                      “
+                    </div>
+
+                    <p className="text-xs leading-relaxed text-[#544B43] line-clamp-4 min-h-[72px]">
+                      {review.text}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-[var(--color-border-light)]/40 flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-full bg-[var(--color-secondary)] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                      {review.author?.[0] || "C"}
+                    </div>
+
+                    <div className="truncate">
+                      <h3 className="font-serif text-xs font-bold text-[var(--color-text-dark)] truncate">
+                        {review.author}
+                      </h3>
+                      <p className="text-[10px] text-[var(--color-text-muted)] truncate mt-0.5">
+                        Google Review
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation Buttons (Matching Gallery.jsx) */}
+            <div className="mt-8 flex items-center justify-end gap-3 pt-4 border-t border-[var(--color-border-light)]/40">
+              <button
+                type="button"
+                onClick={() => handleScroll("left")}
+                disabled={!canScrollLeft}
+                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
+                  !canScrollLeft
+                    ? "opacity-30 cursor-not-allowed bg-white text-[var(--color-text-muted)]"
+                    : "bg-[var(--color-primary)] text-[var(--color-secondary)] hover:opacity-90 cursor-pointer shadow-sm"
+                }`}
+                aria-label="Previous Review"
               >
-                <div>
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-md bg-[#F9E5E9] px-2 py-1 text-[8px] font-bold uppercase tracking-wider text-[#974358]">
-                      {review.tag}
-                    </span>
-                  </div>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
 
-                  <div
-                    className="mt-3 text-[11px] tracking-wide text-[#B27722]"
-                    aria-label={`${review.stars} out of 5 stars`}
-                  >
-                    {"★".repeat(review.stars)}
-                  </div>
+              <button
+                type="button"
+                onClick={() => handleScroll("right")}
+                disabled={!canScrollRight}
+                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
+                  !canScrollRight
+                    ? "opacity-30 cursor-not-allowed bg-white text-[var(--color-text-muted)]"
+                    : "bg-white text-[var(--color-text-dark)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] cursor-pointer shadow-sm"
+                }`}
+                aria-label="Next Review"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
 
-                  <blockquote className="mt-3 text-sm leading-5 text-[#403437]">
-                    “{review.text}”
-                  </blockquote>
-                </div>
+          </div>
+        )}
 
-                <div className="mt-5 border-t border-[#F0E7E9] pt-3">
-                  <p className="text-xs font-bold text-[#24171B]">
-                    {review.author}
-                  </p>
-
-                  <p className="mt-0.5 text-[9px] text-[#958589]">
-                    Google review
-                  </p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
