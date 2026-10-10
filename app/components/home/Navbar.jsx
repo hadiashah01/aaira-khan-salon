@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { business } from "@/app/data/business";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 import {
@@ -20,9 +20,30 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
-  const closeMenu = () => setIsMobileMenuOpen(false);
+  const closeMenu = () => {
+    setIsMobileMenuOpen(false);
+    mobileMenuButtonRef.current?.focus();
+  };
   const bookingUrl = getWhatsAppUrl(business.bookingMessage);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    mobileMenuRef.current?.querySelector("a")?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        mobileMenuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="sticky top-0 z-50 w-full max-w-full overflow-x-hidden bg-[var(--color-surface-light)]/95 text-[var(--color-text-dark)] antialiased transition-all duration-300 ease-out">
@@ -32,7 +53,7 @@ export const Navbar = () => {
         <div className="mx-auto flex min-h-9 max-w-[1400px] items-center justify-between gap-4 px-6 text-[10px] font-medium tracking-[0.16em] uppercase sm:px-10 lg:px-16">
           <div className="flex items-center gap-3">
             <span className="text-[var(--color-text-muted)]">
-              MAIN TARIQ ROAD DELHI SOCIETY KARACHI
+              {business.locationLabel}
             </span>
           </div>
 
@@ -82,7 +103,7 @@ export const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="group relative whitespace-nowrap py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:text-[var(--color-primary-dark))]"
+              className="group relative whitespace-nowrap py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-dark)] transition-colors duration-300 ease-out hover:text-[var(--color-primary-dark)]"
             >
               <span>{link.label}</span>
             </a>
@@ -101,10 +122,18 @@ export const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
+          ref={mobileMenuButtonRef}
           type="button"
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          onClick={() => {
+            if (isMobileMenuOpen) {
+              mobileMenuButtonRef.current?.focus();
+            }
+            setIsMobileMenuOpen((prev) => !prev);
+          }}
           className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center text-[var(--color-text-dark)] transition-all duration-300 ease-out focus:outline-none active:scale-95 lg:hidden"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation"
         >
           <span className="material-symbols-outlined text-[24px]">
             {isMobileMenuOpen ? "close" : "menu"}
@@ -113,8 +142,12 @@ export const Navbar = () => {
       </nav>
 
       {/* Mobile Navigation Panel */}
-      {isMobileMenuOpen && (
-        <div className="border-t border-[var(--color-border-light)]/40 bg-[var(--color-surface-light)] px-6 py-6 font-sans lg:hidden">
+      <div
+        id="mobile-navigation"
+        ref={mobileMenuRef}
+        hidden={!isMobileMenuOpen}
+        className="border-t border-[var(--color-border-light)]/40 bg-[var(--color-surface-light)] px-6 py-6 font-sans lg:hidden"
+      >
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a
@@ -143,8 +176,7 @@ export const Navbar = () => {
               </a>
             </div>
           </div>
-        </div>
-      )}
+      </div>
     </header>
   );
 };

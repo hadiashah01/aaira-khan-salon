@@ -26,18 +26,21 @@ export const FAQ = () => {
         }
 
         const data = await response.json();
-        if (!Array.isArray(data)) {
+        if (
+          !Array.isArray(data) ||
+          data.some(
+            (item) =>
+              !item ||
+              typeof item.question !== "string" ||
+              item.question.trim().length === 0 ||
+              typeof item.answer !== "string" ||
+              item.answer.trim().length === 0,
+          )
+        ) {
           throw new Error("Invalid FAQ data");
         }
 
-        setFaqItems(
-          data.filter(
-            (item) =>
-              item &&
-              typeof item.question === "string" &&
-              typeof item.answer === "string",
-          ),
-        );
+        setFaqItems(data);
       } catch (error) {
         if (!(error instanceof Error && error.name === "AbortError")) {
           console.error("Failed to load FAQs:", error);
@@ -61,7 +64,9 @@ export const FAQ = () => {
   const visibleFAQs = showAll ? faqItems : faqItems.slice(0, 4);
 
   const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndex((currentIndex) =>
+      currentIndex === index ? null : index,
+    );
   };
 
   return (
@@ -116,16 +121,20 @@ export const FAQ = () => {
           {visibleFAQs.map((item, index) => {
             const isOpen = openIndex === index;
             const itemNumber = (index + 1).toString().padStart(2, "0");
+            const triggerId = `faq-trigger-${index}`;
+            const panelId = `faq-panel-${index}`;
 
             return (
               <div
-                key={item.question || index}
+                key={item.question}
                 className="flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-[var(--color-surface-light)] text-[var(--color-text-dark)] shadow-sm transition-all duration-300 ease-out"
               >
                 <button
                   type="button"
                   onClick={() => toggleFAQ(index)}
+                  id={triggerId}
                   aria-expanded={isOpen}
+                  aria-controls={panelId}
                   className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
@@ -153,13 +162,17 @@ export const FAQ = () => {
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div className="px-5 pb-6 pt-1 sm:px-6 pl-11 sm:pl-12">
-                    <p className="line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
-                      {item.answer}
-                    </p>
-                  </div>
-                )}
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={triggerId}
+                  hidden={!isOpen}
+                  className="px-5 pb-6 pt-1 sm:px-6 pl-11 sm:pl-12"
+                >
+                  <p className="text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
+                    {item.answer}
+                  </p>
+                </div>
               </div>
             );
           })}

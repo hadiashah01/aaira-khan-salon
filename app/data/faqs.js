@@ -1,5 +1,3 @@
-export const whatsappBase = "https://wa.me/923333959805?text=";
-
 export const faqItems = [
   {
     question: "Do I need an appointment for bridal or party makeup?",

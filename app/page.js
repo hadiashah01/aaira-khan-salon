@@ -12,8 +12,39 @@ import { MobileBookingBar } from "@/app/components/home/MobileBookingBar";
 import { business } from "@/app/data/business";
 import { SocialMediaStrip } from "./components/home/SocialMediaStrip";
 import { Footer } from "@/app/components/home/Footer";
+import { getSafeExternalUrl } from "@/app/lib/contact";
+
+const toSchemaTime = (time) => {
+  const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return null;
+
+  let hour = Number(match[1]) % 12;
+  if (match[3].toUpperCase() === "PM") hour += 12;
+  return `${String(hour).padStart(2, "0")}:${match[2]}`;
+};
 
 export default function HomePage() {
+  const openingHoursSpecification = Object.entries(business.hours).flatMap(
+    ([day, range]) => {
+      const dayOfWeek = `${day[0].toUpperCase()}${day.slice(1)}`;
+      const [openLabel, closeLabel] =
+        typeof range === "string" ? range.split(/\s*[–-]\s*/) : [];
+      const opens = openLabel ? toSchemaTime(openLabel) : null;
+      const closes = closeLabel ? toSchemaTime(closeLabel) : null;
+
+      if (!opens || !closes) return [];
+
+      return [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek,
+          opens,
+          closes,
+        },
+      ];
+    },
+  );
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
@@ -38,57 +69,14 @@ export default function HomePage() {
       business.socials.facebook,
       business.socials.youtube,
       business.socials.tiktok,
-    ],
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Monday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Tuesday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Wednesday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Thursday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Friday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "11:00",
-        closes: "21:00",
-      },
-    ],
+    ].map(getSafeExternalUrl).filter(Boolean),
+    openingHoursSpecification,
   };
 
   return (
     <main
       id="top"
-      className="min-h-screen bg-[#FFF9FA] font-sans text-[#24171B] pb-16 md:pb-0"
+      className="min-h-screen bg-[var(--color-surface-light)] pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] font-sans text-[var(--color-text-dark)] md:pb-0"
     >
       <script
         type="application/ld+json"

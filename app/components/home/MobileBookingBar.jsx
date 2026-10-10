@@ -32,20 +32,18 @@ export const MobileBookingBar = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book Appointment via WhatsApp"
-          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] shadow-sm transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
+          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-2 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] shadow-sm transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
         >
           <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current" />
           
-          {/* Responsive Text: Short on <380px, Full on >=380px */}
-          <span className="truncate xs:hidden">Book</span>
-          <span className="hidden truncate xs:inline">Book Appointment</span>
+          <span className="truncate">Book</span>
         </a>
 
         {/* Secondary Action: Direct Phone Call */}
         <a
           href={getPhoneUrl()}
           aria-label="Call Salon Studio"
-          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-surface)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
+          className="btn-editorial-active flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-surface)] px-2 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] active:scale-95"
         >
           <svg
             className="h-4 w-4 shrink-0 text-[var(--color-primary)]"
@@ -63,8 +61,7 @@ export const MobileBookingBar = () => {
           </svg>
           
           {/* Responsive Text */}
-          <span className="truncate xs:hidden text-[var(--color-primary)]">Call</span>
-          <span className="text-[var(--color-primary)] hidden truncate xs:inline">Call Studio</span>
+          <span className="text-[var(--color-primary)] truncate">Call</span>
         </a>
 
       </div>

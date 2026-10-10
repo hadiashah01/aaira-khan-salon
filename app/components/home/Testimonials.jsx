@@ -2,39 +2,69 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { business } from "@/app/data/business";
+import { getSafeExternalUrl } from "@/app/lib/contact";
 
 export const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
-  const [googleMapsUrl, setGoogleMapsUrl] = useState("");
   const sliderRef = useRef(null);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const googleMapsUrl = getSafeExternalUrl(business.googleMapsUrl);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const loadTestimonialsData = async () => {
       try {
-        const [reviewsResponse, businessResponse] = await Promise.all([
-          fetch("/api/reviews"),
-          fetch("/api/business"),
-        ]);
+        setIsLoading(true);
+        setHasError(false);
+        const response = await fetch("/api/reviews", {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch reviews: ${response.status}`);
+        }
 
-        if (!reviewsResponse.ok || !businessResponse.ok) return;
+        const data = await response.json();
+        if (
+          !Array.isArray(data) ||
+          data.some(
+            (review) =>
+              !review ||
+              (typeof review.id !== "string" &&
+                typeof review.id !== "number") ||
+              typeof review.author !== "string" ||
+              review.author.trim().length === 0 ||
+              typeof review.text !== "string" ||
+              review.text.trim().length === 0 ||
+              !Number.isFinite(review.stars) ||
+              review.stars < 1 ||
+              review.stars > 5,
+          )
+        ) {
+          throw new Error("Invalid reviews data");
+        }
 
-        const [reviewsData, businessData] = await Promise.all([
-          reviewsResponse.json(),
-          businessResponse.json(),
-        ]);
-
-        setReviews(reviewsData);
-        setGoogleMapsUrl(businessData.googleMapsUrl);
+        setReviews(data);
       } catch (error) {
-        console.error("Failed to load testimonials:", error);
+        if (!(error instanceof Error && error.name === "AbortError")) {
+          console.error("Failed to load testimonials:", error);
+          setHasError(true);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     loadTestimonialsData();
-  }, []);
+    return () => controller.abort();
+  }, [loadAttempt]);
 
   const handleScrollState = (element) => {
     if (!element) return;
@@ -46,18 +76,42 @@ export const Testimonials = () => {
   const handleScroll = (direction) => {
     if (sliderRef.current) {
       const scrollAmount = sliderRef.current.clientWidth * 0.85;
-      sliderRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const distance = direction === "left" ? -scrollAmount : scrollAmount;
+      if (prefersReducedMotion) {
+        sliderRef.current.scrollLeft += distance;
+      } else {
+        sliderRef.current.scrollBy({ left: distance, behavior: "smooth" });
+      }
     }
   };
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    handleScrollState(slider);
+    const observer =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => handleScrollState(slider));
+    observer?.observe(slider);
+    const handleResize = () => handleScrollState(slider);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [reviews]);
 
   return (
     <section
       id="reviews"
       aria-label="Client Feedback & Reviews"
-      className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-surface-light)] py-16 font-sans text-[var(--color-text-dark)] md:py-24"
+      className="bg-[var(--color-secondary)]/3   relative w-full max-w-full overflow-x-hidden  py-16 font-sans text-[var(--color-text-dark)] md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         {/* Header Block with Arched Client Portrait */}
@@ -70,7 +124,7 @@ export const Testimonials = () => {
                 fill
                 sizes="280px"
                 className="object-cover"
-                priority
+                loading="lazy"
               />
             </div>
           </div>
@@ -90,30 +144,56 @@ export const Testimonials = () => {
             </p>
 
             <div className="pt-2 flex justify-center lg:justify-start">
-              <a
-                href={googleMapsUrl || "https://maps.google.com"}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
-              >
-                <span className="text-[var(--color-primary)]">★</span>
-                <span>View Google Reviews</span>
-              </a>
+              {googleMapsUrl && (
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
+                >
+                  <span className="text-[var(--color-primary)]">★</span>
+                  <span>View Google Reviews</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
 
         {/* Reviews Carousel */}
-        {reviews.length > 0 && (
+        {isLoading ? (
+          <p
+            className="mt-12 text-sm text-[var(--color-text-muted)]"
+            role="status"
+          >
+            Loading client reviews...
+          </p>
+        ) : hasError ? (
+          <div className="mt-12 flex flex-wrap items-center gap-3" role="alert">
+            <p className="text-sm text-[var(--color-text-muted)]">
+              Unable to load client reviews.
+            </p>
+            <button
+              type="button"
+              onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+              className="cursor-pointer whitespace-nowrap text-xs font-bold text-[var(--color-text-dark)] underline underline-offset-4"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : reviews.length === 0 ? (
+          <p className="mt-12 text-sm text-[var(--color-text-muted)]">
+            No client reviews are available right now.
+          </p>
+        ) : (
           <div className="relative mt-12">
             <div
               ref={sliderRef}
               onScroll={(e) => handleScrollState(e.currentTarget)}
               className="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth pb-4 pt-2"
             >
-              {reviews.map((review, index) => (
+              {reviews.map((review) => (
                 <div
-                  key={review.id || index}
+                  key={review.id}
                   className="flex h-full w-[280px] shrink-0 transform-none flex-col justify-between rounded-2xl bg-[var(--color-surface-light)] p-6 shadow-sm sm:w-[340px]"
                 >
                   <div>

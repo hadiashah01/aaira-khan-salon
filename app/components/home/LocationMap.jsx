@@ -1,65 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { business } from "@/app/data/business";
+import { getPhoneUrl, getSafeExternalUrl } from "@/app/lib/contact";
 
 export const LocationMap = () => {
-  const [business, setBusiness] = useState(null);
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copyError, setCopyError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [loadAttempt, setLoadAttempt] = useState(0);
+  const copyTimerRef = useRef(null);
+  const mapsUrl = getSafeExternalUrl(business.googleMapsUrl);
+  const mapEmbedUrl = getSafeExternalUrl(business.mapEmbedUrl);
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const loadBusinessData = async () => {
-      try {
-        setIsLoading(true);
-        setHasError(false);
-        const response = await fetch("/api/business", {
-          signal: controller.signal,
-        });
-        if (!response.ok) {
-          throw new Error(`Failed to fetch business data: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (!data || typeof data !== "object" || Array.isArray(data)) {
-          throw new Error("Invalid business data");
-        }
-
-        if (Object.keys(data).length === 0) {
-          setBusiness(null);
-          return;
-        }
-
-        if (
-          typeof data.address !== "string" ||
-          typeof data.phone !== "string" ||
-          typeof data.googleMapsUrl !== "string" ||
-          typeof data.mapEmbedUrl !== "string"
-        ) {
-          throw new Error("Incomplete business location data");
-        }
-
-        setBusiness(data);
-      } catch (error) {
-        if (!(error instanceof Error && error.name === "AbortError")) {
-          console.error("Failed to load business data:", error);
-          setHasError(true);
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
+  useEffect(
+    () => () => {
+      if (copyTimerRef.current !== null) {
+        window.clearTimeout(copyTimerRef.current);
       }
-    };
-
-    loadBusinessData();
-
-    return () => controller.abort();
-  }, [loadAttempt]);
+    },
+    [],
+  );
 
   const handleCopyPhone = async (text) => {
     setCopyError(false);
@@ -71,7 +30,13 @@ export const LocationMap = () => {
 
       await navigator.clipboard.writeText(text);
       setCopiedPhone(true);
-      window.setTimeout(() => setCopiedPhone(false), 2200);
+      if (copyTimerRef.current !== null) {
+        window.clearTimeout(copyTimerRef.current);
+      }
+      copyTimerRef.current = window.setTimeout(
+        () => setCopiedPhone(false),
+        2200,
+      );
     } catch (error) {
       console.error("Failed to copy phone number:", error);
       setCopyError(true);
@@ -96,32 +61,7 @@ export const LocationMap = () => {
           </p>
         </div>
 
-        {isLoading ? (
-          <div className="flex min-h-[240px] items-center justify-center rounded-2xl bg-[var(--color-surface-light)] px-6 text-center text-sm text-[var(--color-text-dark)]">
-            Loading location details...
-          </div>
-        ) : hasError ? (
-          <div
-            className="flex min-h-[240px] flex-col items-center justify-center gap-4 rounded-2xl bg-[var(--color-surface-light)] px-6 text-center"
-            role="alert"
-          >
-            <p className="text-sm text-[var(--color-text-dark)]">
-              Unable to load location details right now.
-            </p>
-            <button
-              type="button"
-              onClick={() => setLoadAttempt((attempt) => attempt + 1)}
-              className="cursor-pointer whitespace-nowrap text-xs font-bold text-[var(--color-text)] underline underline-offset-4 transition-all duration-300 ease-out hover:text-[var(--color-primary)] active:scale-95"
-            >
-              Try Again
-            </button>
-          </div>
-        ) : !business ? (
-          <div className="flex min-h-[240px] items-center justify-center rounded-2xl bg-[var(--color-surface-light)] px-6 text-center text-sm text-[var(--color-text-dark)]">
-            Location details are not available right now.
-          </div>
-        ) : (
-          <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
             <div className="flex h-full flex-col justify-between space-y-6 rounded-2xl bg-[var(--color-secondary)] p-6 text-[var(--color-text)] sm:p-8 lg:col-span-5">
               <div className="space-y-5">
                 <div className="flex items-start gap-4">
@@ -156,7 +96,7 @@ export const LocationMap = () => {
                       </button>
                     </div>
                     <a
-                      href={`tel:${business.phone.replace(/\D/g, "")}`}
+                      href={getPhoneUrl()}
                       className="block whitespace-nowrap text-xs font-medium text-[var(--color-text)] transition-all duration-300 ease-out hover:text-[var(--color-primary)] sm:text-sm"
                     >
                       {business.phone}
@@ -170,30 +110,37 @@ export const LocationMap = () => {
                 </div>
               </div>
 
-              <a
-                href={business.googleMapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] active:scale-95"
-              >
-                <span>Get Directions</span>
-                <span className="material-symbols-outlined text-base">open_in_new</span>
-              </a>
+              {mapsUrl && (
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] active:scale-95"
+                >
+                  <span>Get Directions</span>
+                  <span className="material-symbols-outlined text-base">open_in_new</span>
+                </a>
+              )}
             </div>
 
             <div className="relative h-[240px] min-h-[240px] overflow-hidden rounded-2xl bg-[var(--color-surface)] sm:h-[320px] lg:col-span-7 lg:h-full">
+              {mapEmbedUrl ? (
               <iframe
                 title={`${business.name || "Aaira Khan Salon & Studio"} location map`}
-                src={business.mapEmbedUrl}
+                src={mapEmbedUrl}
                 width="100%"
                 height="100%"
                 loading="lazy"
                 allowFullScreen
                 className="absolute inset-0 h-full w-full border-0"
               />
+              ) : (
+                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-[var(--color-text-muted)]">
+                  Map details are unavailable.
+                </div>
+              )}
             </div>
-          </div>
-        )}
+        </div>
       </div>
     </section>
   );

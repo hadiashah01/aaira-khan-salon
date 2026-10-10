@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import { getWhatsAppUrl } from "@/app/lib/contact";
 
@@ -13,6 +13,7 @@ export default function Gallery() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const trackRef = useRef(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -32,18 +33,26 @@ export default function Gallery() {
 
         const data = await response.json();
 
-        if (!Array.isArray(data)) {
+        if (
+          !Array.isArray(data) ||
+          data.some(
+            (image) =>
+              !image ||
+              typeof image.src !== "string" ||
+              !image.src.startsWith("/images/") ||
+              image.src.includes("..") ||
+              typeof image.category !== "string" ||
+              image.category.trim().length === 0 ||
+              typeof image.alt !== "string" ||
+              image.alt.trim().length === 0 ||
+              typeof image.title !== "string" ||
+              image.title.trim().length === 0,
+          )
+        ) {
           throw new Error("Invalid gallery data");
         }
 
-        setGalleryImages(
-          data.filter(
-            (image) =>
-              image &&
-              typeof image.src === "string" &&
-              image.src.trim().length > 0,
-          ),
-        );
+        setGalleryImages(data);
       } catch (error) {
         if (!(error instanceof Error && error.name === "AbortError")) {
           console.error("Failed to load gallery:", error);
@@ -93,20 +102,21 @@ export default function Gallery() {
     );
   };
 
-  const handleScroll = (direction, e) => {
-    const section = e.currentTarget.closest("section");
-    const container = section?.querySelector(".gallery-track");
+  const handleScroll = (direction) => {
+    const container = trackRef.current;
 
     if (container) {
       const scrollAmount = container.clientWidth * 0.85;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-      container.scrollBy({
-        left:
-          direction === "left"
-            ? -scrollAmount
-            : scrollAmount,
-        behavior: "smooth",
-      });
+      const distance = direction === "left" ? -scrollAmount : scrollAmount;
+      if (prefersReducedMotion) {
+        container.scrollLeft += distance;
+      } else {
+        container.scrollBy({ left: distance, behavior: "smooth" });
+      }
     }
   };
 
@@ -144,7 +154,7 @@ export default function Gallery() {
 
   // Keep the scroll controls accurate when the category changes.
   useEffect(() => {
-    const container = document.querySelector(".gallery-track");
+    const container = trackRef.current;
 
     if (!container) return;
 
@@ -156,8 +166,16 @@ export default function Gallery() {
     const frameId = window.requestAnimationFrame(() =>
       handleScrollState(container),
     );
+    const observer =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => handleScrollState(container));
+    observer?.observe(container);
 
-    return () => window.cancelAnimationFrame(frameId);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      observer?.disconnect();
+    };
   }, [activeCategory, imageGroups.length]);
 
   const openWhatsAppInquiry = (title) => {
@@ -275,9 +293,7 @@ export default function Gallery() {
               onScroll={(e) =>
                 handleScrollState(e.currentTarget)
               }
-              ref={(el) => {
-                if (el) handleScrollState(el);
-              }}
+              ref={trackRef}
               className="gallery-track no-scrollbar snap-x-mandatory flex items-stretch gap-10 overflow-x-auto scroll-smooth pb-6 pt-2"
             >
               {imageGroups.map((group, groupIdx) => (
@@ -309,6 +325,7 @@ export default function Gallery() {
                             alt={img.alt || "Aaira Khan Salon Portfolio"}
                             fill
                             sizes="(max-width: 640px) 36vw, 24vw"
+                            draggable={false}
                             className="object-cover object-top"
                           />
                           <div className="absolute inset-x-0 bottom-0 translate-y-full transform bg-[var(--color-surface-light)] px-3.5 py-2.5 transition-all duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0">
@@ -351,6 +368,7 @@ export default function Gallery() {
                                 }
                                 fill
                                 sizes="(max-width: 640px) 44vw, (max-width: 1024px) 24vw, 20vw"
+                                draggable={false}
                                 className="object-cover object-top"
                               />
 
@@ -392,6 +410,7 @@ export default function Gallery() {
                             }
                             fill
                             sizes="(max-width: 640px) 88vw, (max-width: 1024px) 38vw, 32vw"
+                            draggable={false}
                             className="object-cover object-top"
                           />
 
@@ -436,6 +455,7 @@ export default function Gallery() {
                                 }
                                 fill
                                 sizes="(max-width: 640px) 44vw, (max-width: 1024px) 24vw, 20vw"
+                                draggable={false}
                                 className="object-cover object-top"
                               />
 
@@ -484,7 +504,7 @@ export default function Gallery() {
                   className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95 ${
                     !canScrollLeft
                       ? "cursor-not-allowed bg-[var(--color-surface-light)] text-[var(--color-text-muted)] opacity-60"
-                      : "cursor-pointer bg-[var(--color-primary)] text-[var(--color-secondary)] hover:bg-[var(--color-primary-dark)]"
+                      : "cursor-pointer  bg-[var(--color-secondary)]/3 text-[var(--color-secondary)] hover:bg-[var(--color-primary-dark)]  shadow-sm"
                   }`}
                   aria-label="Scroll Left"
                 >
@@ -511,7 +531,7 @@ export default function Gallery() {
                   className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95 ${
                     !canScrollRight
                       ? "cursor-not-allowed bg-[var(--color-surface-light)] text-[var(--color-text-muted)] opacity-60"
-                      : "cursor-pointer bg-[var(--color-surface-light)] text-[var(--color-text-dark)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)]"
+                      : "cursor-pointer  bg-[var(--color-secondary)]/3 text-[var(--color-text-dark)] hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] shadow-sm"
                   }`}
                   aria-label="Scroll Right"
                 >

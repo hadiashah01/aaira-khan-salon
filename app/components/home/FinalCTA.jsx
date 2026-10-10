@@ -1,31 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { getWhatsAppUrl } from "@/app/lib/contact";
+import { business } from "@/app/data/business";
+import { getPhoneUrl, getWhatsAppUrl } from "@/app/lib/contact";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 
 export const FinalCTA = () => {
-  const [business, setBusiness] = useState(null);
-
-  useEffect(() => {
-    const loadBusiness = async () => {
-      try {
-        const response = await fetch("/api/business");
-        if (response.ok) {
-          const data = await response.json();
-          setBusiness(data);
-        }
-      } catch (error) {
-        console.error("Failed to load business data:", error);
-      }
-    };
-    loadBusiness();
-  }, []);
-
-  if (!business) return null;
-
-  const bookingMessage = "Hello Aaira Khan Salon, I would like to book an appointment.";
+  const bookingMessage = business.bookingMessage;
 
   return (
     <section 
@@ -38,7 +19,7 @@ export const FinalCTA = () => {
           src="/images/final-cta-bg.jpg" 
           alt="Aaira Khan Salon Studio Background"
           fill
-          priority
+          loading="lazy"
           sizes="100vw"
           className="object-cover object-[75%_center] filter brightness-[0.9] contrast-[1.05]"
         />
@@ -52,13 +33,13 @@ export const FinalCTA = () => {
         <div className="grid grid-cols-1 items-center lg:grid-cols-12">
           
           {/* Floating Luxury Card */}
-          <div className="relative w-full rounded-2xl bg-[var(--color-surface-light)] p-8 text-[var(--color-text-dark)] shadow-2xl backdrop-blur-sm sm:p-12 md:p-14 lg:col-span-6 lg:col-start-2 lg:p-16">
+          <div className="relative w-full rounded-2xl bg-[var(--color-surface-light)] p-8 text-[var(--color-text-dark)] shadow-2xl backdrop-blur-sm sm:p-12 md:p-14 lg:col-span-7 lg:col-start-2 lg:p-15">
             
             <span className="block text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--color-primary-dark)]">
               Studio Appointments
             </span>
 
-            <h2 className="mt-4 font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl md:text-nowrap">
+            <h2 className="mt-4 font-serif text-3xl font-normal leading-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl  ">
               We’d love to welcome you <br />
               <span className="font-light italic text-[var(--color-primary)]">at our studio</span>
             </h2>
@@ -82,7 +63,7 @@ export const FinalCTA = () => {
 
               {/* Direct Phone Action */}
               <a
-                href={`tel:${business.phone?.replace(/\D/g, "")}`}
+                href={getPhoneUrl()}
                 className="inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-[var(--color-secondary)]/30 bg-transparent px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary-dark)] active:scale-95"
               >
                 <svg
@@ -106,7 +87,7 @@ export const FinalCTA = () => {
 
             <div className="mt-8 pt-6 ">
               <p className="text-[11px] font-mono font-semibold tracking-widest text-[var(--color-text-muted)] uppercase">
-                Main Tariq Road &bull; Karachi
+                {business.locationLabel}
               </p>
             </div>
 
