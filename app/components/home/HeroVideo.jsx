@@ -14,12 +14,11 @@ export const HeroVideo = () => {
     updatePlayback();
     motionPreference.addEventListener("change", updatePlayback);
 
-    return () =>
-      motionPreference.removeEventListener("change", updatePlayback);
+    return () => motionPreference.removeEventListener("change", updatePlayback);
   }, []);
 
   return (
-    <div className="relative aspect-[4/5] max-h-[620px] w-full overflow-hidden rounded-2xl bg-[var(--color-background)]">
+    <div className="relative aspect-[2/5] max-h-[500px] w-full lg:w-[80%] overflow-hidden rounded-2xl  ring-[var(--color-primary)] ring-2 ring-offset-6 ring-offset-6 bg-[var(--color-background)]">
       <video
         autoPlay={shouldPlay}
         loop
