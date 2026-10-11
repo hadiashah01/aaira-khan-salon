@@ -16,7 +16,7 @@ export const FinalCTA = () => {
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
-          src="/images/final-cta-bg.jpg" 
+          src="/images/final-cta-bg.avif" 
           alt="Aaira Khan Salon Studio Background"
           fill
           loading="lazy"
