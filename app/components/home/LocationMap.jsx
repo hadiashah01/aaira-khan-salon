@@ -1,16 +1,41 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { business } from "@/app/data/business";
 import { getPhoneUrl, getSafeExternalUrl } from "@/app/lib/contact";
 
 export const LocationMap = () => {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const copyTimerRef = useRef(null);
-  const mapsUrl = getSafeExternalUrl(business.googleMapsUrl);
-  const mapEmbedUrl = getSafeExternalUrl(business.mapEmbedUrl);
+  const [business, setBusiness] = useState(null);
+  const mapsUrl = getSafeExternalUrl(business?.googleMapsUrl);
+  const mapEmbedUrl = getSafeExternalUrl(business?.mapEmbedUrl);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch business: ${response.status}`);
+        }
+
+        setBusiness(await response.json());
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business details:", error);
+        }
+      }
+    };
+
+    fetchBusiness();
+
+    return () => controller.abort();
+  }, []);
   useEffect(
     () => () => {
       if (copyTimerRef.current !== null) {
@@ -42,7 +67,17 @@ export const LocationMap = () => {
       setCopyError(true);
     }
   };
-
+  if (!business) {
+    return (
+      <section
+        id="location"
+        className="bg-[var(--color-surface-light)] py-16 text-center text-sm text-[var(--color-text-muted)] md:py-24"
+        role="status"
+      >
+        Loading studio details...
+      </section>
+    );
+  }
   return (
     <section
       id="location"
@@ -57,74 +92,84 @@ export const LocationMap = () => {
             Visit the studio
           </h2>
           <p className="text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
-            Find the studio on Main Tariq Road and contact us directly to confirm appointments.
+            Find the studio on Main Tariq Road and contact us directly to
+            confirm appointments.
           </p>
         </div>
 
         <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
-            <div className="flex h-full lg:h-[300px] flex-col justify-between space-y-6 rounded-2xl bg-[var(--color-secondary)] p-6 text-[var(--color-text)] sm:p-8 lg:col-span-5">
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
-                    <span className="material-symbols-outlined text-lg">location_on</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
-                      Studio Address
-                    </h3>
-                    <p className="mt-0.5 text-xs font-medium text-[var(--color-text)] sm:text-sm">
-                      {business.address}
-                    </p>
-                  </div>
+          <div className="flex h-full lg:h-[300px] flex-col justify-between space-y-6 rounded-2xl bg-[var(--color-secondary)] p-6 text-[var(--color-text)] sm:p-8 lg:col-span-5">
+            <div className="space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
+                  <span className="material-symbols-outlined text-lg">
+                    location_on
+                  </span>
                 </div>
-
-                <div className="flex items-start gap-4 space-y-5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
-                    <span className="material-symbols-outlined text-lg">call</span>
-                  </div>
-                  <div className="min-w-0 flex-1 space-y-0.5">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
-                        Contact
-                      </h3>
-                      <button
-                        type="button"
-                        onClick={() => handleCopyPhone(business.phone)}
-                        className="shrink-0 cursor-pointer  text-[10px] font-sans text-[var(--color-primary)] transition-all duration-300 ease-out hover:underline active:scale-95"
-                      >
-                        {copiedPhone ? "Copied" : "Copy"}
-                      </button>
-                    </div>
-                    <a
-                      href={getPhoneUrl()}
-                      className="block whitespace-nowrap text-xs font-medium text-[var(--color-text)] transition-all duration-300 ease-out hover:text-[var(--color-primary)] sm:text-sm"
-                    >
-                      {business.phone}
-                    </a>
-                    {copyError && (
-                      <p className="text-xs text-[var(--color-text-muted)]" role="alert">
-                        Unable to copy the phone number.
-                      </p>
-                    )}
-                  </div>
+                <div>
+                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
+                    Studio Address
+                  </h3>
+                  <p className="mt-0.5 text-xs font-medium text-[var(--color-text)] sm:text-sm">
+                    {business.address}
+                  </p>
                 </div>
               </div>
 
-              {mapsUrl && (
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] active:scale-95"
-                >
-                  <span>Get Directions</span>
-                  <span className="material-symbols-outlined text-base">open_in_new</span>
-                </a>
-              )}
+              <div className="flex items-start gap-4 space-y-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
+                  <span className="material-symbols-outlined text-lg">
+                    call
+                  </span>
+                </div>
+                <div className="min-w-0 flex-1 space-y-0.5">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
+                      Contact
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyPhone(business.phone)}
+                      className="shrink-0 cursor-pointer  text-[10px] font-sans text-[var(--color-primary)] transition-all duration-300 ease-out hover:underline active:scale-95"
+                    >
+                      {copiedPhone ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <a
+                    href={getPhoneUrl(business.phone)}
+                    className="block whitespace-nowrap text-xs font-medium text-[var(--color-text)] transition-all duration-300 ease-out hover:text-[var(--color-primary)] sm:text-sm"
+                  >
+                    {business.phone}
+                  </a>
+                  {copyError && (
+                    <p
+                      className="text-xs text-[var(--color-text-muted)]"
+                      role="alert"
+                    >
+                      Unable to copy the phone number.
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
 
-            <div className="relative h-[240px] min-h-[240px] overflow-hidden rounded-2xl bg-[var(--color-surface)] sm:h-[320px] lg:col-span-7 lg:h-[300px]">
-              {mapEmbedUrl ? (
+            {mapsUrl && (
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-primary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] transition-all duration-300 ease-out hover:bg-[var(--color-primary-dark)] active:scale-95"
+              >
+                <span>Get Directions</span>
+                <span className="material-symbols-outlined text-base">
+                  open_in_new
+                </span>
+              </a>
+            )}
+          </div>
+
+          <div className="relative h-[240px] min-h-[240px] overflow-hidden rounded-2xl bg-[var(--color-surface)] sm:h-[320px] lg:col-span-7 lg:h-[300px]">
+            {mapEmbedUrl ? (
               <iframe
                 title={`${business.name || "Aaira Khan Salon & Studio"} location map`}
                 src={mapEmbedUrl}
@@ -134,12 +179,12 @@ export const LocationMap = () => {
                 allowFullScreen
                 className="absolute inset-0 h-full w-full border-0"
               />
-              ) : (
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-[var(--color-text-muted)]">
-                  Map details are unavailable.
-                </div>
-              )}
-            </div>
+            ) : (
+              <div className="flex h-full items-center justify-center p-6 text-center text-sm text-[var(--color-text-muted)]">
+                Map details are unavailable.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

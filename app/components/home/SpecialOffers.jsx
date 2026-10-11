@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getWhatsAppUrl } from "@/app/lib/contact";
 
 export const SpecialOffers = () => {
+  const [whatsappPhone, setWhatsappPhone] = useState("");
   const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -35,8 +36,7 @@ export const SpecialOffers = () => {
               offer.title.trim().length === 0 ||
               typeof offer.message !== "string" ||
               offer.message.trim().length === 0 ||
-              (offer.image !== undefined &&
-                typeof offer.image !== "string") ||
+              (offer.image !== undefined && typeof offer.image !== "string") ||
               (typeof offer.image === "string" &&
                 offer.image.trim().length > 0 &&
                 !offer.image.startsWith("/images/")) ||
@@ -63,14 +63,43 @@ export const SpecialOffers = () => {
 
     return () => controller.abort();
   }, [loadAttempt]);
+  useEffect(() => {
+    const controller = new AbortController();
 
+    const fetchBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch business: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (typeof data.whatsapp !== "string" || !data.whatsapp.trim()) {
+          throw new Error("Invalid business WhatsApp number");
+        }
+
+        setWhatsappPhone(data.whatsapp);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business details:", error);
+        }
+      }
+    };
+
+    fetchBusiness();
+
+    return () => controller.abort();
+  }, []);
   return (
-    <section 
+    <section
       id="promotions"
       className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-secondary)]/3   py-16 font-sans text-[var(--color-text-dark)] md:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
-        
         {/* Header Section */}
         <div className="mb-12 text-center space-y-1">
           <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
@@ -80,18 +109,27 @@ export const SpecialOffers = () => {
             Current Offers &amp; Packages
           </h2>
           <p className="mx-auto max-w-xl text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
-            Ask the studio about current package availability and seasonal offers before booking.
+            Ask the studio about current package availability and seasonal
+            offers before booking.
           </p>
         </div>
 
         {/* Dynamic Image Cards Grid (Centered 2-Column Max Width) */}
         {isLoading ? (
-          <div className="mt-12 flex min-h-[200px] items-center justify-center rounded-2xl bg-[var(--color-surface-light)] p-8 text-center text-xs text-[var(--color-text-muted)]" role="status">
+          <div
+            className="mt-12 flex min-h-[200px] items-center justify-center rounded-2xl bg-[var(--color-surface-light)] p-8 text-center text-xs text-[var(--color-text-muted)]"
+            role="status"
+          >
             Loading current salon offers...
           </div>
         ) : hasError ? (
-          <div className="mt-12 flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-2xl bg-[var(--color-surface-light)] p-8 text-center" role="alert">
-            <p className="text-sm text-[var(--color-text-dark)]">Unable to load current offers.</p>
+          <div
+            className="mt-12 flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-2xl bg-[var(--color-surface-light)] p-8 text-center"
+            role="alert"
+          >
+            <p className="text-sm text-[var(--color-text-dark)]">
+              Unable to load current offers.
+            </p>
             <button
               type="button"
               onClick={() => setLoadAttempt((attempt) => attempt + 1)}
@@ -114,7 +152,7 @@ export const SpecialOffers = () => {
                 {/* Image Frame */}
                 <div className="relative h-[240px] w-full overflow-hidden bg-[var(--color-surface-soft)]">
                   <Image
-                    src={offer.image }
+                    src={offer.image}
                     alt={offer.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -149,13 +187,23 @@ export const SpecialOffers = () => {
                     </span>
 
                     <a
-                      href={getWhatsAppUrl(offer.message)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex min-h-[48px] shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-secondary)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
+                      aria-disabled={!whatsappPhone}
+                      tabIndex={whatsappPhone ? 0 : -1}
+                      rel="noopener noreferrer"
+                      href={
+                        whatsappPhone
+                          ? getWhatsAppUrl(whatsappPhone, offer.message)
+                          : undefined
+                      }
                     >
                       <span>{offer.cta || "Ask About Offer"}</span>
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg
+                        className="h-3.5 w-3.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
                       </svg>
@@ -166,7 +214,6 @@ export const SpecialOffers = () => {
             ))}
           </div>
         )}
-
       </div>
     </section>
   );

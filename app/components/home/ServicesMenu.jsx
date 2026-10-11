@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getWhatsAppUrl } from "@/app/lib/contact";
 
 export const ServicesMenu = () => {
+  const [whatsappPhone, setWhatsappPhone] = useState("");
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -13,7 +14,37 @@ export const ServicesMenu = () => {
   const pointerRef = useRef(null);
   const draggedAtRef = useRef(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  useEffect(() => {
+    const controller = new AbortController();
 
+    const fetchBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch business details");
+        }
+
+        const data = await response.json();
+
+        if (typeof data.whatsapp !== "string" || !data.whatsapp.trim()) {
+          throw new Error("Invalid business WhatsApp number");
+        }
+
+        setWhatsappPhone(data.whatsapp);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business details:", error);
+        }
+      }
+    };
+
+    fetchBusiness();
+
+    return () => controller.abort();
+  }, []);
   useEffect(() => {
     const controller = new AbortController();
 
@@ -30,19 +61,10 @@ export const ServicesMenu = () => {
         }
 
         const data = await response.json();
+
         if (
-          !data ||
-          typeof data !== "object" ||
-          !Array.isArray(data.services) ||
-          !Array.isArray(data.categories) ||
-          data.categories.some(
-            (category) =>
-              !category ||
-              typeof category.key !== "string" ||
-              typeof category.label !== "string" ||
-              typeof category.icon !== "string",
-          ) ||
-          data.services.some(
+          !Array.isArray(data) ||
+          data.some(
             (service) =>
               !service ||
               (typeof service.id !== "string" &&
@@ -58,7 +80,7 @@ export const ServicesMenu = () => {
           throw new Error("Invalid services data");
         }
 
-        setServices(data.services);
+        setServices(data);
       } catch (error) {
         if (!(error instanceof Error && error.name === "AbortError")) {
           console.error("Failed to load services:", error);
@@ -228,9 +250,15 @@ export const ServicesMenu = () => {
                   className="group flex h-full w-[250px] shrink-0 flex-col items-center text-center sm:w-[280px]"
                 >
                   <a
-                    href={getWhatsAppUrl(whatsappMessage)}
+                    href={
+                      whatsappPhone
+                        ? getWhatsAppUrl(whatsappPhone, whatsappMessage)
+                        : undefined
+                    }
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
+                    aria-disabled={!whatsappPhone}
+                    tabIndex={whatsappPhone ? 0 : -1}
                     className="flex h-full w-full cursor-pointer flex-col items-center justify-between focus-visible:outline"
                   >
                     <div className="flex flex-col items-center w-full">

@@ -1,34 +1,37 @@
-import { business } from "@/app/data/business";
 
-export const getWhatsAppUrl = (message = "") => {
-  const phone = business.whatsapp.replace(/\D/g, "");
+const normalizePhone = (phone) =>
+  typeof phone === "string" ? phone.replace(/\D/g, "") : "";
 
-  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+export const getWhatsAppUrl = (phone, message = "") => {
+  const normalizedPhone = normalizePhone(phone);
+
+  if (!normalizedPhone) return "";
+
+  return `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(message)}`;
 };
 
 export const getSafeExternalUrl = (value) => {
-  if (typeof value !== "string" || value.trim().length === 0) {
+  if (typeof value !== "string" || !value.trim()) {
     return "";
   }
 
   try {
     const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:"
-      ? url.href
-      : "";
+
+    return ["http:", "https:"].includes(url.protocol) ? url.href : "";
   } catch {
     return "";
   }
 };
 
-export const getPhoneUrl = () => {
-  const phone = business.phone.replace(/\D/g, "");
+export const getPhoneUrl = (phone) => {
+  const normalizedPhone = normalizePhone(phone);
 
-  return `tel:${phone}`;
+  return normalizedPhone ? `tel:${normalizedPhone}` : "";
 };
 
-export const getWhatsAppBaseUrl = () => {
-  const phone = business.whatsapp.replace(/\D/g, "");
+export const getWhatsAppBaseUrl = (phone) => {
+  const normalizedPhone = normalizePhone(phone);
 
-  return `https://wa.me/${phone}`;
+  return normalizedPhone ? `https://wa.me/${normalizedPhone}` : "";
 };

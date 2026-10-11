@@ -1,14 +1,11 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
-import { business } from "@/app/data/business";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 import {
   getPhoneUrl,
   getWhatsAppBaseUrl,
   getWhatsAppUrl,
 } from "@/app/lib/contact";
-
 const navLinks = [
   { label: "Offers", href: "#promotions" },
   { label: "Services", href: "#services-catalog" },
@@ -19,6 +16,7 @@ const navLinks = [
 ];
 
 export const Navbar = () => {
+  const [business, setBusiness] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const mobileMenuButtonRef = useRef(null);
@@ -28,7 +26,34 @@ export const Navbar = () => {
     setIsMobileMenuOpen(false);
     mobileMenuButtonRef.current?.focus();
   };
-  const bookingUrl = getWhatsAppUrl(business.bookingMessage);
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch business: ${response.status}`);
+        }
+
+        setBusiness(await response.json());
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business details:", error);
+        }
+      }
+    };
+
+    fetchBusiness();
+
+    return () => controller.abort();
+  }, []);
+  const bookingUrl = business
+    ? getWhatsAppUrl(business.whatsapp, business.bookingMessage)
+    : "";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +81,9 @@ export const Navbar = () => {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isMobileMenuOpen]);
-
+  if (!business) {
+    return null;
+  }
   return (
     <header
       className={`sticky top-0 z-50 w-full max-w-full overflow-x-hidden antialiased transition-all duration-300 ease-out ${

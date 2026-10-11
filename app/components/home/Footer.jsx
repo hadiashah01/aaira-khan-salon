@@ -1,4 +1,6 @@
-import { business } from "@/app/data/business";
+"use client";
+
+import { useEffect, useState } from "react";
 import {
   getPhoneUrl,
   getSafeExternalUrl,
@@ -10,9 +12,38 @@ import { FacebookIcon } from "@/app/components/ui/FacebookIcon";
 import { WhatsAppIcon } from "@/app/components/ui/WhatsAppIcon";
 
 export function Footer() {
+  const [business, setBusiness] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch business data");
+        }
+
+        setBusiness(await response.json());
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business data:", error);
+        }
+      }
+    };
+
+    loadBusiness();
+
+    return () => controller.abort();
+  }, []);
+
+  if (!business) return null;
+
   const socials = business.socials || {};
   const googleMapsUrl = getSafeExternalUrl(business.googleMapsUrl);
-
   return (
     <footer className="w-full max-w-full overflow-x-hidden border-t border-[var(--color-border-light)] bg-[var(--color-background)] py-16 text-[var(--color-text)] md:py-24">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
@@ -41,14 +72,14 @@ export function Footer() {
             {/* Quick Actions / Contact Links */}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-3 text-xs font-medium">
               <a
-                href={getPhoneUrl()}
+                href={getPhoneUrl(business.phone)}
                 className="cursor-pointer whitespace-nowrap text-[var(--color-text)] transition-all duration-300 ease-out hover:text-[var(--color-primary)]"
               >
                 {business.phone}
               </a>
 
               <a
-                href={getWhatsAppBaseUrl()}
+               href={getWhatsAppBaseUrl(business.whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex cursor-pointer items-center gap-2 whitespace-nowrap text-[var(--color-text)] transition-all duration-300 ease-out hover:text-[var(--color-primary)]"

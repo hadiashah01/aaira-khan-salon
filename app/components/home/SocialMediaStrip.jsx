@@ -1,17 +1,24 @@
 "use client";
 
-import React from "react";
-import { business } from "@/app/data/business";
+import React, { useEffect, useState } from "react";
 import { getSafeExternalUrl } from "@/app/lib/contact";
 
 export const SocialMediaStrip = () => {
-  const socials = business.socials || {};
+  const [socials, setSocials] = useState({});
   const socialLinks = [
     {
       name: "Instagram",
       url: getSafeExternalUrl(socials.instagram),
       icon: (
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -23,7 +30,7 @@ export const SocialMediaStrip = () => {
       url: getSafeExternalUrl(socials.youtube),
       icon: (
         <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
         </svg>
       ),
     },
@@ -46,7 +53,42 @@ export const SocialMediaStrip = () => {
       ),
     },
   ];
+  
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch business: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        setSocials(
+          data.socials && typeof data.socials === "object" ? data.socials : {},
+        );
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load social links:", error);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchBusiness();
+
+    return () => controller.abort();
+  }, []);
   const availableSocialLinks = socialLinks.filter(
     (social) => social.url.length > 0,
   );
@@ -55,7 +97,6 @@ export const SocialMediaStrip = () => {
     <section className="w-full max-w-full overflow-x-hidden bg-[var(--color-secondary)]/3 py-16 font-sans text-[var(--color-text-dark)] md:py-24">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         <div className="flex flex-col items-center  gap-6    items-center">
-          
           <div className="space-y-1  text-left ">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
               JOIN OUR COMMUNITY
@@ -65,27 +106,30 @@ export const SocialMediaStrip = () => {
             </h3>
           </div>
 
-          {availableSocialLinks.length === 0 ? (
+          {isLoading ? (
+            <p role="status" className="text-sm text-[var(--color-text-dark)]">
+              Loading social links...
+            </p>
+          ) : availableSocialLinks.length === 0 ? (
             <p className="text-sm text-[var(--color-text-dark)]">
               No social links are available right now.
             </p>
           ) : (
-          <div className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-surface-light)] p-2 shadow-sm">
-            {availableSocialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
+            <div className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-surface-light)] p-2 shadow-sm">
+              {availableSocialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl text-[var(--color-text-dark)] transition-all duration-300 ease-out hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)] active:scale-95"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           )}
-
         </div>
       </div>
     </section>

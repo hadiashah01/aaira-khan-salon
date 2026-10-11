@@ -60,12 +60,3 @@ export const fullServiceCatalog = [
     featured: false,
   },
 ];
-
-export const categories = [
-  { key: "all", label: "All Services", icon: "grid_view" },
-  { key: "bridal", label: "Bridal", icon: "favorite" },
-  { key: "party", label: "Party", icon: "auto_awesome" },
-  { key: "skin", label: "Skin", icon: "water_drop" },
-  { key: "hair", label: "Hair", icon: "content_cut" },
-  { key: "waxing", label: "Waxing", icon: "brush" },
-];

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState, useMemo, useRef } from "react";
@@ -14,6 +13,33 @@ export default function Gallery() {
   const [hasError, setHasError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
   const trackRef = useRef(null);
+  const [business, setBusiness] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadBusiness = async () => {
+      try {
+        const response = await fetch("/api/business", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch business data");
+        }
+
+        setBusiness(await response.json());
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load business data:", error);
+        }
+      }
+    };
+
+    loadBusiness();
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -97,9 +123,7 @@ export default function Gallery() {
     const { scrollLeft, scrollWidth, clientWidth } = element;
 
     setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(
-      scrollLeft + clientWidth < scrollWidth - 2,
-    );
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
   };
 
   const handleScroll = (direction) => {
@@ -126,9 +150,7 @@ export default function Gallery() {
       return galleryImages;
     }
 
-    return galleryImages.filter(
-      (img) => img.category === activeCategory,
-    );
+    return galleryImages.filter((img) => img.category === activeCategory);
   }, [galleryImages, activeCategory]);
 
   // Preserve the existing 5-image grouping and sequence.
@@ -179,12 +201,14 @@ export default function Gallery() {
   }, [activeCategory, imageGroups.length]);
 
   const openWhatsAppInquiry = (title) => {
+    if (!business?.whatsapp) return;
+
     const message =
-      `Hello Aaira Khan Salon! I am interested in consulting ` +
-      `about the look: "${title || "Bridal / Salon Service"}".`;
+      `Hello, I am interested in consulting about the look: ` +
+      `"${title || "Bridal / Salon Service"}".`;
 
     window.open(
-      getWhatsAppUrl(message),
+      getWhatsAppUrl(business.whatsapp, message),
       "_blank",
       "noopener,noreferrer",
     );
@@ -229,25 +253,21 @@ export default function Gallery() {
           </div>
 
           <p className="max-w-md text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
-            Explore our studio lookbook featuring bridal makeovers,
-            festive styling, and hair transformations created at
-            Aaira Khan Salon.
+            Explore our studio lookbook featuring bridal makeovers, festive
+            styling, and hair transformations created at Aaira Khan Salon.
           </p>
         </div>
 
         {/* Category Filters */}
         <div className="mt-8 flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 pt-1">
           {categories.map((cat) => {
-            const isActive =
-              activeCategory === cat.filterKey;
+            const isActive = activeCategory === cat.filterKey;
 
             return (
               <button
                 key={cat.label}
                 type="button"
-                onClick={() =>
-                  setActiveCategory(cat.filterKey)
-                }
+                onClick={() => setActiveCategory(cat.filterKey)}
                 aria-pressed={isActive}
                 className={`shrink-0 cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-xs font-bold tracking-wider transition-all duration-300 ease-out active:scale-95 ${
                   isActive
@@ -290,9 +310,7 @@ export default function Gallery() {
         ) : (
           <div className="relative mt-10">
             <div
-              onScroll={(e) =>
-                handleScrollState(e.currentTarget)
-              }
+              onScroll={(e) => handleScrollState(e.currentTarget)}
               ref={trackRef}
               className="gallery-track no-scrollbar snap-x-mandatory flex items-stretch gap-10 overflow-x-auto scroll-smooth pb-6 pt-2"
             >
@@ -342,30 +360,23 @@ export default function Gallery() {
                       ))}
                     </div>
                   ) : (
-                  <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
-                    {/* Left Wing */}
-                    {group.images.slice(0, 2).length > 0 && (
-                      <div className="flex min-w-0 flex-[1] flex-col gap-4 sm:gap-6">
-                        {group.images
-                          .slice(0, 2)
-                          .map((img, idx) => (
+                    <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+                      {/* Left Wing */}
+                      {group.images.slice(0, 2).length > 0 && (
+                        <div className="flex min-w-0 flex-[1] flex-col gap-4 sm:gap-6">
+                          {group.images.slice(0, 2).map((img, idx) => (
                             <button
                               key={img.src || idx}
                               type="button"
                               onClick={() =>
-                                openWhatsAppInquiry(
-                                  img.title || img.alt,
-                                )
+                                openWhatsAppInquiry(img.title || img.alt)
                               }
                               aria-label={`Inquire about ${img.title || img.alt || "this look"} on WhatsApp`}
                               className="group relative block aspect-[4/5] w-full transform-none cursor-pointer overflow-hidden rounded-2xl bg-[var(--color-surface-soft)] text-left"
                             >
                               <Image
                                 src={img.src}
-                                alt={
-                                  img.alt ||
-                                  "Aaira Khan Salon Portfolio"
-                                }
+                                alt={img.alt || "Aaira Khan Salon Portfolio"}
                                 fill
                                 sizes="(max-width: 640px) 44vw, (max-width: 1024px) 24vw, 20vw"
                                 draggable={false}
@@ -385,74 +396,65 @@ export default function Gallery() {
                               </div>
                             </button>
                           ))}
-                      </div>
-                    )}
+                        </div>
+                      )}
 
-                    {/* Center Hero Image */}
-                    {group.images[2] && (
-                      <div className="min-w-0 flex-[1.57]">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            openWhatsAppInquiry(
-                              group.images[2].title ||
-                                group.images[2].alt,
-                            )
-                          }
-                          aria-label={`Inquire about ${group.images[2].title || group.images[2].alt || "this featured look"} on WhatsApp`}
-                          className="group relative block aspect-[3/4] w-full transform-none cursor-pointer overflow-hidden rounded-2xl bg-[var(--color-surface-soft)] text-left"
-                        >
-                          <Image
-                            src={group.images[2].src}
-                            alt={
-                              group.images[2].alt ||
-                              "Aaira Khan Salon Featured Work"
+                      {/* Center Hero Image */}
+                      {group.images[2] && (
+                        <div className="min-w-0 flex-[1.57]">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              openWhatsAppInquiry(
+                                group.images[2].title || group.images[2].alt,
+                              )
                             }
-                            fill
-                            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 38vw, 32vw"
-                            draggable={false}
-                            className="object-cover object-top"
-                          />
+                            aria-label={`Inquire about ${group.images[2].title || group.images[2].alt || "this featured look"} on WhatsApp`}
+                            className="group relative block aspect-[3/4] w-full transform-none cursor-pointer overflow-hidden rounded-2xl bg-[var(--color-surface-soft)] text-left"
+                          >
+                            <Image
+                              src={group.images[2].src}
+                              alt={
+                                group.images[2].alt ||
+                                "Aaira Khan Salon Featured Work"
+                              }
+                              fill
+                              sizes="(max-width: 640px) 88vw, (max-width: 1024px) 38vw, 32vw"
+                              draggable={false}
+                              className="object-cover object-top"
+                            />
 
-                          <div className="absolute inset-x-0 bottom-0 translate-y-full transform bg-[var(--color-surface-light)] px-4 py-3 transition-all duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0">
-                            <p className="truncate font-serif text-xs font-bold text-[var(--color-text-dark)]">
-                              {group.images[2].title ||
-                                "Featured Look"}
-                            </p>
-
-                            {group.images[2].description && (
-                              <p className="mt-0.5 truncate text-[11px] text-[var(--color-text-dark)]">
-                                {group.images[2].description}
+                            <div className="absolute inset-x-0 bottom-0 translate-y-full transform bg-[var(--color-surface-light)] px-4 py-3 transition-all duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0">
+                              <p className="truncate font-serif text-xs font-bold text-[var(--color-text-dark)]">
+                                {group.images[2].title || "Featured Look"}
                               </p>
-                            )}
-                          </div>
-                        </button>
-                      </div>
-                    )}
 
-                    {/* Right Wing */}
-                    {group.images.slice(3, 5).length > 0 && (
-                      <div className="flex min-w-0 flex-[1] flex-col gap-4 sm:gap-6">
-                        {group.images
-                          .slice(3, 5)
-                          .map((img, idx) => (
+                              {group.images[2].description && (
+                                <p className="mt-0.5 truncate text-[11px] text-[var(--color-text-dark)]">
+                                  {group.images[2].description}
+                                </p>
+                              )}
+                            </div>
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Right Wing */}
+                      {group.images.slice(3, 5).length > 0 && (
+                        <div className="flex min-w-0 flex-[1] flex-col gap-4 sm:gap-6">
+                          {group.images.slice(3, 5).map((img, idx) => (
                             <button
                               key={img.src || idx}
                               type="button"
                               onClick={() =>
-                                openWhatsAppInquiry(
-                                  img.title || img.alt,
-                                )
+                                openWhatsAppInquiry(img.title || img.alt)
                               }
                               aria-label={`Inquire about ${img.title || img.alt || "this look"} on WhatsApp`}
                               className="group relative block aspect-[4/5] w-full transform-none cursor-pointer overflow-hidden rounded-2xl bg-[var(--color-surface-soft)] text-left"
                             >
                               <Image
                                 src={img.src}
-                                alt={
-                                  img.alt ||
-                                  "Aaira Khan Salon Portfolio"
-                                }
+                                alt={img.alt || "Aaira Khan Salon Portfolio"}
                                 fill
                                 sizes="(max-width: 640px) 44vw, (max-width: 1024px) 24vw, 20vw"
                                 draggable={false}
@@ -472,9 +474,9 @@ export default function Gallery() {
                               </div>
                             </button>
                           ))}
-                      </div>
-                    )}
-                  </div>
+                        </div>
+                      )}
+                    </div>
                   )}
 
                   {/* Caption: actual category of the first image */}

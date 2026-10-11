@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { business } from "@/app/data/business";
 import { getSafeExternalUrl } from "@/app/lib/contact";
 
 export const Testimonials = () => {
@@ -13,7 +12,7 @@ export const Testimonials = () => {
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const googleMapsUrl = getSafeExternalUrl(business.googleMapsUrl);
+  const [googleMapsUrl, setGoogleMapsUrl] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -65,7 +64,32 @@ export const Testimonials = () => {
     loadTestimonialsData();
     return () => controller.abort();
   }, [loadAttempt]);
+useEffect(() => {
+  const controller = new AbortController();
 
+  const fetchBusiness = async () => {
+    try {
+      const response = await fetch("/api/business", {
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch business: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setGoogleMapsUrl(getSafeExternalUrl(data.googleMapsUrl));
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error("Failed to load business details:", error);
+      }
+    }
+  };
+
+  fetchBusiness();
+
+  return () => controller.abort();
+}, []);
   const handleScrollState = (element) => {
     if (!element) return;
     const { scrollLeft, scrollWidth, clientWidth } = element;

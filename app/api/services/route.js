@@ -1,5 +1,6 @@
-import { fullServiceCatalog, categories } from "@/app/data/services";
+
+import { fullServiceCatalog } from "@/app/data/services";
 
 export async function GET() {
-  return Response.json({ services: fullServiceCatalog, categories });
+  return Response.json(fullServiceCatalog);
 }
