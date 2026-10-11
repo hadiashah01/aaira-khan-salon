@@ -114,7 +114,7 @@ export const WhyChooseUs = () => {
                         <h3 className="font-serif text-base font-bold tracking-wide text-[var(--color-text)] sm:text-lg">
                           {reason.title}
                         </h3>
-                        <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-muted)] sm:text-sm">
+                        <p className="mt-1 line-clamp-3 text-xs   text-[var(--color-text-muted)] sm:text-sm">
                           {reason.text}
                         </p>
                       </div>
@@ -127,9 +127,9 @@ export const WhyChooseUs = () => {
 
           {/* Right Arched Image - Hidden on Mobile & Tablet */}
           <div className="relative hidden lg:flex justify-center lg:col-span-5">
-            <div className="relative h-[450px] w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface)] ring-2 ring-[var(--color-primary)] ring-offset-4 ring-offset-[var(--color-background)] shadow-2xl">
+            <div className="relative mt-10 h-[420px] w-[300px] overflow-hidden rounded-2xl bg-[var(--color-surface)] ring-2   ring-[var(--color-primary)] ring-offset-6 ring-offset-[var(--color-background)] shadow-2xl">
               <Image
-                src="/images/why-us-salon.jpg"
+                src="/images/service.avif"
                 alt="Aaira Khan Salon"
                 fill
                 sizes="280px"

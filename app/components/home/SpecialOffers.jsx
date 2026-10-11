@@ -114,7 +114,7 @@ export const SpecialOffers = () => {
                 {/* Image Frame */}
                 <div className="relative h-[240px] w-full overflow-hidden bg-[var(--color-surface-soft)]">
                   <Image
-                    src={offer.image || "/images/contactUs.jpg"}
+                    src={offer.image }
                     alt={offer.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"

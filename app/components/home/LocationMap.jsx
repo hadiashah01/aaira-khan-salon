@@ -62,8 +62,8 @@ export const LocationMap = () => {
         </div>
 
         <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
-            <div className="flex h-full flex-col justify-between space-y-6 rounded-2xl bg-[var(--color-secondary)] p-6 text-[var(--color-text)] sm:p-8 lg:col-span-5">
-              <div className="space-y-5">
+            <div className="flex h-full lg:h-[300px] flex-col justify-between space-y-6 rounded-2xl bg-[var(--color-secondary)] p-6 text-[var(--color-text)] sm:p-8 lg:col-span-5">
+              <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
                     <span className="material-symbols-outlined text-lg">location_on</span>
@@ -78,7 +78,7 @@ export const LocationMap = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 space-y-5">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-primary)]">
                     <span className="material-symbols-outlined text-lg">call</span>
                   </div>
@@ -90,7 +90,7 @@ export const LocationMap = () => {
                       <button
                         type="button"
                         onClick={() => handleCopyPhone(business.phone)}
-                        className="shrink-0 cursor-pointer whitespace-nowrap text-[10px] font-sans text-[var(--color-primary)] transition-all duration-300 ease-out hover:underline active:scale-95"
+                        className="shrink-0 cursor-pointer  text-[10px] font-sans text-[var(--color-primary)] transition-all duration-300 ease-out hover:underline active:scale-95"
                       >
                         {copiedPhone ? "Copied" : "Copy"}
                       </button>
@@ -123,7 +123,7 @@ export const LocationMap = () => {
               )}
             </div>
 
-            <div className="relative h-[240px] min-h-[240px] overflow-hidden rounded-2xl bg-[var(--color-surface)] sm:h-[320px] lg:col-span-7 lg:h-full">
+            <div className="relative h-[240px] min-h-[240px] overflow-hidden rounded-2xl bg-[var(--color-surface)] sm:h-[320px] lg:col-span-7 lg:h-[300px]">
               {mapEmbedUrl ? (
               <iframe
                 title={`${business.name || "Aaira Khan Salon & Studio"} location map`}

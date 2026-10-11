@@ -117,9 +117,9 @@ export const Testimonials = () => {
         {/* Header Block with Arched Client Portrait */}
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           <div className="shrink-0">
-            <div className="relative h-[450px] w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface)] ring-2 ring-[var(--color-primary)] ring-offset-4 ring-offset-white shadow-2xl">
+            <div className="relative h-[420px] w-[300px] overflow-hidden  rounded-2xl ring-2 bg-[var(--color-surface)]   ring-[var(--color-primary)] ring-offset-6 ring-offset-white shadow-2xl">
               <Image
-                src="/images/gallery/bridal-03.png"
+                src="/images/gallery/walima-left-01.avif"
                 alt="Aaira Khan Salon"
                 fill
                 sizes="280px"
