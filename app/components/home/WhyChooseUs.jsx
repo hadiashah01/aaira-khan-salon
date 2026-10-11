@@ -61,13 +61,17 @@ export const WhyChooseUs = () => {
       id="why-us"
       className="relative w-full max-w-full overflow-x-hidden bg-[var(--color-background)] py-16 font-sans text-[var(--color-text)] md:py-24"
     >
-      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-5">
+      <div className="mx-auto max-w-[1320px] px-6 sm:px-10 lg:px-16 font-sans">
+        
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 ">
           
-          {/* Left Text Grid (Expands on Mobile & Tablet) */}
-          <div className="flex flex-col justify-start lg:col-span-7 space-y-6">
-            <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-primary-dark)]">
+          {/* Left Column: Content */}
+          <div className="flex flex-col justify-start lg:col-span-7">
+            
+            {/* Left-Aligned Header */}
+            <div className="mb-8 sm:mb-10">
+              <span className="block mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]">
                 WHY VISIT US
               </span>
               <h2 className="font-serif text-3xl font-normal leading-tight text-[var(--color-text)] sm:text-4xl md:text-5xl">
@@ -75,22 +79,10 @@ export const WhyChooseUs = () => {
               </h2>
             </div>
 
-            {isLoading ? (
-              <p className="text-sm text-[var(--color-text-muted)]" role="status">
-                Loading studio details...
-              </p>
-            ) : hasError ? (
-              <div className="flex flex-wrap items-center gap-3" role="alert">
-                <p className="text-sm text-[var(--color-text-muted)]">
-                  Unable to load studio details.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setLoadAttempt((attempt) => attempt + 1)}
-                  className="cursor-pointer whitespace-nowrap text-xs font-bold text-[var(--color-text)] underline underline-offset-4"
-                >
-                  Try Again
-                </button>
+            {/* Reasons 2x2 Grid with Card Interactions */}
+            {reasons.length === 0 ? (
+              <div className="flex min-h-[160px] items-center justify-center bg-[var(--color-surface)] p-6 text-center text-xs font-normal text-[var(--color-text-muted)]">
+                Loading studio values...
               </div>
             ) : reasons.length === 0 ? (
               <p className="text-sm text-[var(--color-text-muted)]">
@@ -103,15 +95,20 @@ export const WhyChooseUs = () => {
                     key={reason.title}
                     className="flex h-full flex-col justify-between rounded-2xl bg-[var(--color-surface)] p-5"
                   >
-                    <div className="flex items-start gap-4 text-left h-full">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-primary)]">
-                        <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
+                    <div className="flex items-start gap-4 text-left">
+                      {/* Material Icon (Hover interaction intact) */}
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-soft)] text-[var(--color-text)] transition-all duration-300 group-hover:scale-105 group-hover:bg-[var(--color-surface)] group-hover:text-[var(--color-primary)]">
+                        <span
+                          className="material-symbols-outlined text-[22px]"
+                          aria-hidden="true"
+                        >
                           {reason.icon}
                         </span>
                       </div>
 
-                      <div className="flex flex-1 flex-col justify-start">
-                        <h3 className="font-serif text-base font-bold tracking-wide text-[var(--color-text)] sm:text-lg">
+                      {/* Text Details */}
+                      <div className="space-y-1">
+                        <h3 className="font-serif text-base font-medium tracking-wide text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]">
                           {reason.title}
                         </h3>
                         <p className="mt-1 line-clamp-3 text-xs   text-[var(--color-text-muted)] sm:text-sm">
@@ -125,9 +122,9 @@ export const WhyChooseUs = () => {
             )}
           </div>
 
-          {/* Right Arched Image - Hidden on Mobile & Tablet */}
-          <div className="relative hidden lg:flex justify-center lg:col-span-5">
-            <div className="relative mt-10 h-[420px] w-[300px] overflow-hidden rounded-2xl bg-[var(--color-surface)] ring-2   ring-[var(--color-primary)] ring-offset-6 ring-offset-[var(--color-background)] shadow-2xl">
+          {/* Right Column: Image without borders & lowered down on Y-axis */}
+          <div className="relative flex justify-center lg:col-span-4 lg:justify-end pt-4 sm:pt-6 lg:pt-10">
+            <div className="relative h-[360px] ring-[1.4px] ring-[var(--color-primary)] ring-offset-6 ring-offset-[var(--color-background)] w-[260px] sm:h-[390px] sm:w-[280px] overflow-hidden rounded-t-[130px] rounded-b-none bg-[var(--color-surface-soft)]">
               <Image
                 src="/images/service.avif"
                 alt="Aaira Khan Salon"

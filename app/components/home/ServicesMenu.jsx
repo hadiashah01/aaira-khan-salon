@@ -75,7 +75,6 @@ export const ServicesMenu = () => {
     return () => controller.abort();
   }, [loadAttempt]);
 
-  // Update Scroll Progress Bar State
   const handleScroll = () => {
     if (!carouselRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
@@ -106,7 +105,6 @@ export const ServicesMenu = () => {
       window.removeEventListener("resize", handleScroll);
     };
   }, [services]);
-
   const handlePointerDown = (event) => {
     if (
       event.pointerType !== "mouse" ||
@@ -250,7 +248,6 @@ export const ServicesMenu = () => {
                           />
                         </div>
                       </div>
-
                       {/* Title */}
                       <div className="mt-5 flex min-h-[3rem] items-center justify-center w-full px-2">
                         <h3 className="font-serif text-base font-bold leading-snug tracking-wide text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)] sm:text-lg">
@@ -279,6 +276,7 @@ export const ServicesMenu = () => {
         )}
 
         {/* Scroll Progress Bar */}
+
         <div className="mt-6 flex w-full justify-center">
           <div className="h-[3px] w-32 sm:w-48 overflow-hidden rounded-full bg-[var(--color-surface-soft)]">
             <div
