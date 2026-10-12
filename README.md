@@ -40,12 +40,12 @@ Visit the live website:
 
 ### Desktop Preview
 
-[![Aaira Khan Salon & Studio — Website Preview](./public/images/aaira-khan-salon.png)](https://aaira-khan-salon.vercel.app/)
+[![Aaira Khan Salon & Studio — Website Preview](https://raw.githubusercontent.com/hadiashah01/aaira-khan-salon/master/public/images/aaira-khan-salon.png)](https://aaira-khan-salon.vercel.app/)
 
 ### Responsive Views
 
-- [Tablet Preview](./public/images/aaira-khan-salon-tab.png)
-- [Mobile Preview](./public/images/aaira-khan-salon-mob.png)
+- [Tablet Preview](https://raw.githubusercontent.com/hadiashah01/aaira-khan-salon/master/public/images/aaira-khan-salon-tab.png)
+- [Mobile Preview](https://raw.githubusercontent.com/hadiashah01/aaira-khan-salon/master/public/images/aaira-khan-salon-mob.png)
 
 > Ensure the screenshot files exist at these paths in the repository. Update the paths if your filenames or directory structure differ.
 

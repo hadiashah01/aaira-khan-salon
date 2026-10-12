@@ -21,7 +21,7 @@ export const metadata = {
     default: "Aaira Khan Salon & Studio | Bridal Makeup in Karachi",
     template: "%s | Aaira Khan Salon & Studio",
   },
-
+  applicationName: "Aaira Khan Salon & Studio",
   description:
     "Discover bridal makeup, party makeup, hair, skin and beauty services at Aaira Khan Salon & Studio on Main Tariq Road, Karachi.",
 
