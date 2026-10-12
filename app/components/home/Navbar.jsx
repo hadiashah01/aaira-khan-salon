@@ -113,7 +113,7 @@ export const Navbar = () => {
 
           <div className="flex items-center gap-6">
             <a
-              href={getPhoneUrl()}
+              href={getPhoneUrl(business.phone) || undefined}
               className={`whitespace-nowrap transition-colors duration-300 ease-out hover:text-[var(--color-primary)] ${
                 isScrolled ? "text-[var(--color-text)]" : "text-white"
               }`}
@@ -122,9 +122,14 @@ export const Navbar = () => {
             </a>
 
             <a
-              href={getWhatsAppBaseUrl()}
+              href={
+                business.whatsapp
+                  ? getWhatsAppBaseUrl(business.whatsapp) || undefined
+                  : undefined
+              }
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Contact ${business.name} on WhatsApp`}
               className="inline-flex items-center gap-1.5 whitespace-nowrap text-[var(--color-primary)] transition-all duration-300 ease-out hover:opacity-80"
             >
               <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />

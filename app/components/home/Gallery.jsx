@@ -247,7 +247,7 @@ export default function Gallery() {
               Portfolio
             </span>
 
-            <h2 className="font-serif text-3xl font-normal leading-tight tracking-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl">
+            <h2 className="font-serif text-3xl font-normal leading-tight tracking-tight text-[var(--color-text-dark)] sm:text-4xl md:text-5xl text-nowrap">
               Beauty, Styled Our Way
             </h2>
           </div>
