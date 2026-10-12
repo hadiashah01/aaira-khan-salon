@@ -1,19 +1,21 @@
 # Aaira Khan Salon & Studio
 
-A modern, responsive web experience for Aaira Khan Salon & Studio, Karachi, built to present salon services, beauty offerings, promotions, gallery work, customer reviews, FAQs, location information, and direct booking channels through a polished and accessible interface.
+A modern, responsive website for Aaira Khan Salon & Studio, Karachi, designed to showcase salon services, promotional offers, gallery work, customer testimonials, FAQs, location details, and direct booking options through a polished and accessible interface.
 
-**Live Website:** https://aaira-khan-salon.vercel.app/
+**Live Website:** [https://aaira-khan-salon.vercel.app/](https://aaira-khan-salon.vercel.app/)
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Preview and Live Demo](#preview-and-live-demo)
 - [Features](#features)
+- [Key Implementation Highlights](#key-implementation-highlights)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
 - [Data Architecture](#data-architecture)
 - [SEO](#seo)
+- [Design Philosophy & UI/UX](#design-philosophy--uiux)
 - [Responsive Experience](#responsive-experience)
 - [Contact & Booking](#contact--booking)
 - [Getting Started](#getting-started)
@@ -22,187 +24,229 @@ A modern, responsive web experience for Aaira Khan Salon & Studio, Karachi, buil
 
 ## Overview
 
-The website brings the salon's key information and customer-facing actions into a single experience, with a structure focused on service discovery, trust, and appointment conversion.
+Aaira Khan Salon & Studio is a salon website built to bring essential business information and customer-facing actions into one experience.
 
-The main content flow is:
+The website focuses on helping visitors discover services, explore the salon's work, learn about available offers, find location information, and contact the business for appointments.
 
-**Discover → Explore Services → View Work → Read Reviews → Find Location → Book**
+**Customer journey:**
+
+Discover → Explore Services → View Work → Read Reviews → Find Location → Book
 
 ## Preview and Live Demo
 
-Click the preview to visit the live page 👇
+Visit the live website:
 
-[![Aaira Khan Salon & Studio Preview](./public/images/aaira-khan-salon.png)](https://aaira-khan-salon.vercel.app/)
+[**Open Aaira Khan Salon & Studio**](https://aaira-khan-salon.vercel.app/)
+
+### Desktop Preview
+
+[![Aaira Khan Salon & Studio — Website Preview](./public/images/aaira-khan-salon.png)](https://aaira-khan-salon.vercel.app/)
+
 ### Responsive Views
 
-- [Tablet](public/images/aaira-khan-salon-tab.png)
-- [Mobile](public/images/aaira-khan-salon-mob.png)
+- [Tablet Preview](./public/images/aaira-khan-salon-tab.png)
+- [Mobile Preview](./public/images/aaira-khan-salon-mob.png)
+
+> Ensure the screenshot files exist at these paths in the repository. Update the paths if your filenames or directory structure differ.
 
 ## Features
 
-- Responsive landing page across mobile, tablet, and desktop
-- Sticky navigation with section-based navigation
-- Mobile navigation menu
-- Mobile booking bar
-- Hero section with direct booking actions
-- Promotional offers
-- Service catalog
-- FAQ accordion
-- Why Choose Us section
-- Responsive image gallery
-- Customer testimonials
-- Google Maps location section
-- Phone and WhatsApp contact actions
-- Social media integration
-- Reusable brand and social SVG icons
-- Contextual WhatsApp inquiry messages
-- Centralized business information
-- Accessible interactive controls
-- Responsive typography and spacing
-- Lazy-loaded gallery imagery
-- Local business structured data
-- SEO metadata
+### User Experience
+
+- Responsive layouts for desktop, tablet, and mobile.
+- Sticky navigation with section-based navigation.
+- Mobile navigation menu.
+- Mobile booking bar.
+- Hero section with direct booking actions.
+- Promotional offers and salon service catalog.
+- Responsive image gallery.
+- Customer testimonials.
+- FAQ accordion.
+- Why Choose Us section.
+- Google Maps location section.
+- Responsive typography and spacing.
+
+### Contact & Booking
+
+- Direct WhatsApp inquiries.
+- Phone contact actions.
+- Contextual WhatsApp messages for service inquiries.
+- Google Maps directions.
+- Social media profile links.
+
+### Code Organization
+
+- Reusable React components.
+- Centralized business information.
+- Separate content data modules.
+- Shared phone and WhatsApp URL helpers.
+- Dedicated Next.js API routes for business content.
+- Centralized design tokens.
+- Reusable brand and social media icons.
+
+### SEO & Metadata
+
+- Page metadata through the Next.js Metadata API.
+- Local business structured data using Schema.org.
+- Descriptive image alternative text.
+- Search engine crawling directives.
+- XML sitemap for public page discovery.
+- Canonical URL configuration.
+- Social sharing metadata.
+
+> The SEO and metadata features above should remain listed only where they are implemented and configured in the current codebase.
+
+## Key Implementation Highlights
+
+- **Component-based UI:** The interface is divided into reusable components for individual website sections.
+- **Centralized business configuration:** Business details are maintained separately from presentation components.
+- **Separated content data:** Services, offers, reviews, gallery items, FAQs, and other business content are organized into dedicated modules.
+- **Reusable contact helpers:** Phone and WhatsApp URLs are generated through shared utility functions.
+- **Dedicated API routes:** Business content is exposed through Next.js API endpoints.
+- **Responsive interaction patterns:** Navigation and booking actions adapt to different screen sizes.
+- **Search metadata:** Page metadata and local business structured data support a clearer representation of the website.
 
 ## Tech Stack
 
-- Next.js
-- React
-- JavaScript
-- Tailwind CSS
-- Next Font
-- Material Symbols
-- Schema.org JSON-LD
-- Google Maps
-- WhatsApp
-- Git & GitHub
+| Technology | Purpose |
+|---|---|
+| Next.js | Application framework and routing |
+| React | Component-based user interface |
+| JavaScript | Application logic |
+| Tailwind CSS | Styling and responsive layouts |
+| next/font | Font loading and optimization |
+| Material Symbols | Interface icons |
+| Schema.org JSON-LD | Structured business information |
+| Google Maps | Business location and directions |
+| WhatsApp | Direct customer inquiries |
+| Git & GitHub | Version control and source management |
+| Vercel | Website deployment |
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A["UI Components"] --> B["API Routes"]
-    A --> C["Contact Helpers"]
-    B --> D["Data Files"]
-    C --> E["Phone & WhatsApp URLs"]
-
-    D --> D1["business.js"]
-    D --> D2["services.js"]
-    D --> D3["offers.js"]
-    D --> D4["reviews.js"]
-    D --> D5["gallery.js"]
-    D --> D6["faqs.js"]
-    D --> D7["why-us.js"]
-
-    B --> F["/api/business"]
-    B --> G["/api/services"]
-    B --> H["/api/offers"]
-    B --> I["/api/reviews"]
-    B --> J["/api/gallery"]
-    B --> K["/api/faqs"]
-    B --> L["/api/why-us"]
-
-    F --> D1
-    G --> D2
-    H --> D3
-    I --> D4
-    J --> D5
-    K --> D6
-    L --> D7
-```
-
-## Project Structure
+The application separates presentation components, shared utilities, API routes, and content data.
 
 ```mermaid
 flowchart TD
-    A["app/"] --> B["components/"]
-    A --> C["data/"]
-    A --> D["lib/"]
-    A --> E["api/"]
-    A --> F["page.js"]
-    A --> G["layout.js"]
-    A --> H["globals.css"]
+    A["UI Components"] --> B["Next.js API Routes"]
+    A --> C["Contact Helpers"]
 
-    B --> B1["home/"]
-    B --> B2["ui/"]
+    B --> D["Business Data"]
+    B --> E["Services Data"]
+    B --> F["Offers Data"]
+    B --> G["Reviews Data"]
+    B --> H["Gallery Data"]
+    B --> I["FAQs Data"]
+    B --> J["Why Us Data"]
 
-    B1 --> B3["Navbar"]
-    B1 --> B4["HeroSection"]
-    B1 --> B5["SpecialOffers"]
-    B1 --> B6["ServicesMenu"]
-    B1 --> B7["FAQ"]
-    B1 --> B8["WhyChooseUs"]
-    B1 --> B9["Gallery"]
-    B1 --> B10["Testimonials"]
-    B1 --> B11["LocationMap"]
-    B1 --> B12["FinalCTA"]
-    B1 --> B13["MobileBookingBar"]
-
-    B2 --> B14["Brand & Social Icons"]
-
-    C --> C1["business.js"]
-    C --> C2["services.js"]
-    C --> C3["offers.js"]
-    C --> C4["reviews.js"]
-    C --> C5["gallery.js"]
-    C --> C6["faqs.js"]
-    C --> C7["why-us.js"]
-
-    D --> D1["contact.js"]
-
-    E --> E1["business/"]
-    E --> E2["services/"]
-    E --> E3["offers/"]
-    E --> E4["reviews/"]
-    E --> E5["gallery/"]
-    E --> E6["faqs/"]
-    E --> E7["why-us/"]
+    C --> K["Phone & WhatsApp URLs"]
+    D --> L["Rendered Website Content"]
+    E --> L
+    F --> L
+    G --> L
+    H --> L
+    I --> L
+    J --> L
 ```
+
+The diagram represents the intended separation between UI, content access, and shared utilities. The actual request flow depends on how each component consumes the API routes.
+
+## Project Structure
+
+```text
+app/
+├── api/
+│   ├── business/
+│   ├── faqs/
+│   ├── gallery/
+│   ├── offers/
+│   ├── reviews/
+│   ├── services/
+│   └── why-us/
+├── components/
+│   ├── home/
+│   │   ├── FAQ.jsx
+│   │   ├── FinalCTA.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Gallery.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── HeroVideo.jsx
+│   │   ├── LocationMap.jsx
+│   │   ├── MobileBookingBar.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ServicesMenu.jsx
+│   │   ├── SocialMediaStrip.jsx
+│   │   ├── SpecialOffers.jsx
+│   │   ├── Testimonials.jsx
+│   │   └── WhyChooseUs.jsx
+│   └── ui/
+│       ├── FacebookIcon.jsx
+│       ├── InstagramIcon.jsx
+│       ├── TikTokIcon.jsx
+│       ├── WhatsAppIcon.jsx
+│       └── YoutubeIcon.jsx
+├── data/
+│   ├── business.js
+│   ├── faqs.js
+│   ├── gallery.js
+│   ├── offers.js
+│   ├── reviews.js
+│   ├── services.js
+│   └── why-us.js
+├── lib/
+│   └── contact.js
+├── favicon.ico
+├── globals.css
+├── layout.js
+├── page.js
+├── robots.js
+└── sitemap.js
+```
+
+*This structure highlights the main application files. Other configuration files and public assets are omitted for readability.*
 
 ## Data Architecture
 
-The project separates content data, API access, and presentation logic to keep the application organized and maintainable.
+The application organizes business information and customer-facing content into separate modules to improve maintainability and consistency.
 
 ### Centralized Business Configuration
 
-Core business information is maintained in:
+Business information is maintained in:
+
 `app/data/business.js`
 
-It contains the salon's:
+Depending on the current configuration, this module contains information such as:
 
-- Business name
-- Address
-- Location label
-- Phone number
-- WhatsApp number
-- Booking message
-- Opening hours
-- Google Maps information
-- Coordinates
-- Social profiles
+- Business name.
+- Address and location label.
+- Phone and WhatsApp numbers.
+- Booking message.
+- Opening hours.
+- Google Maps information.
+- Coordinates.
+- Social media profiles.
 
 Contact URL generation is handled separately through:
 
 `app/lib/contact.js`
 
-This provides reusable helpers for phone and WhatsApp actions without duplicating contact URL logic across components.
+This keeps reusable phone and WhatsApp URL logic separate from the UI components.
 
 ### Content Data
 
-Customer-facing content is organized into dedicated data files inside:
+Customer-facing content is organized into dedicated files inside `app/data/`:
 
-`app/data/`
-
+- `business.js`
 - `services.js`
 - `offers.js`
 - `reviews.js`
 - `gallery.js`
 - `faqs.js`
 - `why-us.js`
-- `business.js`
 
 ### API Layer
 
-Dedicated Next.js API routes expose the data to the client components:
+The application provides dedicated Next.js API routes for:
 
 - `/api/business`
 - `/api/services`
@@ -212,102 +256,143 @@ Dedicated Next.js API routes expose the data to the client components:
 - `/api/faqs`
 - `/api/why-us`
 
-The API layer keeps data access separate from the presentation layer. Components fetch the required content through these endpoints instead of embedding the content directly inside the UI components.
+These routes expose the relevant content to the application. If the routes return data from local JavaScript modules, the content is locally maintained rather than stored in a database.
 
 ### Data Flow
 
-The overall flow is:
+The intended content flow is:
 
-**Data Files → API Routes → UI Components → Rendered Sections**
+**Content Data → API Routes → UI Components → Rendered Sections**
 
-This separation makes the content easier to update while keeping the presentation components focused on rendering and interaction.
+Shared contact helpers handle phone and WhatsApp actions separately.
 
 ## SEO
 
-The site uses the Next.js Metadata API alongside structured data to establish a clear search-engine representation of the business.
+The website uses Next.js metadata capabilities and structured business information to support search engine discovery and improve how the business is represented online.
 
-Implemented SEO elements include:
+SEO-related implementation includes, where configured:
 
-- Descriptive page metadata
-- Open Graph metadata
-- Descriptive image alternative text
-- Local business information
-- `BeautySalon` structured data
-- Business address and location coordinates
-- Telephone information
-- Opening hours
+- Descriptive page titles and metadata.
+- Open Graph metadata for social sharing.
+- Descriptive image alternative text.
+- `BeautySalon` structured data using JSON-LD.
+- Robots directives for search engine crawling.
+- XML sitemap for public page discovery.
+- Canonical URL configuration.
+- Business address and location information.
+- Telephone information and opening hours.
 
-The structured data is generated from the centralized business configuration so the salon's core information remains consistent between the interface and search metadata.
+The structured business information can use the centralized business configuration to help keep business details consistent across the application.
+ 
+## Design Philosophy & UI/UX
+
+The interface follows a warm, editorial luxury direction designed to complement salon and bridal beauty services.
+
+Key design principles include:
+
+- A warm, neutral color palette with restrained accent colors.
+- Editorial typography combining Montserrat and Oranienbaum.
+- Consistent design tokens for colors, typography, spacing, and surfaces.
+- Clear visual hierarchy across headings, service information, and calls to action.
+- Responsive layouts for desktop, tablet, and mobile.
+- Touch-friendly controls and visible interaction states.
+- Reusable UI elements for consistent presentation.
+- Descriptive image alternative text where applicable.
+
+The goal is to create a refined visual experience while keeping service discovery, location information, and appointment inquiries easy to access.
 
 ## Responsive Experience
 
-The interface adapts across mobile, tablet, and desktop layouts.
+The interface adapts to different screen sizes through:
 
-Responsive behavior includes:
-
-- Desktop and mobile navigation patterns
-- Mobile-specific booking actions
-- Flexible service layouts
-- Adaptive gallery grids
-- Responsive typography
-- Touch-friendly controls
-- Flexible spacing and content widths
-- Mobile-first contact actions
+- Desktop and mobile navigation patterns.
+- Mobile-specific booking actions.
+- Flexible service layouts.
+- Adaptive gallery grids.
+- Responsive typography.
+- Touch-friendly controls.
+- Flexible spacing and content widths.
+- Mobile-first contact actions.
 
 The visual system uses consistent spacing, typography, borders, surfaces, and interaction states throughout the experience.
 
 ## Contact & Booking
 
-The website provides direct communication through:
+The website provides customer contact options through:
 
-- WhatsApp
-- Phone
-- Google Maps directions
-- Instagram
-- Facebook
-- YouTube
-- TikTok
+- WhatsApp inquiries.
+- Phone calls.
+- Google Maps directions.
+- Instagram.
+- Facebook.
+- YouTube.
+- TikTok.
 
-Booking actions use the centralized contact helpers, while service-specific actions can generate contextual WhatsApp messages.
+Booking actions use shared contact helpers, while service-specific inquiries can include the selected service in the WhatsApp message.
 
-For example, a service inquiry can open WhatsApp with the selected service already included in the message.
+The website directs visitors to the available contact channels rather than representing a separate appointment-management system.
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js compatible with the project's Next.js version.
+- npm.
+
 ### Installation
 
-`git clone https://github.com/hadiashah01/aaira-khan-salon.git`
+Clone the repository:
 
-`cd aaira-khan-salon`
+```bash
+git clone https://github.com/hadiashah01/aaira-khan-salon.git
+```
 
-`npm install`
+Navigate to the project directory:
+
+```bash
+cd aaira-khan-salon
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
 
 ### Development
 
-`npm run dev`
+Start the local development server:
 
-The application runs locally at:
+```bash
+npm run dev
+```
 
-`http://localhost:3000`
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Production Build
 
-`npm run build`
+Create a production build:
+
+```bash
+npm run build
+```
 
 ### Production Server
 
-`npm start`
+After a successful build, start the production server:
+
+```bash
+npm start
+```
 
 ## Deployment
 
-The application is deployed as a live Next.js web experience.
-
-**Live Website:**  
-https://aaira-khan-salon.vercel.app/
+The website is deployed on Vercel.
+ 
 
 ## Author
 
-### Hadia Shahjahan
+**Hadia Shahjahan**
 
-- **GitHub:** https://github.com/hadiashah01
-- **LinkedIn:** https://www.linkedin.com/in/hadia-shahjahan
+- **GitHub:** [hadiashah01](https://github.com/hadiashah01)
+- **LinkedIn:** [Hadia Shahjahan](https://www.linkedin.com/in/hadia-shahjahan/)

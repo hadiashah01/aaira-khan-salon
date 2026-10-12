@@ -195,14 +195,21 @@ export const SpecialOffers = () => {
                           ? getWhatsAppUrl(whatsappPhone, offer.message)
                           : undefined
                       }
+                      className={`inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--color-primary-dark)] px-4 py-2.5 text-xs font-semibold transition-colors ${
+                        whatsappPhone
+                          ? "text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-dark)] hover:text-white"
+                          : "cursor-not-allowed opacity-50"
+                      }`}
                     >
                       <span>{offer.cta || "Ask About Offer"}</span>
+
                       <svg
-                        className="h-3.5 w-3.5"
+                        className="h-3.5 w-3.5 shrink-0"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
+                        aria-hidden="true"
                       >
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
