@@ -251,8 +251,10 @@ export function Footer() {
         {/* Bottom Bar - Copyright Only */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--color-border-light)]/40 pt-6 text-xs text-[var(--color-text-muted)] md:flex-row">
           <p>
-            © {new Date().getFullYear()} {business.name}. All rights reserved.
+            © {new Date().getFullYear()} {business.name}┃ All rights reserved ┃ 
+            Developed by <em><a className="text-[var(--color-primary)] " href="https://portfolio-hadia01.vercel.app/">Hadia Shahjahan</a></em>
           </p>
+          
         </div>
       </div>
     </footer>
